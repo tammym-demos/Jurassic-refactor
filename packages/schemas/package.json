@@ -1,0 +1,20 @@
+{
+  "name": "@jurassic/schemas",
+  "version": "0.1.0",
+  "private": true,
+  "description": "JSON schemas and Ajv validation for all artifact types",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "lint": "eslint src/"
+  },
+  "dependencies": {
+    "ajv": "^8.12.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0"
+  }
+}

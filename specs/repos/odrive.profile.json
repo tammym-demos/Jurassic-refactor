@@ -1,0 +1,40 @@
+{
+  "domains": {
+    "firmware": {
+      "include": ["Firmware/**"],
+      "exclude": ["Firmware/build/**", "Firmware/Drivers/**/*.o"],
+      "language": "c/cpp",
+      "riskWeight": 1.5
+    },
+    "tools": {
+      "include": ["tools/**"],
+      "exclude": ["tools/__pycache__/**"],
+      "language": "python",
+      "riskWeight": 1.0
+    },
+    "gui": {
+      "include": ["GUI/**"],
+      "exclude": ["GUI/node_modules/**", "GUI/dist/**"],
+      "language": "javascript/vue",
+      "riskWeight": 0.8
+    },
+    "docs": {
+      "include": ["docs/**"],
+      "exclude": [],
+      "language": "markdown",
+      "riskWeight": 0.3
+    }
+  },
+  "riskWeights": {
+    "churn": 0.3,
+    "complexity": 0.25,
+    "safetyPath": 0.25,
+    "docCoverage": 0.1,
+    "testCoverage": 0.1
+  },
+  "safetyPatterns": {
+    "interruptHandlers": ["IRQHandler", "ISR_", "HAL_.*_IRQHandler"],
+    "watchdogs": ["watchdog", "IWDG", "WWDG"],
+    "failSafes": ["safe_state", "emergency_stop", "fault_handler"]
+  }
+}

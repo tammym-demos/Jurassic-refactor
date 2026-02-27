@@ -1,0 +1,22 @@
+{
+  "name": "@jurassic/data",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Azure data services - Microsoft Fabric, Cosmos DB, Application Insights",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "lint": "eslint src/"
+  },
+  "dependencies": {
+    "@azure/identity": "^4.2.0",
+    "@azure/cosmos": "^4.0.0",
+    "@azure/monitor-opentelemetry": "^1.4.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0"
+  }
+}

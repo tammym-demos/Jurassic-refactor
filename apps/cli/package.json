@@ -1,0 +1,23 @@
+{
+  "name": "@jurassic/cli",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CLI wrapper - multi-command dispatcher for plan, implement, full-pipeline",
+  "type": "module",
+  "bin": {
+    "jurassic": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "lint": "eslint src/",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@jurassic/agents": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0"
+  }
+}

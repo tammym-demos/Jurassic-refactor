@@ -1,0 +1,18 @@
+{
+  "name": "@jurassic/agents",
+  "version": "0.1.0",
+  "private": true,
+  "description": "2-Agent system: Planning Agent (read-only, interactive) + Implementation Agent (full code changes)",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "lint": "eslint src/"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0"
+  }
+}

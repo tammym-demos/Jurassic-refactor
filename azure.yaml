@@ -1,0 +1,8 @@
+name: jurassic-modernization-agent
+services:
+  agent:
+    project: ./apps/cli
+    language: ts
+    host: containerapp
+infra:
+  provider: bicep

@@ -1,0 +1,18 @@
+{
+  "name": "@jurassic/skills",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Custom analysis and implementation skills for Planning and Implementation agents",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "lint": "eslint src/"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0"
+  }
+}
