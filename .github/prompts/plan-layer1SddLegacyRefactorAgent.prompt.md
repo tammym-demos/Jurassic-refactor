@@ -1,142 +1,149 @@
 ## Revised Plan: Layer 1 SDD - Modernization Intelligence Layer (Copilot SDK + Microsoft Foundry)
 
-**TL;DR:** Build a **Modernization Intelligence Layer** using the **GitHub Copilot SDK** (`@github/copilot-sdk`) for agent orchestration and **Microsoft Foundry (Azure AI Foundry)** for production hosting, model deployment, and evaluation. Artifacts are persisted to **Microsoft Fabric** for analytics and data intelligence, run metadata to **Cosmos DB**, and telemetry to **Application Insights**—all using **passwordless authentication** via `DefaultAzureCredential`. The system uses **four specialized agents** (Planning Agent + Implementation Agent + Stack Evaluation Agent + **Code Implementation Agent**) with separated duties and isolated context, hosted on Foundry with enterprise-grade model management. The first three agents produce intelligence artifacts; the **Code Implementation Agent** acts as a **code assistant** that implements the approved migration plan once artifacts are human-approved. **Fork-first workflow**: user forks the target repo, then **provides their fork location** (prompted or via `--fork-owner`); **all analysis happens on the fork**, never upstream.
+**TL;DR:** Build a **Modernization Intelligence Layer** using the **GitHub Copilot SDK** (`@github/copilot-sdk`) for agent orchestration and **Microsoft Foundry (Azure AI Foundry)** for production hosting, model deployment, and evaluation. Artifacts are persisted to **Microsoft Fabric** for analytics and data intelligence, run metadata to **Cosmos DB**, and telemetry to **Application Insights**—all using **passwordless authentication** via `DefaultAzureCredential`. The system uses **two specialized agents** (**Planning Agent** + **Implementation Agent**) with separated duties and isolated context, hosted on Foundry with enterprise-grade model management. The **Planning Agent** analyzes any user-provided repository, evaluates the technology stack, asks clarifying questions, and produces intelligence artifacts with migration recommendations. The **Implementation Agent** executes the approved migration plan by making actual code changes. **Fork-first workflow**: user forks the target repo, then **provides their fork location** (prompted or via `--fork-owner`); **all analysis happens on the fork**, never upstream.
 
 ---
 
-### Multi-Agent Architecture
+### Two-Agent Architecture
 
-The system employs a **separation of concerns** pattern with specialized agents:
+The system employs a **separation of concerns** pattern with two specialized agents:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                           ORCHESTRATOR (CLI)                                 │
-│  Dispatches to appropriate agent based on command; manages agent lifecycle   │
+│                           USER WORKFLOW                                      │
 └─────────────────────────────────────────────────────────────────────────────┘
-         │                │                 │                  │
-┌────────▼────────┐  ┌───────▼────────┐  ┌────────▼────────┐  ┌────────▼────────┐
-│  PLANNING AGENT │  │ IMPLEMENTATION │  │ STACK EVALUATION│  │CODE IMPLEMENT. │
-│                 │  │     AGENT      │  │     AGENT       │  │     AGENT      │
-│ - Analysis      │  │ - Artifact gen │  │ - Stack review  │  │ - Code changes │
-│ - Risk scoring  │  │ - Test scaffold│  │ - Migration eval│  │ - Refactoring  │
-│ - Roadmap plan  │  │ - Doc stubs    │  │ - User Q&A      │  │ - Migration    │
-│ - Dependencies  │  │ - PR creation  │  │ - Recommendations│ │ - Code assist  │
-│                 │  │                │  │                 │  │                │
-│ READ-ONLY       │  │ GATED WRITES   │  │ INTERACTIVE     │  │ HUMAN-APPROVED │
-└─────────────────┘  └────────────────┘  └─────────────────┘  └────────────────┘
-         │                                                         │
-         │                    INTELLIGENCE ARTIFACTS                │
-         └───────────────────────▼─────────────────────────────┘
-                        HUMAN APPROVAL GATE
-                               │
-                     ┌─────────▼──────────┐
-                     │ CODE IMPLEMENT.  │
-                     │ (Executes Plan)  │
-                     └───────────────────┘
+                                    │
+                    1. User provides forked repo
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          PLANNING AGENT                                      │
+│                       (Read-Only + Interactive)                              │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  • Scan repository structure and file inventory                              │
+│  • Detect technology stack (languages, frameworks, dependencies)             │
+│  • Build dependency graphs (include/import analysis)                         │
+│  • Assess risks (complexity, churn, safety-critical paths)                   │
+│  • ASK CLARIFYING QUESTIONS about migration goals                            │
+│  • Recommend migration architecture based on findings + user input           │
+│  • Generate intelligence artifacts for user review                           │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                    2. Artifacts produced for review
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                      HUMAN REVIEWS & APPROVES                                │
+│          (StackAnalysis, RiskAssessment, ModernizationPlan, etc.)           │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                    3. User accepts plan (approval gate)
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                       IMPLEMENTATION AGENT                                   │
+│                     (Full Code Changes After Approval)                       │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  • Execute approved modernization plan                                       │
+│  • Refactor code according to migration architecture                         │
+│  • Upgrade dependencies (e.g., Vue 2 → Vue 3, Python 2 → 3)                  │
+│  • Generate and run tests for changed code                                   │
+│  • Create incremental PRs with clear scope for human review                  │
+└─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-#### Why Multi-Agent?
+#### Why Two Agents?
 
-| Single Agent Problems | Multi-Agent Solutions |
-|-----------------------|----------------------|
+| Single Agent Problems | Two-Agent Solutions |
+|-----------------------|---------------------|
+| Mixed read/write responsibilities | Clear separation: Planning reads, Implementation writes |
+| Risk of unintended writes during analysis | Planning Agent is strictly read-only |
+| No checkpoint for human review | Artifacts serve as approval gate between agents |
 | Bloated context window | Each agent loads only relevant context |
-| Confused responsibilities | Clear duty boundaries per agent |
-| Risk of unintended writes | Planning agent is strictly read-only |
-| No user interaction loop | Stack Evaluation agent has dialog capability |
-| Monolithic failure modes | Isolated failures, graceful degradation |
+| No user interaction during analysis | Planning Agent asks clarifying questions |
+| Code changes without approval | Implementation Agent blocked until plan approved |
 | DIY model management | Foundry handles quotas, RBAC, model catalog |
 | No production hosting | Foundry container-based hosted agents |
-| Manual evaluation | Foundry built-in evaluation workflows |
 
 ---
 
 ### Agent Definitions
 
-#### 1. Planning Agent (Read-Only)
+#### 1. Planning Agent (Read-Only + Interactive)
 
-**Purpose:** Analyzes the legacy codebase and produces intelligence artifacts.
-
-| Aspect | Details |
-|--------|---------|
-| **Mode** | Read-only; cannot modify repository |
-| **Context** | Repository structure, dependency graphs, historical data |
-| **Skills** | `repo_snapshot`, `fw_include_graph`, `py_import_graph`, `gui_import_graph`, `git_churn`, `complexity_metrics`, `safety_path_analysis`, `risk_scoring`, `doc_coverage_analysis` |
-| **Outputs** | `Manifest.json`, `RunLog.jsonl`, `DependencyGraph.json`, `RiskAssessment.json`, `DocCoverage.json` |
-| **System Prompt Focus** | "You are a legacy system analyst. Your job is to understand system boundaries, identify risks, and map dependencies. You NEVER modify code." |
-
-**Context Isolation:**
-- Loads only source files + git history
-- No access to implementation agent's scaffolds
-- Cannot see user dialog from stack evaluation
-
----
-
-#### 2. Implementation Agent (Gated Writes)
-
-**Purpose:** Executes the modernization plan by generating artifacts and safe outputs.
+**Purpose:** Analyzes any user-provided repository, evaluates the technology stack, asks clarifying questions about migration goals, and produces intelligence artifacts with migration recommendations.
 
 | Aspect | Details |
 |--------|---------|
-| **Mode** | Gated writes; requires explicit approval + allowlist |
-| **Context** | Planning artifacts, test templates, documentation templates |
-| **Skills** | `plan_synthesis`, `test_scaffold`, `pr_writer`, `policy` |
-| **Inputs** | Consumes `RiskAssessment.json`, `DependencyGraph.json`, `DocCoverage.json` from Planning Agent |
-| **Outputs** | `ModernizationPlan.json`, `TestScaffold.json`, PR branches with tests/docs |
-| **System Prompt Focus** | "You are a modernization implementer. You ONLY act on approved plans from the Planning Agent. You can generate test scaffolds and documentation, never production code." |
+| **Mode** | Read-only + Interactive; cannot modify repository but engages user in dialog |
+| **Context** | Repository structure, file inventory, dependency graphs, git history, user responses |
+| **Skills** | `repo_snapshot`, `stack_fingerprint`, `dependency_graph`, `git_churn`, `complexity_metrics`, `safety_path_analysis`, `risk_scoring`, `doc_coverage_analysis`, `user_dialog`, `migration_recommender`, `plan_synthesis` |
+| **Outputs** | `Manifest.json`, `RunLog.jsonl`, `StackAnalysis.json`, `DependencyGraph.json`, `RiskAssessment.json`, `DocCoverage.json`, `UserDecisions.json`, `ModernizationPlan.json` |
+| **System Prompt Focus** | "You are a legacy system analyst and technology advisor. Your job is to understand any codebase the user provides, identify risks, map dependencies, evaluate the technology stack, and ASK CLARIFYING QUESTIONS to recommend a migration architecture. You NEVER modify code." |
 
-**Context Isolation:**
-- Does NOT re-analyze source files (trusts Planning Agent)
-- Cannot access raw git history directly
-- Loads only planning artifacts as input
-
----
-
-#### 3. Stack Evaluation Agent (Interactive)
-
-**Purpose:** Reviews current technology stack, evaluates migration targets, engages user in clarifying dialog.
-
-| Aspect | Details |
-|--------|---------|
-| **Mode** | Interactive; prompts user with questions |
-| **Context** | Repository stack fingerprint, known technology profiles, migration patterns |
-| **Skills** | `stack_fingerprint`, `migration_evaluator`, `user_dialog`, `stack_recommendation` |
-| **Outputs** | `StackAnalysis.json`, `MigrationOptions.json`, `UserDecisions.json` |
-| **System Prompt Focus** | "You are a technology advisor. Your job is to understand the current stack, research migration options, and ASK CLARIFYING QUESTIONS when requirements are ambiguous." |
-
-**User Interaction Flow:**
+**Workflow:**
 ```
-User: "Evaluate migration options for this repo"
-    │
-    ▼
-┌─────────────────────────────────────────────────────────────┐
-│ Stack Evaluation Agent                                       │
-│ 1. Fingerprint current stack (languages, frameworks, deps)   │
-│ 2. Identify potential migration targets                      │
-│ 3. ASK CLARIFYING QUESTIONS:                                 │
-│    - "What is the primary driver for modernization?"         │
-│    - "Are there compliance requirements (HIPAA, SOC2, etc)?" │
-│    - "What is the acceptable migration timeline?"            │
-│    - "Is cloud-native/containerization a goal?"              │
-│    - "What is the team's expertise? (rate 1-5 on X, Y, Z)"   │
-│ 4. Score migration options based on answers                  │
-│ 5. Present ranked recommendations with trade-offs            │
-└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         PLANNING AGENT WORKFLOW                              │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  PHASE 1: DISCOVERY (Automatic)                                              │
+│  ─────────────────────────────                                               │
+│  1. Clone/checkout user's fork at specified SHA                              │
+│  2. Scan repository structure and file inventory                             │
+│  3. Detect technology stack (languages, frameworks, dependencies)            │
+│  4. Build dependency graphs (include/import analysis per language)           │
+│  5. Analyze git history for churn hotspots                                   │
+│  6. Compute complexity metrics                                               │
+│  7. Identify safety-critical code paths                                      │
+│  8. Assess documentation coverage                                            │
+│                                                                              │
+│  PHASE 2: USER DIALOG (Interactive)                                          │
+│  ─────────────────────────────────                                           │
+│  9. Present stack analysis findings to user                                  │
+│  10. ASK CLARIFYING QUESTIONS based on discovered stack:                     │
+│      - "What is the primary driver for modernization?"                       │
+│      - "What is the target platform/architecture?"                           │
+│      - "Are there compliance requirements?"                                  │
+│      - "What is the acceptable migration timeline?"                          │
+│      - Stack-specific: "Target Python version?", "Vue 3 or alternatives?"    │
+│  11. Capture user responses in UserDecisions.json                            │
+│                                                                              │
+│  PHASE 3: RECOMMENDATION (Synthesis)                                         │
+│  ────────────────────────────────────                                        │
+│  12. Score risk items based on all analysis + user constraints               │
+│  13. Generate migration architecture recommendations                         │
+│  14. Synthesize ModernizationPlan.json with phased approach                  │
+│  15. Validate all artifacts against schemas                                  │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
 ```
 
+**Non-Interactive Mode (CI/Automation):**
+- PHASE 1 (Discovery) runs fully
+- PHASE 2 (User Dialog) skipped — no UserDecisions.json produced
+- PHASE 3 (Recommendation) skipped — no ModernizationPlan.json produced
+- Produces: `StackAnalysis.json`, `DependencyGraph.json`, `RiskAssessment.json`, `DocCoverage.json`
+
+**Context Isolation:**
+- Loads only source files + git history from user's fork
+- No access to Implementation Agent's code changes
+- Cannot execute any write operations on the repository
+
 ---
 
-#### 4. Code Implementation Agent (Human-Approved Code Assistant)
+#### 2. Implementation Agent (Full Code Changes After Approval)
 
-**Purpose:** Implements the approved migration plan by making actual code changes. This agent acts as a **code assistant** that executes the modernization roadmap once artifacts and plans are human-approved.
+**Purpose:** Executes the approved migration plan by making actual code changes. This agent acts as a code assistant that implements the modernization roadmap once artifacts are human-approved.
 
 | Aspect | Details |
 |--------|---------|
-| **Mode** | Code assistant; writes production code after human approval |
-| **Prerequisite** | Requires explicit human approval of Planning + Stack Evaluation artifacts |
-| **Context** | Approved `ModernizationPlan.json`, `MigrationOptions.json`, `UserDecisions.json`, target codebase |
-| **Skills** | `code_refactor`, `migration_executor`, `dependency_upgrader`, `test_writer`, `code_reviewer`, `incremental_pr` |
-| **Inputs** | Consumes approved artifacts from Planning, Implementation, and Stack Evaluation agents |
-| **Outputs** | Actual code changes, refactored modules, upgraded dependencies, new tests, PR branches |
+| **Mode** | Full code changes; writes production code after human approval |
+| **Prerequisite** | Requires explicit human approval of Planning Agent artifacts |
+| **Context** | Approved `ModernizationPlan.json`, `UserDecisions.json`, `RiskAssessment.json`, target codebase |
+| **Skills** | `code_refactor`, `dependency_upgrader`, `test_writer`, `test_scaffold`, `doc_generator`, `incremental_pr`, `policy` |
+| **Inputs** | Consumes approved artifacts from Planning Agent |
+| **Outputs** | Actual code changes, refactored modules, upgraded dependencies, new tests, documentation, PR branches |
 | **System Prompt Focus** | "You are a code implementation assistant. You execute the APPROVED modernization plan. You make incremental, testable code changes following the migration roadmap. You create PRs for human review before merge." |
 
 **Human Approval Gate:**
@@ -144,20 +151,42 @@ User: "Evaluate migration options for this repo"
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                           APPROVAL WORKFLOW                                  │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│  1. Planning Agent produces: RiskAssessment, DependencyGraph, DocCoverage  │
-│  2. Implementation Agent produces: ModernizationPlan, TestScaffold         │
-│  3. Stack Evaluation Agent produces: StackAnalysis, MigrationOptions       │
-│                                                                             │
-│                    ▼ HUMAN REVIEWS ARTIFACTS ▼                              │
-│                                                                             │
-│  4. Human approves plan via:                                                │
-│     - `artifacts/<runId>/APPROVED` marker file                             │
-│     - CLI flag: `--plan-approved`                                          │
-│     - GitHub PR approval on planning PR                                    │
-│                                                                             │
-│  5. Code Implementation Agent activates ONLY after approval                │
-│                                                                             │
+│                                                                              │
+│  1. Planning Agent produces artifacts:                                       │
+│     - StackAnalysis.json                                                     │
+│     - RiskAssessment.json                                                    │
+│     - DependencyGraph.json                                                   │
+│     - ModernizationPlan.json                                                 │
+│     - UserDecisions.json                                                     │
+│                                                                              │
+│                    ▼ HUMAN REVIEWS ARTIFACTS ▼                               │
+│                                                                              │
+│  2. Human approves plan via:                                                 │
+│     - `artifacts/<runId>/APPROVED` marker file                               │
+│     - CLI flag: `--plan-approved`                                            │
+│     - GitHub PR approval on planning PR                                      │
+│                                                                              │
+│  3. Implementation Agent activates ONLY after approval                       │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+**Implementation Workflow:**
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                      IMPLEMENTATION AGENT WORKFLOW                           │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  1. Load approved ModernizationPlan.json                                     │
+│  2. For each migration task in plan:                                         │
+│     a. Create feature branch                                                 │
+│     b. Make code changes according to task                                   │
+│     c. Generate/update tests for changed code                                │
+│     d. Update documentation                                                  │
+│     e. Create PR with clear scope and description                            │
+│     f. Wait for human review before proceeding to next task                  │
+│  3. Log all changes to RunLog.jsonl                                          │
+│                                                                              │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -169,9 +198,10 @@ User: "Evaluate migration options for this repo"
 
 **Code Change Capabilities:**
 - Refactor code according to modernization plan
-- Upgrade dependencies (e.g., Vue 2 → Vue 3, Python 2 → 3)
-- Implement migration patterns from approved options
+- Upgrade dependencies (e.g., Vue 2 → Vue 3, Python 2 → 3, .NET Framework → .NET 8)
+- Implement migration patterns from approved architecture
 - Generate and run tests for changed code
+- Generate documentation stubs
 - Create incremental PRs with clear scope
 
 ---
@@ -181,31 +211,34 @@ User: "Evaluate migration options for this repo"
 Agents communicate via **artifacts** (files), not direct messages:
 
 ```
-Planning Agent ──writes──▶ RiskAssessment.json ◀──reads── Implementation Agent
-                          DependencyGraph.json
-                          DocCoverage.json
-
-Implementation Agent ──writes──▶ ModernizationPlan.json
-                                 TestScaffold.json
-
-Stack Evaluation Agent ──writes──▶ StackAnalysis.json
-                                   MigrationOptions.json
-                                   UserDecisions.json
-
-                    ▼ HUMAN APPROVAL GATE ▼
-
-Code Implementation Agent ◀──reads── ALL approved artifacts
-                         ──writes──▶ Code changes (PRs)
-                                     Refactored modules
-                                     New/updated tests
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         ARTIFACT FLOW                                        │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  Planning Agent ──writes──▶ StackAnalysis.json                               │
+│                             DependencyGraph.json                             │
+│                             RiskAssessment.json                              │
+│                             DocCoverage.json                                 │
+│                             UserDecisions.json                               │
+│                             ModernizationPlan.json                           │
+│                                                                              │
+│                      ▼ HUMAN APPROVAL GATE ▼                                 │
+│                                                                              │
+│  Implementation Agent ◀──reads── ALL approved artifacts                      │
+│                       ──writes──▶ Code changes (PRs)                         │
+│                                   Refactored modules                         │
+│                                   New/updated tests                          │
+│                                   Documentation                              │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
 ```
 
 | Rule | Rationale |
 |------|-----------|
 | No direct agent-to-agent calls | Maintains context isolation |
 | Artifacts are the contract | Schema-validated handoff points |
-| Human-in-the-loop for escalation | User approves plans before Implementation Agent acts |
-| **Code changes require approval** | Code Implementation Agent blocked until artifacts approved |
+| Human-in-the-loop approval | User reviews and approves plan before Implementation Agent acts |
+| **Code changes require approval** | Implementation Agent blocked until artifacts approved |
 | **Incremental PRs** | Code changes are small, reviewable PRs, not bulk commits |
 
 ---
@@ -222,9 +255,9 @@ Large enterprises operate mission-critical legacy systems with:
 | **Cyclic dependencies** | Tarjan SCC detection in dependency graphs |
 | **Safety-critical code paths** | `safety_path_analysis` skill identifies critical paths |
 | **Institutional knowledge locked in engineers** | Extracts implicit knowledge into structured artifacts |
-| **Unknown tech stack sprawl** | Stack Evaluation Agent fingerprints entire technology inventory |
-| **Unclear migration paths** | `migration_evaluator` scores and ranks modernization options |
-| **Ambiguous modernization requirements** | Stack Evaluation Agent **asks clarifying questions** to users |
+| **Unknown tech stack sprawl** | Planning Agent fingerprints entire technology inventory |
+| **Unclear migration paths** | Planning Agent researches and recommends modernization options |
+| **Ambiguous modernization requirements** | Planning Agent **asks clarifying questions** to users |
 
 **Why Modernization Stalls → How We Solve It:**
 
@@ -236,7 +269,7 @@ Large enterprises operate mission-critical legacy systems with:
 | Documentation is outdated | `DocCoverage.json` identifies gaps + generates stubs |
 | Refactoring introduces operational risk | Read-only default; gated writes; full audit trail |
 | **Stack migration options unclear** | `StackAnalysis.json` + `MigrationOptions.json` with scored paths |
-| **Requirements are ambiguous** | Stack Evaluation Agent **asks clarifying questions** |
+| **Requirements are ambiguous** | Planning Agent **asks clarifying questions** |
 | **Decisions lack traceability** | `UserDecisions.json` captures all user inputs |
 
 ---
@@ -252,11 +285,11 @@ The system combines **GitHub Copilot SDK** for agent development with **Microsof
 │  │                    Hosted Agent Container                            │ │
 │  │  ┌─────────────────────────────────────────────────────────────────┐│ │
 │  │  │              COPILOT SDK AGENT RUNTIME                          ││ │
-│  │  │  ┌─────────────┐ ┌─────────────┐ ┌─────────────────────────┐    ││ │
-│  │  │  │  Planning   │ │Implementation│ │   Stack Evaluation     │    ││ │
-│  │  │  │   Agent     │ │    Agent     │ │       Agent            │    ││ │
-│  │  │  │ (read-only) │ │(gated writes)│ │   (interactive)        │    ││ │
-│  │  │  └─────────────┘ └─────────────┘ └─────────────────────────┘    ││ │
+│  │  │  ┌────────────────────────────────┐ ┌──────────────────────────┐││ │
+│  │  │  │          Planning Agent        │ │   Implementation Agent   │││ │
+│  │  │  │  (read-only, interactive Q&A)  │ │   (full code changes)    │││ │
+│  │  │  │  Analysis + Stack Evaluation   │ │   Executes approved plan │││ │
+│  │  │  └────────────────────────────────┘ └──────────────────────────┘││ │
 │  │  │                           ▲                                      ││ │
 │  │  │                    Copilot SDK                                   ││ │
 │  │  │                  (orchestration)                                 ││ │
@@ -302,16 +335,16 @@ The system combines **GitHub Copilot SDK** for agent development with **Microsof
 | Before (standalone CLI) | After (Copilot SDK + Foundry + GitHub MCP) |
 |-------------------------|--------------------------------------------|
 | Custom orchestrator | Copilot runtime handles orchestration |
-| Single monolithic agent | **4 specialized agents** with isolated context |
+| Single monolithic agent | **2 specialized agents** with isolated context |
 | `simple-git` for repo ops | **GitHub MCP** (`mcp_io_github_git_*` tools) |
 | Custom CLI entry point | Agent invoked via Copilot SDK client |
 | All logic in `packages/tools/` | Skills registered per-agent |
-| No user interaction | **Stack Evaluation Agent asks clarifying questions** |
+| No user interaction | **Planning Agent asks clarifying questions** |
 | Direct upstream access | **Fork-first**: clone/push to user's fork |
 | DIY model management | **Azure CLI** (`az cognitiveservices`) for Foundry models |
 | Local-only execution | **Azure CLI** (`az containerapp`) for Foundry hosting |
 | Manual testing | **Azure CLI** (`az ai`) for Foundry evaluation |
-| No code implementation | **Code Implementation Agent** executes approved plans |
+| No code implementation | **Implementation Agent** executes approved plans with full code changes |
 | Local file storage | **Microsoft Fabric** for analytics-ready artifact storage |
 
 ---
@@ -593,30 +626,28 @@ const forkRepo = await promptUser({
 | `DependencyGraph.json` | Include/import graphs for all language domains | System boundary discovery |
 | `RiskAssessment.json` | Ranked risk items with scores, evidence, safety flags | **Risk intelligence** for stakeholders |
 | `DocCoverage.json` | Documentation coverage analysis + generated stubs | Addresses sparse documentation |
+| `StackAnalysis.json` | Current technology fingerprint (languages, frameworks, deps) | **Stack visibility** for decision makers |
+| `MigrationOptions.json` | Evaluated migration targets with scores + trade-offs | **Migration intelligence** |
+| `UserDecisions.json` | Captured user responses to clarifying questions | **Decision audit trail** |
+| `ModernizationPlan.json` | Phased improvement steps referencing risk IDs | Roadmap for transformation |
 
 #### Implementation Agent Artifacts
 
 | Artifact | Purpose | Enterprise Value |
 |----------|---------|------------------|
-| `ModernizationPlan.json` | Phased improvement steps referencing risk IDs | Roadmap for transformation |
+| `ImplementationLog.json` | Record of code changes with references to plan | Change traceability |
 | `TestScaffold.json` | Generated test entry points + coverage gaps | **Test scaffolding** for minimal-coverage systems |
-
-#### Stack Evaluation Agent Artifacts
-
-| Artifact | Purpose | Enterprise Value |
-|----------|---------|------------------|
-| `StackAnalysis.json` | Current technology fingerprint (languages, frameworks, deps) | **Stack visibility** for decision makers |
-| `MigrationOptions.json` | Evaluated migration targets with scores + trade-offs | **Migration intelligence** |
-| `UserDecisions.json` | Captured user responses to clarifying questions | **Decision audit trail** |
+| `CodeChanges/` | Actual code modifications (PRs, branches) | Migration deliverables |
 
 ---
 
 ### Core Constraints
 
-- **Multi-agent isolation** – each agent has separate context; no cross-agent memory bleed
-- **Planning Agent is read-only** – cannot modify repository; analysis only
-- **Implementation Agent requires Planning artifacts** – does not re-analyze; trusts planning output
-- **Stack Evaluation Agent is interactive** – must ask clarifying questions before recommendations
+- **Two-agent isolation** – Planning Agent and Implementation Agent have separate contexts; no cross-agent memory bleed
+- **Planning Agent is read-only** – cannot modify repository; performs analysis, stack evaluation, and interactive Q&A
+- **Planning Agent is interactive** – asks clarifying questions to gather user requirements before producing recommendations
+- **Implementation Agent requires approved Planning artifacts** – does not re-analyze; trusts planning output
+- **Implementation Agent makes full code changes** – executes approved modernization plan with actual code modifications
 - **Fork-first** – all clone/push operations target user's fork, never upstream
 - **Pinned SHA execution** – always runs on baseline or stress SHA, never drifts with upstream
 - **Deterministic** – same SHA + profile = identical artifacts (stable IDs, stable ordering)
@@ -629,23 +660,21 @@ const forkRepo = await promptUser({
 ### Non-goals
 
 - No firmware flashing/building
-- No automatic refactors (intelligence layer, not refactoring tool)
-- No ungated writes
-- No direct code suggestions (this is not a code assistant)
+- No automatic refactors without user approval
+- No ungated writes (Implementation Agent requires approved plan)
 - No agent-to-agent direct communication (artifacts only)
 
 ---
 
 ### CLI Interface
 
-#### Commands (Multi-Agent Dispatch)
+#### Commands (2-Agent Dispatch)
 
 | Command | Agent | Description |
 |---------|-------|-------------|
-| `analyze` | Planning Agent | Analyze codebase, produce intelligence artifacts |
-| `implement` | Implementation Agent | Generate scaffolds/docs from planning artifacts |
-| `evaluate-stack` | Stack Evaluation Agent | Interactive stack review with user Q&A |
-| `full-pipeline` | All Agents | Run complete pipeline: analyze → evaluate → implement |
+| `plan` | Planning Agent | Analyze codebase, evaluate stack, ask clarifying questions, produce plan artifacts |
+| `implement` | Implementation Agent | Execute approved plan with full code changes |
+| `full-pipeline` | Both Agents | Run complete pipeline: plan → user review → implement |
 
 #### Global Arguments
 
@@ -656,19 +685,20 @@ const forkRepo = await promptUser({
 | `--profile` | - | No | Path to profile JSON (defaults from fixture) |
 | `--ref` | - | No | SHA to analyze (defaults to baseline) |
 | `--out` | - | No | Output directory (defaults to `artifacts/`) |
-| `--enable-writes` | - | No | Enable gated write operations (Implementation Agent only) |
-| `--interactive` | - | No | Enable user prompts (Stack Evaluation Agent) |
+| `--enable-writes` | - | No | Enable code change operations (Implementation Agent) |
+| `--interactive` | - | No | Enable interactive Q&A during planning |
+| `--plan-approved` | - | No | Signal that plan artifacts are approved for implementation |
 
 **Example invocations:**
 ```bash
-# Planning Agent: analyze ODrive
-npx jurassic analyze --fork-owner alice --repo specs/repos/odrive.fixture.json
+# Planning Agent: analyze and evaluate ODrive with interactive Q&A
+npx jurassic plan --fork-owner alice --repo specs/repos/odrive.fixture.json --interactive
 
-# Stack Evaluation Agent: interactive stack review
-npx jurassic evaluate-stack --fork-owner alice --repo specs/repos/odrive.fixture.json --interactive
+# Implementation Agent: execute approved plan with code changes
+npx jurassic implement --fork-owner alice --repo specs/repos/odrive.fixture.json --plan-approved --enable-writes
 
-# Implementation Agent: generate scaffolds from existing plan
-npx jurassic implement --fork-owner alice --repo specs/repos/odrive.fixture.json --enable-writes
+# Full pipeline: plan → user review → implement
+npx jurassic full-pipeline --fork-owner alice --repo specs/repos/odrive.fixture.json --interactive --enable-writes
 
 # Full pipeline with all agents
 npx jurassic full-pipeline --fork-owner alice --repo specs/repos/odrive.fixture.json --interactive
@@ -806,15 +836,14 @@ npx jurassic full-pipeline --fork-owner alice --repo specs/repos/odrive.fixture.
     - `DependencyGraph.schema.json`
     - `RiskAssessment.schema.json`
     - `DocCoverage.schema.json`
-    
-    **Implementation Agent Artifacts:**
-    - `ModernizationPlan.schema.json`
-    - `TestScaffold.schema.json`
-    
-    **Stack Evaluation Agent Artifacts:**
     - `StackAnalysis.schema.json` – technology inventory (languages, frameworks, versions)
     - `MigrationOptions.schema.json` – scored migration paths with trade-offs
     - `UserDecisions.schema.json` – captured user responses to clarifying questions
+    - `ModernizationPlan.schema.json` – phased improvement steps
+    
+    **Implementation Agent Artifacts:**
+    - `ImplementationLog.schema.json` – record of code changes
+    - `TestScaffold.schema.json`
 
 14. **Create artifacts contract** at `specs/functional/artifacts.md`.
 
@@ -824,7 +853,7 @@ npx jurassic full-pipeline --fork-owner alice --repo specs/repos/odrive.fixture.
 
 ---
 
-#### Phase C: Multi-Agent Setup (PR1)
+#### Phase C: 2-Agent Setup (PR1)
 
 17. **Create agent base** at `packages/agents/src/base.ts`:
     - Base agent class with common SDK initialization
@@ -833,31 +862,29 @@ npx jurassic full-pipeline --fork-owner alice --repo specs/repos/odrive.fixture.
 
 18. **Create Planning Agent** at `packages/agents/src/planning/index.ts`:
     - Initialize Copilot SDK client with read-only permissions
-    - Register analysis skills (repo_snapshot, *_include_graph, risk_scoring, etc.)
-    - System prompt: legacy analysis focus, explicitly read-only
-    - Cannot access Implementation Agent artifacts
+    - Register ALL analysis skills: repo_snapshot, *_include_graph, risk_scoring, stack_fingerprint, migration_evaluator, user_dialog
+    - Interactive capability for gathering user requirements via clarifying questions
+    - Produces ALL plan artifacts (analysis + stack evaluation + migration plan)
+    - System prompt: legacy analysis + technology advisor, read-only, interactive Q&A
+    - Cannot modify repository; artifacts only
 
 19. **Create Implementation Agent** at `packages/agents/src/implementation/index.ts`:
-    - Initialize Copilot SDK client with gated write permissions
-    - Register generation skills (plan_synthesis, test_scaffold, pr_writer)
-    - Requires Planning Agent artifacts as input
-    - System prompt: scaffolding focus, no direct analysis
+    - Initialize Copilot SDK client with full write permissions
+    - Register implementation skills: code_refactor, migration_executor, test_writer, pr_writer, dependency_upgrader
+    - Requires APPROVED Planning Agent artifacts as input
+    - Makes actual code changes to implement the approved plan
+    - System prompt: code implementation focus, executes approved plans
 
-20. **Create Stack Evaluation Agent** at `packages/agents/src/stack-evaluation/index.ts`:
-    - Initialize Copilot SDK client with interactive mode
-    - Register stack skills (stack_fingerprint, migration_evaluator, user_dialog)
-    - System prompt: technology advisor, asks clarifying questions
-    - User dialog capability for gathering requirements
-
-21. **Create orchestrator** at `packages/agents/src/orchestrator.ts`:
-    - Dispatches commands to appropriate agent
+20. **Create orchestrator** at `packages/agents/src/orchestrator.ts`:
+    - Dispatches commands to appropriate agent (plan → Planning, implement → Implementation)
     - Manages artifact handoffs between agents
-    - Enforces agent isolation boundaries
+    - Enforces approval gate between planning and implementation
 
-22. **Add multi-agent spec** at `specs/functional/multi-agent.md`:
+21. **Add 2-agent spec** at `specs/functional/agents.md`:
     - Documents agent responsibilities
     - Context isolation rules
     - Artifact communication protocol
+    - Approval workflow
 
 ---
 
@@ -934,7 +961,9 @@ Each skill is a function registered with the Copilot SDK:
 
 ---
 
-#### Phase D-2: Stack Evaluation Agent Skills (PR2)
+#### Phase D-2: Planning Agent Interactive Skills (PR2)
+
+These skills enable the Planning Agent's interactive capability:
 
 35. **stack_fingerprint skill** (PR2)  
     - Spec: `specs/functional/skills/stack_fingerprint.md`  
@@ -976,27 +1005,24 @@ Each skill is a function registered with the Copilot SDK:
 #### Phase E: Agent Workflows (PR1–PR3)
 
 39. **Create Planning Agent workflow** at `packages/agents/src/planning/workflow.ts`:
-    - Orchestrates analysis skills in sequence
-    - Writes artifacts to `artifacts/<runId>/planning/`
+    - Orchestrates ALL analysis + stack evaluation skills in sequence
+    - Presents clarifying questions to user via `user_dialog` skill (interactive mode)
+    - Waits for user responses before producing recommendations
+    - Writes ALL plan artifacts to `artifacts/<runId>/planning/`
     - Emits RunLog events
     - Validates schemas at end
-    - Strictly read-only execution
+    - Strictly read-only execution (no repo modifications)
 
-40. **Create Stack Evaluation workflow** at `packages/agents/src/stack-evaluation/workflow.ts`:
-    - Runs stack fingerprinting
-    - Presents clarifying questions to user via `user_dialog` skill
-    - Waits for user responses (interactive mode)
-    - Evaluates migration options based on responses
-    - Writes artifacts to `artifacts/<runId>/stack-evaluation/`
-
-41. **Create Implementation Agent workflow** at `packages/agents/src/implementation/workflow.ts`:
+40. **Create Implementation Agent workflow** at `packages/agents/src/implementation/workflow.ts`:
+    - Checks for APPROVED marker before proceeding
     - Loads Planning Agent artifacts as input
-    - Generates test scaffolds and documentation
-    - Handles gated PR creation
+    - Executes code changes based on approved `ModernizationPlan.json`
+    - Runs code refactoring, dependency upgrades, test generation
+    - Creates PRs with incremental changes
     - Writes artifacts to `artifacts/<runId>/implementation/`
 
-42. **Create CLI wrapper** at `apps/cli/src/index.ts`:
-    - Multi-command dispatcher (analyze, evaluate-stack, implement, execute-migration, full-pipeline)
+41. **Create CLI wrapper** at `apps/cli/src/index.ts`:
+    - 2-command dispatcher (plan, implement, full-pipeline)
     - **Prompts user for fork location** if not provided via CLI/env:
       ```
       Enter your forked repository (owner/repo): myusername/ODrive
@@ -1004,10 +1030,10 @@ Each skill is a function registered with the Copilot SDK:
     - **Parses `--fork-owner` or `--repo`**, validates format, computes fork URL
     - All operations target the user's fork (analysis, branch creation, PRs)
     - Routes to appropriate agent via orchestrator
-    - Handles `--interactive` flag for Stack Evaluation Agent
-    - Handles `--plan-approved` flag for Code Implementation Agent
+    - Handles `--interactive` flag for Planning Agent Q&A
+    - Handles `--plan-approved` flag for Implementation Agent
 
-43. **Add e2e tests** – run twice on baseline SHA, assert determinism for each agent.
+42. **Add e2e tests** – run twice on baseline SHA, assert determinism for each agent.
 
 ---
 
@@ -1021,9 +1047,9 @@ Each skill is a function registered with the Copilot SDK:
 45. **Create PR writer skill** at `packages/skills/src/pr_writer.ts`:
     - **Fork-aware**: Receives `forkOwner` parameter, pushes to user's fork only
     - Uses **GitHub MCP** tools: `mcp_io_github_git_create_branch`, `mcp_io_github_git_push_files`, `mcp_io_github_git_create_pull_request`
-    - Allowed outputs: tests under `tools/`, docs under `docs/`, lint/config
+    - Creates PRs with code changes from approved modernization plan
     - Generates PR description referencing artifact IDs + risk items
-    - Includes Stack Evaluation conclusions if available
+    - Includes Planning Agent recommendations in PR body
 
 46. **Add policy + pr-writer specs**.
 
@@ -1036,8 +1062,9 @@ Each skill is a function registered with the Copilot SDK:
 48. **Finalize CI** at `.github/workflows/ci.yml`:
     - Install Copilot CLI + deps
     - Configure Foundry connection (via Workload Identity or service principal)
-    - Run unit tests for all agents
-    - Run e2e for each agent individually
+    - Run unit tests for both agents
+    - Run e2e for Planning Agent
+    - Run e2e for Implementation Agent (with mock approval)
     - Run e2e for full-pipeline
     - Schema validation for all artifact types
     - Determinism check per agent
@@ -1133,7 +1160,7 @@ Each skill is a function registered with the Copilot SDK:
       - `uploadArtifact(runId, artifactName, content)` – Upload to Fabric Lakehouse
       - `downloadArtifact(runId, artifactName)` – Retrieve from Fabric Lakehouse
       - `listRunArtifacts(runId)` – List all artifacts for a run
-      - `markApproved(runId)` – Create APPROVED marker for Code Implementation Agent
+      - `markApproved(runId)` – Create APPROVED marker for Implementation Agent
     - `packages/data/src/telemetry.ts` – Application Insights integration:
       - `trackAgentEvent(eventName, properties)` – Custom events
       - `trackSkillInvocation(skillName, duration, success)` – Skill metrics
@@ -1153,11 +1180,9 @@ Each skill is a function registered with the Copilot SDK:
     - Document RBAC requirements for each service
 
 61. **Update agents to use data services**:
-    - Planning Agent: Upload artifacts to Fabric Lakehouse after analysis
-    - Implementation Agent: Download Planning artifacts, upload Implementation artifacts
-    - Stack Evaluation Agent: Persist user decisions and recommendations
-    - Code Implementation Agent: Check for APPROVED marker, download approved artifacts, upload code changes
-    - All agents: Track telemetry via Application Insights
+    - Planning Agent: Upload ALL plan artifacts to Fabric Lakehouse (analysis + stack evaluation + user decisions + migration plan)
+    - Implementation Agent: Check for APPROVED marker, download approved artifacts, execute code changes, upload implementation artifacts
+    - Both agents: Track telemetry via Application Insights
 
 ---
 
@@ -1177,23 +1202,17 @@ Jurassic-refactor/
 │       └── src/
 │           └── index.ts          # Multi-command dispatcher, routes to agents
 ├── packages/
-│   ├── agents/                   # Multi-agent system
+│   ├── agents/                   # 2-Agent system
 │   │   ├── package.json
 │   │   └── src/
 │   │       ├── base.ts           # Base agent class, common SDK init
-│   │       ├── orchestrator.ts   # Agent dispatcher, artifact handoff
-│   │       ├── planning/         # PLANNING AGENT (read-only analysis)
+│   │       ├── orchestrator.ts   # Agent dispatcher, artifact handoff, approval gate
+│   │       ├── planning/         # PLANNING AGENT (read-only, interactive)
 │   │       │   ├── index.ts      # Agent definition + skill registration
-│   │       │   └── workflow.ts   # Analysis orchestration
-│   │       ├── implementation/   # IMPLEMENTATION AGENT (gated writes)
-│   │       │   ├── index.ts      # Agent definition + skill registration
-│   │       │   └── workflow.ts   # Scaffold generation orchestration
-│   │       ├── stack-evaluation/ # STACK EVALUATION AGENT (interactive)
-│   │       │   ├── index.ts      # Agent definition + skill registration
-│   │       │   └── workflow.ts   # Interactive stack review workflow
-│   │       └── code-implementation/ # CODE IMPLEMENTATION AGENT (human-approved code assistant)
+│   │       │   └── workflow.ts   # Analysis + stack evaluation + Q&A orchestration
+│   │       └── implementation/   # IMPLEMENTATION AGENT (full code changes)
 │   │           ├── index.ts      # Agent definition + skill registration
-│   │           ├── workflow.ts   # Code migration orchestration
+│   │           ├── workflow.ts   # Code change orchestration
 │   │           └── approval-gate.ts # Checks APPROVED marker before execution
 │   ├── skills/
 │   │   ├── package.json
@@ -1208,20 +1227,19 @@ Jurassic-refactor/
 │   │       ├── safety_path_analysis.ts # [Planning Agent]
 │   │       ├── risk_scoring.ts         # [Planning Agent]
 │   │       ├── doc_coverage_analysis.ts# [Planning Agent]
-│   │       ├── stack_fingerprint.ts    # [Stack Evaluation Agent]
-│   │       ├── migration_evaluator.ts  # [Stack Evaluation Agent]
-│   │       ├── user_dialog.ts          # [Stack Evaluation Agent] - interactive Q&A
-│   │       ├── stack_recommendation.ts # [Stack Evaluation Agent]
+│   │       ├── stack_fingerprint.ts    # [Planning Agent] - stack detection
+│   │       ├── migration_evaluator.ts  # [Planning Agent] - migration scoring
+│   │       ├── user_dialog.ts          # [Planning Agent] - interactive Q&A
+│   │       ├── stack_recommendation.ts # [Planning Agent] - recommendations
+│   │       ├── plan_synthesis.ts       # [Planning Agent] - modernization plan
+│   │       ├── code_refactor.ts        # [Implementation Agent]
+│   │       ├── migration_executor.ts   # [Implementation Agent]
+│   │       ├── dependency_upgrader.ts  # [Implementation Agent]
+│   │       ├── test_writer.ts          # [Implementation Agent]
 │   │       ├── test_scaffold.ts        # [Implementation Agent]
-│   │       ├── plan_synthesis.ts       # [Implementation Agent]
 │   │       ├── policy.ts               # [Implementation Agent]
 │   │       ├── pr_writer.ts            # [Implementation Agent] Fork-aware
-│   │       ├── code_refactor.ts        # [Code Implementation Agent]
-│   │       ├── migration_executor.ts   # [Code Implementation Agent]
-│   │       ├── dependency_upgrader.ts  # [Code Implementation Agent]
-│   │       ├── test_writer.ts          # [Code Implementation Agent]
-│   │       ├── code_reviewer.ts        # [Code Implementation Agent]
-│   │       └── incremental_pr.ts       # [Code Implementation Agent] Fork-aware
+│   │       └── incremental_pr.ts       # [Implementation Agent] Fork-aware
 │   ├── foundry/                  # NEW: Microsoft Foundry integration
 │   │   ├── package.json
 │   │   └── src/
@@ -1262,10 +1280,9 @@ Jurassic-refactor/
 │   │   └── EvaluationReport.schema.json    # NEW: Foundry evaluation
 │   └── functional/
 │       ├── artifacts.md
-│       ├── multi-agent.md        # NEW: Multi-agent architecture spec
-│       ├── planning-agent.md     # NEW: Planning Agent behavior
-│       ├── implementation-agent.md # NEW: Implementation Agent behavior
-│       ├── stack-evaluation-agent.md # NEW: Stack Evaluation Agent behavior
+│       ├── agents.md             # NEW: 2-Agent architecture spec
+│       ├── planning-agent.md     # NEW: Planning Agent behavior (analysis + stack eval + Q&A)
+│       ├── implementation-agent.md # NEW: Implementation Agent behavior (full code changes)
 │       ├── foundry-hosting.md    # NEW: Foundry hosting spec
 │       ├── foundry-evaluation.md # NEW: Foundry evaluation spec
 │       ├── byom.md               # NEW: BYOM configuration spec
@@ -1306,15 +1323,14 @@ Jurassic-refactor/
 | Fork URL computed | Logs show `https://github.com/<user>/ODrive` |
 | Unit tests | `pnpm test` |
 | Copilot CLI available | `copilot --version` |
-| **Planning Agent** | `analyze` produces 5 artifacts (Manifest, RunLog, DependencyGraph, RiskAssessment, DocCoverage) |
-| **Implementation Agent** | `implement` produces 2 artifacts (ModernizationPlan, TestScaffold) |
-| **Stack Evaluation Agent** | `evaluate-stack` produces 3 artifacts (StackAnalysis, MigrationOptions, UserDecisions) |
-| **Full Pipeline** | `full-pipeline` produces all **10 artifacts** |
+| **Planning Agent** | `plan` produces ALL plan artifacts (Manifest, RunLog, DependencyGraph, RiskAssessment, DocCoverage, StackAnalysis, MigrationOptions, UserDecisions, ModernizationPlan) |
+| **Implementation Agent** | `implement` executes approved plan with full code changes |
+| **Full Pipeline** | `full-pipeline` produces ALL artifacts + code changes |
 | Schema validation | Vitest tests with `validateArtifact()` for all artifact types |
 | Determinism | Two runs per agent, compare artifacts |
 | Agent isolation | Planning Agent cannot access Implementation artifacts |
-| Gated writes | Implementation Agent fails without `--enable-writes` |
-| **User dialog works** | Stack Evaluation Agent prompts user and captures responses |
+| Gated writes | Implementation Agent requires approved plan |  
+| **User dialog works** | Planning Agent prompts user and captures responses during interactive Q&A |
 | CI green | GitHub Actions passes |
 | Safety paths identified | `RiskAssessment.json` contains safety-critical flags |
 | Test scaffolds generated | `TestScaffold.json` contains test entry points |
@@ -1334,12 +1350,12 @@ Jurassic-refactor/
 
 | Decision | Rationale |
 |----------|-----------|
-| **Multi-agent architecture** | Separates concerns, isolates context, enables specialized behaviors |
-| **Planning Agent (read-only)** | Analysis should never accidentally modify code |
-| **Implementation Agent (gated)** | Writes require explicit approval + artifact handoff |
-| **Stack Evaluation Agent (interactive)** | Migration decisions require human input; agent asks clarifying questions |
+| **2-agent architecture** | Simplifies system; Planning Agent handles all analysis + user interaction; Implementation Agent executes approved plans |
+| **Planning Agent (read-only, interactive)** | Analysis + stack evaluation + user Q&A in one agent; never modifies repository |
+| **Implementation Agent (full code changes)** | Executes approved modernization plan with actual code modifications |  
 | **Artifact-based communication** | No direct agent-to-agent calls; schema-validated handoffs |
-| **User dialog capability** | Enterprise decisions require gathering requirements interactively |
+| **User dialog in Planning Agent** | Enterprise decisions require gathering requirements interactively |
+| **Human approval gate** | Safety mechanism; no code changes without explicit human review of plan |
 | **Modernization Intelligence Layer** | Not a code assistant—produces risk intelligence, not code suggestions |
 | **Fork-first mandatory** | Prevents accidental writes to upstream; proper OSS contribution flow |
 | **No hardcoded fork URL** | Agent is reusable across users |
@@ -1377,7 +1393,6 @@ Jurassic-refactor/
 | **Foundry hosted agents** | Production-ready container hosting with auto-scaling |
 | **Foundry evaluation** | Built-in quality assurance for agent responses |
 | **azd for deployment** | Consistent, repeatable infrastructure provisioning |
-| **Code Implementation Agent** | Human-approved code assistant; executes migration after artifacts approved |
 | **Human approval gate** | Safety mechanism; no code changes without explicit human review of plan |
 | **Incremental PRs** | Code changes delivered as small, reviewable PRs; maintains human control |
 | **Bicep for IaC** | Type-safe Azure resource definitions |
@@ -1388,11 +1403,11 @@ Jurassic-refactor/
 
 | PR | Contents | Merge Criteria |
 |----|----------|----------------|
-| **PR0** | Constitution, fixture (with Foundry config), profile, all 11 schemas, artifacts contract, multi-agent spec, failing harness, README | Spec suite exists, contracts defined |
-| **PR1** | Multi-agent foundation (base, orchestrator), Planning Agent + workflow, `repo_snapshot` (fork-aware), `dsl_parser_registry`, dependency graph skills, CLI with multi-command dispatch, BYOM config | Planning Agent produces Manifest + RunLog + DependencyGraph using Foundry model |
-| **PR2** | Stack Evaluation Agent + workflow, `stack_fingerprint`, `migration_evaluator`, `user_dialog`, `complexity_metrics`, `safety_path_analysis`, `risk_scoring` | Stack Evaluation Agent produces StackAnalysis + MigrationOptions + UserDecisions; user dialog works |
-| **PR3** | Implementation Agent + workflow, `doc_coverage_analysis`, `test_scaffold`, `plan_synthesis`, `stack_recommendation` | All 10 artifacts produced, deterministic |
-| **PR4** | Policy gate, `pr_writer` (fork-aware), CI finalization, full-pipeline command | Ungated writes impossible; all agents work in sequence |
+| **PR0** | Constitution, fixture (with Foundry config), profile, all schemas, artifacts contract, 2-agent spec, failing harness, README | Spec suite exists, contracts defined |
+| **PR1** | 2-Agent foundation (base, orchestrator), Planning Agent + workflow (with interactive Q&A), `repo_snapshot` (fork-aware), `dsl_parser_registry`, all analysis skills, CLI with 2-command dispatch, BYOM config | Planning Agent produces ALL plan artifacts using Foundry model |
+| **PR2** | Planning Agent interactive skills: `stack_fingerprint`, `migration_evaluator`, `user_dialog`, `stack_recommendation`, `plan_synthesis` | Planning Agent asks clarifying questions and produces ModernizationPlan |
+| **PR3** | Implementation Agent + workflow, code change skills: `code_refactor`, `migration_executor`, `dependency_upgrader`, `test_writer`, `test_scaffold`, `pr_writer` | Implementation Agent executes approved plan with code changes |
+| **PR4** | Policy gate, approval workflow, CI finalization, full-pipeline command | Ungated changes impossible; both agents work in sequence |
 | **PR5** | Foundry hosting (Dockerfile, ACR push, hosted agent deploy), Foundry evaluation workflow, Bicep infrastructure, `azure.yaml` | Agent deployed to Foundry, evaluation passes |
 
 ---
@@ -1400,15 +1415,15 @@ Jurassic-refactor/
 ### Definition of Done (Layer 1)
 
 Layer 1 is complete when:
-- **Multi-agent architecture** is implemented with 3 specialized agents (Planning, Implementation, Stack Evaluation)
+- **2-Agent architecture** is implemented with Planning Agent and Implementation Agent
 - **Agent isolation** is enforced (each agent has separate context, no cross-agent memory bleed)
 - All Layer 1 specs exist and are enforced by CI
 - Fork-first workflow is documented and enforced (CLI requires `--fork-owner`)
-- **Planning Agent**: `analyze` on pinned ODrive SHA produces 5 artifacts (Manifest, RunLog, DependencyGraph, RiskAssessment, DocCoverage)
-- **Implementation Agent**: `implement` produces 2 artifacts (ModernizationPlan, TestScaffold)
-- **Stack Evaluation Agent**: `evaluate-stack` produces 3 artifacts (StackAnalysis, MigrationOptions, UserDecisions)
-- **Full Pipeline**: `full-pipeline` produces all **10 artifacts**
-- **User Dialog**: Stack Evaluation Agent asks clarifying questions before making recommendations
+- **Planning Agent**: `plan` on pinned ODrive SHA produces ALL plan artifacts (Manifest, RunLog, DependencyGraph, RiskAssessment, DocCoverage, StackAnalysis, MigrationOptions, UserDecisions, ModernizationPlan)
+- **Planning Agent Interactive**: Asks clarifying questions and captures user responses before making recommendations
+- **Implementation Agent**: `implement` executes approved plan with full code changes (refactoring, dependency upgrades, test generation, PRs)
+- **Full Pipeline**: `full-pipeline` produces all artifacts + code changes
+- **User Dialog**: Planning Agent asks clarifying questions during interactive Q&A mode
 - Artifacts are schema-valid and deterministic
 - RunLog provides tool-by-tool traceability for **audit/governance compliance**
 - Safety-critical code paths are identified and flagged in RiskAssessment
@@ -1416,7 +1431,7 @@ Layer 1 is complete when:
 - Documentation gaps are identified with coverage percentages
 - Stack fingerprint correctly identifies technology inventory
 - Migration options are ranked with trade-offs based on user input
-- PR generation is human-gated, fork-only, and limited to safe changes (tests/docs/config)
+- Code changes are delivered as incremental, reviewable PRs
 - **Foundry integration complete**:
   - BYOM configured with `DefaultAzureCredential`
   - Model deployed to Foundry with appropriate quota
@@ -1434,4 +1449,4 @@ Layer 1 is complete when:
   - Container Apps uses Managed Identity
   - No API keys or secrets in code
   - RBAC roles documented and assigned
-- **Code Implementation Agent ready**: human-approved artifacts trigger code assistant for migration execution
+- **Implementation Agent ready**: Executes approved modernization plans with full code changes
