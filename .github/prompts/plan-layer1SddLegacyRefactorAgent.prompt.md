@@ -1,6 +1,6 @@
 ## Revised Plan: Layer 1 SDD - Modernization Intelligence Layer (Copilot SDK + Microsoft Foundry)
 
-**TL;DR:** Build a **Modernization Intelligence Layer** using the **GitHub Copilot SDK** (`@github/copilot-sdk`) for agent orchestration and **Microsoft Foundry (Azure AI Foundry)** for production hosting, model deployment, and evaluation. Artifacts are persisted to **Microsoft Fabric** for analytics and data intelligence, run metadata to **Cosmos DB**, and telemetry to **Application Insights**—all using **passwordless authentication** via `DefaultAzureCredential`. The system uses **four specialized agents** (Planning Agent + Implementation Agent + Stack Evaluation Agent + **Code Implementation Agent**) with separated duties and isolated context, hosted on Foundry with enterprise-grade model management. The first three agents produce intelligence artifacts; the **Code Implementation Agent** acts as a **code assistant** that implements the approved migration plan once artifacts are human-approved. **Fork-first workflow**: users fork the target repo and provide their GitHub username at runtime.
+**TL;DR:** Build a **Modernization Intelligence Layer** using the **GitHub Copilot SDK** (`@github/copilot-sdk`) for agent orchestration and **Microsoft Foundry (Azure AI Foundry)** for production hosting, model deployment, and evaluation. Artifacts are persisted to **Microsoft Fabric** for analytics and data intelligence, run metadata to **Cosmos DB**, and telemetry to **Application Insights**—all using **passwordless authentication** via `DefaultAzureCredential`. The system uses **four specialized agents** (Planning Agent + Implementation Agent + Stack Evaluation Agent + **Code Implementation Agent**) with separated duties and isolated context, hosted on Foundry with enterprise-grade model management. The first three agents produce intelligence artifacts; the **Code Implementation Agent** acts as a **code assistant** that implements the approved migration plan once artifacts are human-approved. **Fork-first workflow**: user forks the target repo, then **provides their fork location** (prompted or via `--fork-owner`); **all analysis happens on the fork**, never upstream.
 
 ---
 
@@ -523,19 +523,45 @@ jobs:
 
 ### Fork-First Workflow
 
-All work targets a **user-owned fork** of the upstream repository. This ensures:
-- No accidental writes to upstream
+**All analysis and operations happen on the user's forked repository**, never on upstream. This ensures:
+- User is authenticated to their own repository (standard GitHub auth)
+- No accidental reads/writes to upstream
 - Proper OSS contribution flow
 - Each user controls their own GitHub resources
 
+#### User Setup Flow
+
+1. **User forks** the target repo on GitHub (e.g., forks `odriverobotics/ODrive` to `<username>/ODrive`)
+2. **Agent prompts user** for their fork location at startup:
+   ```
+   Enter your forked repository (owner/repo): myusername/ODrive
+   ```
+   Or provide via CLI flag/env var:
+   - `--fork-owner <username>` or `--repo <owner/repo>`
+   - `GITHUB_FORK_OWNER` env var
+3. **All operations target the fork** – file reads, analysis, branch creation, PRs
+
 | Aspect | Value |
 |--------|-------|
-| **Upstream repo** | Read-only reference (e.g., `odriverobotics/ODrive`) |
+| **Analysis target** | User's fork (`<username>/<RepoName>`) – NOT upstream |
+| **Upstream repo** | Referenced only for documentation (e.g., `odriverobotics/ODrive`) |
 | **Fork repo** | User's fork (e.g., `<username>/ODrive`) |
 | **Fork owner** | Runtime parameter: `--fork-owner` or `GITHUB_FORK_OWNER` env var |
 | **Fork URL** | Computed: `https://github.com/${forkOwner}/${repoName}` |
+| **Authentication** | User's GitHub token authenticates to their fork |
 
 **User prerequisite:** Fork the target repo before running the agent.
+
+#### Interactive Prompt (if not provided via CLI)
+
+```typescript
+// On agent startup, if fork location not provided:
+const forkRepo = await promptUser({
+  message: 'Enter your forked repository (owner/repo):',
+  validate: (input) => /^[\w-]+\/[\w.-]+$/.test(input) || 'Format: owner/repo',
+  examples: ['myusername/ODrive', 'contoso/legacy-app']
+});
+```
 
 ---
 
@@ -732,13 +758,20 @@ npx jurassic full-pipeline --fork-owner alice --repo specs/repos/odrive.fixture.
    ```markdown
    ## Prerequisites
    
-   ### GitHub Setup
-   1. Fork the target repo to your GitHub account
-   2. Set `GITHUB_FORK_OWNER` env var or pass `--fork-owner <your-username>`
+   ### GitHub Setup (Fork the target repo first!)
+   1. **Fork the target repo** to your GitHub account on GitHub.com
+   2. The agent will prompt you for your fork location at startup:
+      ```
+      Enter your forked repository (owner/repo): myusername/ODrive
+      ```
+   3. Or set `GITHUB_FORK_OWNER` env var / pass `--fork-owner <your-username>` to skip prompt
+   
+   > **Important:** All analysis happens on YOUR FORK, not the upstream repo.
+   > You must have push access to the fork for the agent to create branches/PRs.
    
    ### Azure AI Setup
-   3. Create Azure AI Foundry project and deploy GPT-4o model
-   4. Set `AZURE_AI_PROJECT_ENDPOINT` env var
+   4. Create Azure AI Foundry project and deploy GPT-4o model
+   5. Set `AZURE_AI_PROJECT_ENDPOINT` env var
    
    ### Microsoft Fabric Setup
    5. Create Microsoft Fabric workspace with Lakehouse (or use `azd up`)
@@ -963,10 +996,16 @@ Each skill is a function registered with the Copilot SDK:
     - Writes artifacts to `artifacts/<runId>/implementation/`
 
 42. **Create CLI wrapper** at `apps/cli/src/index.ts`:
-    - Multi-command dispatcher (analyze, evaluate-stack, implement, full-pipeline)
-    - **Parses `--fork-owner`**, validates required, computes fork URL
+    - Multi-command dispatcher (analyze, evaluate-stack, implement, execute-migration, full-pipeline)
+    - **Prompts user for fork location** if not provided via CLI/env:
+      ```
+      Enter your forked repository (owner/repo): myusername/ODrive
+      ```
+    - **Parses `--fork-owner` or `--repo`**, validates format, computes fork URL
+    - All operations target the user's fork (analysis, branch creation, PRs)
     - Routes to appropriate agent via orchestrator
     - Handles `--interactive` flag for Stack Evaluation Agent
+    - Handles `--plan-approved` flag for Code Implementation Agent
 
 43. **Add e2e tests** – run twice on baseline SHA, assert determinism for each agent.
 
