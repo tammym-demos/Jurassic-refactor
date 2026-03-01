@@ -54,6 +54,9 @@ importers:
       '@jurassic/schemas':
         specifier: workspace:*
         version: link:../schemas
+      '@jurassic/skills':
+        specifier: workspace:*
+        version: link:../skills
     devDependencies:
       typescript:
         specifier: ^5.4.0
