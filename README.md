@@ -28,18 +28,23 @@ This system uses two specialized agents:
 4. Create Azure AI Foundry project and deploy GPT-4o model
 5. Set `AZURE_AI_PROJECT_ENDPOINT` env var
 
-### Microsoft Fabric Setup
-
-6. Create Microsoft Fabric workspace with Lakehouse (or use `azd up`)
-7. Set `FABRIC_WORKSPACE_ID` env var
-8. Set `FABRIC_LAKEHOUSE_ID` env var
-
 ### Azure Data Services Setup
 
-9. Create Cosmos DB account (or use `azd up` to provision)
-10. Set `AZURE_COSMOS_ENDPOINT` env var
-11. Create Application Insights (or use `azd up` to provision)
-12. Set `APPLICATIONINSIGHTS_CONNECTION_STRING` env var
+9. Application Insights is provisioned via Bicep (see Infrastructure below)
+10. Set `APPLICATIONINSIGHTS_CONNECTION_STRING` env var
+
+### Data Storage
+
+By default, the agent uses **local storage** (JSON files / SQLite) for run metadata — no cloud database required.
+
+To use **Microsoft Fabric** for persistent storage instead, set:
+```bash
+JURASSIC_STORAGE_PROVIDER=fabric   # Options: local (default), fabric
+FABRIC_WORKSPACE_ID=<your-workspace-id>
+FABRIC_LAKEHOUSE_ID=<your-lakehouse-id>
+```
+
+> **Note:** Cosmos DB support has been removed. Run metadata is stored locally or in Fabric.
 
 ### Authentication
 
@@ -50,8 +55,8 @@ This system uses two specialized agents:
 ### Quick Start (recommended)
 
 ```bash
-azd up  # Provisions Azure resources (Cosmos DB, App Insights, Container Apps)
-# Fabric workspace must be created manually in the Fabric portal
+azd up  # Provisions Azure resources (OpenAI, App Insights, ACR, Container Apps)
+# Fabric workspace must be created manually in the Fabric portal (optional)
 ```
 
 ## Usage
@@ -72,11 +77,29 @@ npx jurassic full-pipeline --fork-owner alice --repo specs/repos/odrive.fixture.
 | Resource | Role |
 |----------|------|
 | AI Foundry Project | `Cognitive Services User` |
-| Microsoft Fabric Workspace | `Contributor` |
-| OneLake (Fabric) | `Storage Blob Data Contributor` |
-| Cosmos DB | `Cosmos DB Built-in Data Contributor` |
+| Microsoft Fabric Workspace | `Contributor` (only if using Fabric storage) |
+| OneLake (Fabric) | `Storage Blob Data Contributor` (only if using Fabric storage) |
 | Application Insights | `Monitoring Metrics Publisher` |
 | Container Registry | `AcrPush` |
+
+## Infrastructure
+
+All Azure resources are defined as Bicep IaC under `infra/`:
+
+| Module | Resource | Notes |
+|--------|----------|-------|
+| `modules/openai.bicep` | Azure OpenAI + GPT-4o | `disableLocalAuth=true` |
+| `modules/app-insights.bicep` | App Insights + Log Analytics | `DisableLocalAuth=true` |
+| `modules/container-registry.bicep` | ACR (Basic) | Managed identity, no admin |
+| `modules/container-app.bicep` | Container App Environment + App | SystemAssigned identity |
+| `modules/cosmos-db.bicep` | Cosmos DB (template only) | Not deployed — deferred |
+
+Deploy with:
+```bash
+az deployment sub create --location eastus2 \
+  --template-file infra/main.bicep \
+  --parameters infra/main.parameters.json
+```
 
 ## Architecture
 
