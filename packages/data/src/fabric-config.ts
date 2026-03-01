@@ -1,4 +1,12 @@
-// Microsoft Fabric OneLake client configuration
-// TODO: Implement in Phase I (see issue #57)
+export interface FabricConfig {
+  workspaceId: string;
+  lakehouseId: string;
+  endpoint: string;
+}
 
-export const fabricConfig = {};
+export function getFabricConfig(): FabricConfig {
+  const workspaceId = process.env.FABRIC_WORKSPACE_ID ?? '';
+  const lakehouseId = process.env.FABRIC_LAKEHOUSE_ID ?? '';
+  const endpoint = process.env.FABRIC_ENDPOINT ?? 'https://onelake.dfs.fabric.microsoft.com';
+  return { workspaceId, lakehouseId, endpoint };
+}
