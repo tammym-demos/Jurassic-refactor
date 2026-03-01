@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jurassic.dev/schemas/ModernizationPlan.schema.json",
+  "title": "Modernization Plan",
+  "description": "Phased migration plan produced after the user selects a migration option, with tasks linked to risk assessments and ordered by dependency.",
+  "type": "object",
+  "required": ["selectedOptionId", "phases"],
+  "properties": {
+    "selectedOptionId": {
+      "type": "string",
+      "description": "Identifier of the chosen MigrationOptions entry.",
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "phases": {
+      "type": "array",
+      "description": "Ordered execution phases of the migration.",
+      "items": {
+        "type": "object",
+        "required": ["phaseNumber", "name", "description", "tasks", "dependencies"],
+        "properties": {
+          "phaseNumber": {
+            "type": "integer",
+            "description": "1-based sequential phase number.",
+            "minimum": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Short name for this phase (e.g. 'Scaffold build system')."
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of what this phase accomplishes."
+          },
+          "tasks": {
+            "type": "array",
+            "description": "Individual work items within this phase.",
+            "items": {
+              "type": "object",
+              "required": ["taskId", "description", "estimatedEffort"],
+              "properties": {
+                "taskId": {
+                  "type": "string",
+                  "description": "Unique task identifier, referenced by ImplementationLog entries.",
+                  "pattern": "^[a-zA-Z0-9_-]+$"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "What this task involves."
+                },
+                "riskId": {
+                  "type": "string",
+                  "description": "Reference to a RiskAssessment item filePath that this task relates to."
+                },
+                "estimatedEffort": {
+                  "type": "string",
+                  "description": "T-shirt size estimate of effort required.",
+                  "enum": ["low", "medium", "high"]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "dependencies": {
+            "type": "array",
+            "description": "Phase numbers that must complete before this phase can start.",
+            "items": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jurassic.dev/schemas/ImplementationLog.schema.json",
+  "title": "Implementation Log",
+  "description": "Log of code changes performed by the implementation agent, linking each change back to a ModernizationPlan task.",
+  "type": "object",
+  "required": ["entries"],
+  "properties": {
+    "entries": {
+      "type": "array",
+      "description": "Individual code change entries.",
+      "items": {
+        "type": "object",
+        "required": ["taskId", "filePath", "changeType", "description", "status"],
+        "properties": {
+          "taskId": {
+            "type": "string",
+            "description": "Reference to the ModernizationPlan task that triggered this change.",
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          },
+          "filePath": {
+            "type": "string",
+            "description": "Repository-relative path of the affected file."
+          },
+          "changeType": {
+            "type": "string",
+            "description": "Kind of file operation performed.",
+            "enum": ["create", "modify", "delete"]
+          },
+          "description": {
+            "type": "string",
+            "description": "Human-readable summary of the change."
+          },
+          "prUrl": {
+            "type": "string",
+            "description": "URL of the pull request containing this change, if applicable.",
+            "format": "uri"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current status of this change.",
+            "enum": ["pending", "completed", "failed"]
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

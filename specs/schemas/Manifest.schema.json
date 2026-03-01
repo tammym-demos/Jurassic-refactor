@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jurassic.dev/schemas/Manifest.schema.json",
+  "title": "Run Manifest",
+  "description": "Top-level manifest for a jurassic-refactor analysis or implementation run, tracking agent invocation metadata and output artifact paths.",
+  "type": "object",
+  "required": ["runId", "repoUrl", "profilePath", "startedAt", "agent", "status", "artifactPaths"],
+  "properties": {
+    "runId": {
+      "type": "string",
+      "description": "Unique identifier for this run.",
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "repoUrl": {
+      "type": "string",
+      "description": "URL of the upstream repository being analyzed.",
+      "format": "uri"
+    },
+    "forkUrl": {
+      "type": "string",
+      "description": "URL of the fork where implementation changes are pushed.",
+      "format": "uri"
+    },
+    "profilePath": {
+      "type": "string",
+      "description": "Relative path to the repository profile JSON file (e.g. specs/repos/odrive.profile.json)."
+    },
+    "startedAt": {
+      "type": "string",
+      "description": "ISO-8601 timestamp when the run started.",
+      "format": "date-time"
+    },
+    "completedAt": {
+      "type": "string",
+      "description": "ISO-8601 timestamp when the run completed.",
+      "format": "date-time"
+    },
+    "agent": {
+      "type": "string",
+      "description": "Which agent performed this run.",
+      "enum": ["planning", "implementation"]
+    },
+    "status": {
+      "type": "string",
+      "description": "Overall status of the run.",
+      "enum": ["running", "completed", "failed", "cancelled"]
+    },
+    "artifactPaths": {
+      "type": "array",
+      "description": "Relative paths to the artifacts produced by this run.",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}

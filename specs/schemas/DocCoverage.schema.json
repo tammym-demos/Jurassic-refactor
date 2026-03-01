@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jurassic.dev/schemas/DocCoverage.schema.json",
+  "title": "Documentation Coverage",
+  "description": "Documentation coverage analysis identifying gaps (missing READMEs, undocumented APIs, stale comments) and providing stub templates to fill them.",
+  "type": "object",
+  "required": ["overallPercentage", "gaps", "stubs"],
+  "properties": {
+    "overallPercentage": {
+      "type": "number",
+      "description": "Overall documentation coverage as a percentage (0-100).",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "gaps": {
+      "type": "array",
+      "description": "Identified documentation gaps.",
+      "items": {
+        "type": "object",
+        "required": ["filePath", "type", "description"],
+        "properties": {
+          "filePath": {
+            "type": "string",
+            "description": "Repository-relative path of the file or directory with the gap."
+          },
+          "type": {
+            "type": "string",
+            "description": "Category of documentation gap.",
+            "enum": ["missing-readme", "undocumented-api", "stale-comment"]
+          },
+          "description": {
+            "type": "string",
+            "description": "Human-readable description of the gap."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "stubs": {
+      "type": "array",
+      "description": "Pre-generated documentation stubs to fill identified gaps.",
+      "items": {
+        "type": "object",
+        "required": ["filePath", "template"],
+        "properties": {
+          "filePath": {
+            "type": "string",
+            "description": "Target path where the stub should be written."
+          },
+          "template": {
+            "type": "string",
+            "description": "Template content for the documentation stub."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

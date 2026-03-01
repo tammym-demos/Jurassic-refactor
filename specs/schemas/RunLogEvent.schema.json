@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jurassic.dev/schemas/RunLogEvent.schema.json",
+  "title": "Run Log Event",
+  "description": "A single structured log event emitted by a skill during a planning or implementation run.",
+  "type": "object",
+  "required": ["timestamp", "skill", "inputs", "outputs", "durationMs", "status"],
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "description": "ISO-8601 timestamp when the event occurred.",
+      "format": "date-time"
+    },
+    "skill": {
+      "type": "string",
+      "description": "Name of the skill that produced this event (e.g. analyzeStack, assessRisk)."
+    },
+    "inputs": {
+      "type": "object",
+      "description": "Arbitrary key-value inputs passed to the skill.",
+      "additionalProperties": true
+    },
+    "outputs": {
+      "type": "object",
+      "description": "Arbitrary key-value outputs produced by the skill.",
+      "additionalProperties": true
+    },
+    "durationMs": {
+      "type": "integer",
+      "description": "Wall-clock duration of the skill invocation in milliseconds.",
+      "minimum": 0
+    },
+    "status": {
+      "type": "string",
+      "description": "Outcome of the skill invocation.",
+      "enum": ["success", "error"]
+    },
+    "error": {
+      "type": "object",
+      "description": "Error details when status is 'error'.",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Machine-readable error code."
+        },
+        "message": {
+          "type": "string",
+          "description": "Human-readable error message."
+        },
+        "stack": {
+          "type": "string",
+          "description": "Optional stack trace."
+        }
+      },
+      "required": ["message"]
+    }
+  },
+  "additionalProperties": false
+}

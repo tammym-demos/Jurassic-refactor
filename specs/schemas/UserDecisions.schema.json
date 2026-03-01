@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jurassic.dev/schemas/UserDecisions.schema.json",
+  "title": "User Decisions",
+  "description": "Captured user responses to planning-agent questions covering business drivers, constraints, expertise, timeline, and budget.",
+  "type": "object",
+  "required": ["decisions"],
+  "properties": {
+    "decisions": {
+      "type": "array",
+      "description": "Ordered list of user decisions.",
+      "items": {
+        "type": "object",
+        "required": ["questionId", "category", "questionText", "responseType", "response", "timestamp"],
+        "properties": {
+          "questionId": {
+            "type": "string",
+            "description": "Unique identifier for the question.",
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          },
+          "category": {
+            "type": "string",
+            "description": "Topic category of the question.",
+            "enum": ["business-drivers", "constraints", "expertise", "timeline", "budget"]
+          },
+          "questionText": {
+            "type": "string",
+            "description": "The question presented to the user."
+          },
+          "responseType": {
+            "type": "string",
+            "description": "Expected response format.",
+            "enum": ["multi-choice", "scale", "free-text"]
+          },
+          "response": {
+            "description": "The user's response. Type varies by responseType: string for free-text, number for scale, string or array for multi-choice.",
+            "oneOf": [
+              { "type": "string" },
+              { "type": "number" },
+              {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            ]
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "ISO-8601 timestamp when the response was recorded.",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

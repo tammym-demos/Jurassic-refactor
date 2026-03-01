@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jurassic.dev/schemas/StackAnalysis.schema.json",
+  "title": "Stack Analysis",
+  "description": "Technology inventory of a repository: languages, frameworks, build tools, package managers, and runtime dependencies detected across all domains.",
+  "type": "object",
+  "required": ["languages", "frameworks", "buildTools", "packageManagers", "runtimeDependencies"],
+  "properties": {
+    "languages": {
+      "type": "array",
+      "description": "Programming languages detected in the repository.",
+      "items": {
+        "type": "object",
+        "required": ["name", "percentage", "files"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Language name (e.g. C, C++, Python, JavaScript, Vue)."
+          },
+          "percentage": {
+            "type": "number",
+            "description": "Percentage of total codebase by lines of code.",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "files": {
+            "type": "integer",
+            "description": "Number of source files in this language.",
+            "minimum": 0
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "frameworks": {
+      "type": "array",
+      "description": "Frameworks and libraries detected (e.g. Vue.js, HAL, FreeRTOS).",
+      "items": {
+        "type": "object",
+        "required": ["name", "version", "confidence"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Framework or library name."
+          },
+          "version": {
+            "type": "string",
+            "description": "Detected version string, or 'unknown' if not determinable."
+          },
+          "confidence": {
+            "type": "number",
+            "description": "Detection confidence score.",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "buildTools": {
+      "type": "array",
+      "description": "Build systems detected (e.g. Make, CMake, Tup, Webpack).",
+      "items": {
+        "type": "object",
+        "required": ["name", "version"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Build tool name."
+          },
+          "version": {
+            "type": "string",
+            "description": "Detected version string, or 'unknown'."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "packageManagers": {
+      "type": "array",
+      "description": "Package managers detected (e.g. pip, npm, apt).",
+      "items": {
+        "type": "object",
+        "required": ["name", "version"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Package manager name."
+          },
+          "version": {
+            "type": "string",
+            "description": "Detected version string, or 'unknown'."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "runtimeDependencies": {
+      "type": "array",
+      "description": "Runtime dependencies resolved from manifests (requirements.txt, package.json, etc.).",
+      "items": {
+        "type": "object",
+        "required": ["name", "version"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Dependency package name."
+          },
+          "version": {
+            "type": "string",
+            "description": "Version specifier (e.g. ^2.6.0, >=3.8, 1.0.0)."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

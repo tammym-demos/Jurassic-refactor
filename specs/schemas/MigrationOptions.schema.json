@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://jurassic.dev/schemas/MigrationOptions.schema.json",
+  "title": "Migration Options",
+  "description": "Candidate migration paths for modernizing a legacy codebase, each scored across effort, risk, ecosystem support, and team expertise dimensions.",
+  "type": "object",
+  "required": ["options"],
+  "properties": {
+    "options": {
+      "type": "array",
+      "description": "Available migration strategies.",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "description", "fromStack", "toStack", "scores", "prerequisites"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for this migration option.",
+            "pattern": "^[a-zA-Z0-9_-]+$"
+          },
+          "name": {
+            "type": "string",
+            "description": "Short human-readable name (e.g. 'Migrate GUI to React')."
+          },
+          "description": {
+            "type": "string",
+            "description": "Detailed description of the migration strategy."
+          },
+          "fromStack": {
+            "type": "string",
+            "description": "Current technology or stack being migrated from (e.g. Vue 2, raw Makefiles)."
+          },
+          "toStack": {
+            "type": "string",
+            "description": "Target technology or stack being migrated to (e.g. React 18, CMake)."
+          },
+          "scores": {
+            "type": "object",
+            "description": "Multi-dimensional scoring of this migration option.",
+            "required": ["effort", "risk", "ecosystemSupport", "teamExpertise"],
+            "properties": {
+              "effort": {
+                "type": "number",
+                "description": "Estimated effort (0 = trivial, 1 = massive).",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "risk": {
+                "type": "number",
+                "description": "Migration risk (0 = safe, 1 = very risky).",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "ecosystemSupport": {
+                "type": "number",
+                "description": "Maturity and community support of the target stack (0 = poor, 1 = excellent).",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "teamExpertise": {
+                "type": "number",
+                "description": "Team familiarity with the target stack (0 = none, 1 = expert).",
+                "minimum": 0,
+                "maximum": 1
+              }
+            },
+            "additionalProperties": false
+          },
+          "prerequisites": {
+            "type": "array",
+            "description": "Conditions that must be met before this migration can begin.",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
