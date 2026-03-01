@@ -51,6 +51,9 @@ importers:
       '@github/copilot-sdk':
         specifier: ^0.1.29
         version: 0.1.29
+      '@jurassic/schemas':
+        specifier: workspace:*
+        version: link:../schemas
     devDependencies:
       typescript:
         specifier: ^5.4.0
