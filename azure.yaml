@@ -1,8 +1,27 @@
+# Azure Developer CLI (azd) configuration for Jurassic Modernization Agent
+# Deploys a containerized CLI agent to Azure Container Apps with
+# Azure OpenAI, Application Insights, and ACR infrastructure (Bicep).
+
 name: jurassic-modernization-agent
+
 services:
   agent:
     project: ./apps/cli
     language: ts
     host: containerapp
+
 infra:
   provider: bicep
+  path: infra
+
+hooks:
+  preprovision:
+    shell: sh
+    run: pnpm install && pnpm build
+  postprovision:
+    shell: sh
+    run: echo "Provisioning complete – verify RBAC role assignments if needed."
+
+env:
+  JURASSIC_STORAGE_PROVIDER: local
+  AZURE_SUBSCRIPTION_ID: ${AZURE_SUBSCRIPTION_ID}
