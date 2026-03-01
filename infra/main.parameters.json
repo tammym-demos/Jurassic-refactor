@@ -7,6 +7,11 @@
     "openAIAccountName": { "value": "jurassic-ai-zsaoi" },
     "gpt4oDeploymentName": { "value": "gpt-4o" },
     "gpt4oModelVersion": { "value": "2024-11-20" },
-    "gpt4oCapacity": { "value": 10 }
+    "gpt4oCapacity": { "value": 10 },
+    "appInsightsName": { "value": "jurassic-appinsights" },
+    "logAnalyticsName": { "value": "jurassic-logs" },
+    "acrName": { "value": "jurassicacrzsaoi" },
+    "containerAppName": { "value": "jurassic-agent" },
+    "containerEnvName": { "value": "jurassic-env" }
   }
 }

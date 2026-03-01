@@ -1,9 +1,7 @@
 name: CI
 
 on:
-  push:
-    branches: [main]
-  pull_request:
+  workflow_dispatch: # Manual trigger only — GitHub-hosted runners disabled at enterprise
 
 permissions:
   id-token: write
