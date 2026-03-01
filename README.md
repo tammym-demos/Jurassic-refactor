@@ -34,6 +34,110 @@ Jurassic Refactor targets complex, aging repositories (C/C++ firmware, Python to
   ModernizationPlan, ...                                    and TestScaffold
 ```
 
+## User Workflow
+
+The human is always in control. The software performs heavy analysis autonomously, but the user approves every plan before any code is changed and reviews each PR before merging.
+
+### Step 1 — Fork the legacy repo
+
+Fork the target codebase (e.g., an aging C/C++ firmware project) to your own GitHub account. Jurassic never touches the upstream repository.
+
+### Step 2 — Run the Planning Agent
+
+```bash
+npx jurassic plan --fork-owner alice --interactive
+```
+
+The agent clones your fork and silently analyzes it — building dependency graphs, detecting circular includes (Tarjan's SCC), scoring risk per file, and fingerprinting the tech stack. In `--interactive` mode it asks clarifying questions:
+
+> *"The firmware uses bare-metal C with no RTOS. Should we target FreeRTOS or Zephyr for the migration?"*
+
+Your answers are captured in the `UserDecisions` artifact and feed directly into the plan.
+
+### Step 3 — Review the artifacts
+
+The Planning Agent writes 9 JSON artifacts to `artifacts/<runId>/planning/`:
+
+| Artifact | What to look for |
+|----------|-----------------|
+| `ModernizationPlan.json` | Phased migration roadmap — check task order and scope |
+| `RiskAssessment.json` | Per-file risk scores — verify high-risk files get extra tests |
+| `DependencyGraph.json` | Include/import graph — confirm no missed dependencies |
+| `MigrationOptions.json` | Candidate approaches — review trade-offs |
+
+All artifacts are schema-validated JSON, so they can be diffed, versioned, or fed into downstream tooling.
+
+### Step 4 — Approve the plan
+
+```bash
+# Option A: explicit approval marker
+touch artifacts/<runId>/planning/APPROVED
+
+# Option B: pass the flag directly
+npx jurassic implement --plan-approved ...
+```
+
+Without approval, the Implementation Agent refuses to start.
+
+### Step 5 — Run the Implementation Agent
+
+```bash
+npx jurassic implement --fork-owner alice --plan-approved
+```
+
+The agent reads the approved plan and executes it — refactoring code, upgrading dependencies, generating test scaffolds, and creating incremental PRs on your fork.
+
+### Step 6 — Review and merge PRs
+
+Each migration task produces a small, focused PR on your fork. Review the diff, run CI, and merge at your own pace. The `ImplementationLog` artifact tracks which plan tasks mapped to which PRs.
+
+### Single-command alternative
+
+```bash
+npx jurassic full-pipeline --fork-owner alice --interactive
+```
+
+Runs plan → pauses for approval → then implements, all in one session.
+
+## Technology Stack
+
+### GitHub Copilot SDK
+
+The [`@github/copilot-sdk`](https://github.com/github/copilot-sdk) (`^0.1.29`) provides the **agent runtime** that hosts both agents. Its role:
+
+| Capability | How Jurassic uses it |
+|------------|---------------------|
+| **Agent orchestration** | The SDK's agent runtime manages agent lifecycle, context windows, and tool dispatch |
+| **Tool registration** | Each skill (repo_snapshot, fw_include_graph, etc.) is registered as a tool the LLM can invoke |
+| **Interactive Q&A** | The SDK's conversational loop enables the Planning Agent to ask clarifying questions mid-analysis |
+| **Structured output** | Enforces schema-validated artifact generation via the 12 JSON schemas in `packages/schemas` |
+
+> **Current status**: The SDK is installed and the skill/schema infrastructure is built, but the agents currently orchestrate skills in a deterministic sequence. Full LLM-driven tool selection (where the model decides which skills to invoke) is planned for Phase D once all skills are implemented.
+
+### Azure AI Foundry
+
+[Azure AI Foundry](https://learn.microsoft.com/azure/ai-studio/) provides **model hosting and agent evaluation** in production:
+
+| Capability | How Jurassic uses it |
+|------------|---------------------|
+| **BYOM model deployment** | GPT-4o (or user-supplied models) deployed with enterprise quotas and RBAC — configured in `packages/foundry/src/model-config.ts` |
+| **Container hosting** | Agents run as containerized services on Azure Container Apps, deployed via the `infra/Dockerfile` and Foundry hosting workflows |
+| **Evaluation pipelines** | `EvaluationReport` artifacts track agent quality metrics and regression detection across runs — spec'd in `specs/functional/foundry-evaluation.md` |
+| **Passwordless auth** | All Foundry endpoints use `DefaultAzureCredential` with `disableLocalAuth: true` — zero API keys |
+
+### Microsoft Fabric & OneLake
+
+[Microsoft Fabric](https://learn.microsoft.com/fabric/) provides **analytics-ready artifact persistence** as an optional storage backend:
+
+| Capability | How Jurassic uses it |
+|------------|---------------------|
+| **Artifact storage** | JSON artifacts (dependency graphs, plans, implementation logs) can be stored in OneLake for cross-run analytics and auditing |
+| **Dual-mode storage** | `packages/data/src/artifact-store.ts` supports local filesystem (default) or Fabric OneLake — controlled by `JURASSIC_STORAGE_PROVIDER` env var |
+| **OneLake DFS endpoint** | Configured in `packages/data/src/fabric-config.ts` via `FABRIC_WORKSPACE_ID` and `FABRIC_LAKEHOUSE_ID` |
+| **RBAC access** | Requires `Storage Blob Data Contributor` on the OneLake endpoint and `Contributor` on the Fabric workspace |
+
+> **Note**: Fabric is optional. By default, all data is stored locally as JSON files. Enable Fabric when you need persistent cross-run analytics or team-wide artifact sharing.
+
 ## Monorepo Structure
 
 ```
