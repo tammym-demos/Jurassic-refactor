@@ -2,5 +2,5 @@
 // TODO: Implement in Phase I (see issue #56)
 
 export async function getModelToken(): Promise<string> {
-  throw new Error('Not implemented');
+  throw new Error("Not implemented");
 }

@@ -3,5 +3,5 @@
 
 export abstract class BaseAgent {
   abstract readonly name: string;
-  abstract readonly mode: 'read-only' | 'read-write';
+  abstract readonly mode: "read-only" | "read-write";
 }
