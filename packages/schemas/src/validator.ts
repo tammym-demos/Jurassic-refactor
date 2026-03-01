@@ -27,7 +27,8 @@ export type ArtifactName =
   | "UserDecisions"
   | "ModernizationPlan"
   | "ImplementationLog"
-  | "TestScaffold";
+  | "TestScaffold"
+  | "EvaluationReport";
 
 export interface ValidationResult {
   valid: boolean;

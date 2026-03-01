@@ -2,9 +2,9 @@ import { describe, it, expect } from "vitest";
 import { validateArtifact, validateArtifactSafe, getSchemaNames } from "../validator.js";
 
 describe("getSchemaNames", () => {
-  it("loads all 11 schemas", () => {
+  it("loads all 12 schemas", () => {
     const names = getSchemaNames();
-    expect(names).toHaveLength(11);
+    expect(names).toHaveLength(12);
     expect(names).toContain("Manifest");
     expect(names).toContain("RiskAssessment");
     expect(names).toContain("TestScaffold");

@@ -5,6 +5,10 @@
   "description": "2-Agent system: Planning Agent (read-only, interactive) + Implementation Agent (full code changes)",
   "type": "module",
   "main": "dist/index.js",
+  "exports": {
+    "./orchestrator.js": "./dist/orchestrator.js",
+    "./base.js": "./dist/base.js"
+  },
   "scripts": {
     "build": "tsc",
     "test": "vitest run",

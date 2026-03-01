@@ -47,14 +47,16 @@ describe("Orchestrator", () => {
   });
 
   it("allows 'implement' with planApproved flag", async () => {
+    // Run planning first to produce required artifacts
+    await orchestrator.execute({ command: "plan", context });
+
     const result = await orchestrator.execute({
       command: "implement",
       context,
       planApproved: true,
     });
-    // Implementation Agent not yet built, so it fails gracefully
-    expect(result.status).toBe("failed");
-    expect(result.error).toContain("not yet implemented");
+    expect(result.status).toBe("completed");
+    expect(result.command).toBe("implement");
   });
 
   it("full-pipeline stops at approval gate", async () => {
@@ -72,9 +74,7 @@ describe("Orchestrator", () => {
       context,
       planApproved: true,
     });
-    // Plan succeeds, but Implementation Agent is not yet built
-    expect(result.status).toBe("failed");
-    expect(result.error).toContain("not yet implemented");
+    expect(result.status).toBe("completed");
     expect(result.artifactPaths.length).toBeGreaterThan(0);
   });
 });

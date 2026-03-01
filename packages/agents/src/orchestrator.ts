@@ -2,6 +2,7 @@
 
 import { type AgentContext } from "./base.js";
 import { PlanningAgent, type PlanningAgentOptions } from "./planning/index.js";
+import { ImplementationAgent } from "./implementation/index.js";
 import { existsSync, readFileSync } from "fs";
 import { join } from "path";
 
@@ -117,14 +118,23 @@ export class Orchestrator {
       }
     }
 
-    // Implementation Agent not yet implemented (issue #20)
-    // For now, return a placeholder result
-    return {
-      command: "implement",
-      status: "failed",
-      artifactPaths: [],
-      error: "Implementation Agent not yet implemented (see issue #20)",
-    };
+    const agent = new ImplementationAgent();
+    try {
+      await agent.initialize(context);
+      await agent.run();
+      return {
+        command: "implement",
+        status: "completed",
+        artifactPaths: this.listArtifacts(context, "implementation"),
+      };
+    } catch (error) {
+      return {
+        command: "implement",
+        status: "failed",
+        artifactPaths: this.listArtifacts(context, "implementation"),
+        error: error instanceof Error ? error.message : String(error),
+      };
+    }
   }
 
   /**
