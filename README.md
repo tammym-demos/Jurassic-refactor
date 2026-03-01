@@ -1,13 +1,68 @@
 # Jurassic Modernization Agent
 
-**Modernization Intelligence Layer** — A 2-agent system for legacy codebase analysis and migration using GitHub Copilot SDK and Microsoft Azure AI Foundry.
+**Modernization Intelligence Layer** — A 2-agent system that automates legacy codebase modernization using GitHub Copilot SDK and Microsoft Azure AI Foundry.
 
 ## Overview
 
-This system uses two specialized agents:
+Jurassic Refactor targets complex, aging repositories (C/C++ firmware, Python tooling, Vue.js GUIs) and produces a structured migration plan followed by automated code changes — all validated through JSON schemas and gated by human approval.
 
-- **Planning Agent** (read-only, interactive): Analyzes any codebase, evaluates the technology stack, asks clarifying questions, and produces intelligence artifacts with migration recommendations.
-- **Implementation Agent** (full code changes): Executes the approved migration plan by making actual code changes, creating incremental PRs for human review.
+### Two-Agent Architecture
+
+| Agent | Mode | Responsibility |
+|-------|------|---------------|
+| **Planning Agent** | Read-only | Analyzes the codebase, builds dependency graphs, detects include cycles (Tarjan's SCC), scores risk per file, fingerprints the tech stack, and generates a phased modernization plan |
+| **Implementation Agent** | Read-write (after approval) | Executes the approved plan — refactoring code, upgrading dependencies, writing tests, and creating incremental PRs on the user's fork |
+
+### Key Design Principles
+
+- **Artifact-driven**: Agents never communicate directly. They exchange 12 schema-validated JSON artifacts (DependencyGraph, RiskAssessment, ModernizationPlan, TestScaffold, etc.)
+- **Human-in-the-loop**: Planning artifacts must be explicitly approved before the Implementation Agent can proceed
+- **Fork-aware**: All changes target the user's fork — the upstream repository is never modified
+- **Deterministic**: Given the same inputs, the Planning Agent produces identical artifacts (cacheable, diffable, auditable)
+- **Passwordless**: All Azure services use `DefaultAzureCredential` with `disableLocalAuth: true` — zero API keys stored anywhere
+
+### Workflow
+
+```
+┌──────────────────┐         ┌──────────────────┐         ┌──────────────────────┐
+│  Planning Agent  │         │   Human Review   │         │ Implementation Agent │
+│   (read-only)    │────────▶│   & Approval     │────────▶│  (write after appr.) │
+└──────────────────┘         └──────────────────┘         └──────────────────────┘
+  Produces 9 artifacts:        Reviews plan,                Consumes approved plan,
+  DependencyGraph,             approves via APPROVED        produces incremental PRs
+  RiskAssessment,              marker file                  with ImplementationLog
+  ModernizationPlan, ...                                    and TestScaffold
+```
+
+## Monorepo Structure
+
+```
+packages/
+├── agents/    — 2-agent system (Planning + Implementation) with orchestrator
+├── skills/    — 10 analysis & implementation skills (DSL parsers, graph builders, refactoring)
+├── schemas/   — 12 JSON schemas + Ajv validation (artifact contract)
+├── foundry/   — Azure AI Foundry integration (BYOM model config)
+├── auth/      — Azure authentication (DefaultAzureCredential, environment detection)
+├── data/      — Data services (artifact store, telemetry, run metadata)
+apps/
+└── cli/       — CLI wrapper (plan, implement, full-pipeline commands)
+```
+
+### Skills
+
+| Skill | Agent | Description |
+|-------|-------|-------------|
+| `repo_snapshot` | Planning | Fork-aware file indexing with language detection |
+| `fw_include_graph` | Planning | C/C++ include graph with Tarjan SCC cycle detection |
+| `py_import_graph` | Planning | Python import graph with external dependency tracking |
+| `gui_import_graph` | Planning | JS/Vue import graph with component detection |
+| `git_churn` | Planning | Git history hotspot analysis with churn scoring |
+| `dsl_parser_registry` | Planning | Extensible registry for C/C++, Python, JS/Vue parsers |
+| `code_refactor` | Implementation | Language-aware code transformations (rename, extract, replace) |
+| `migration_executor` | Implementation | Executes migration phases from the approved plan |
+| `dependency_upgrader` | Implementation | npm/pip version upgrades with pinning support |
+| `test_writer` | Implementation | Generates test scaffolds (vitest, pytest, C assert) |
+| `incremental_pr` | Implementation | Fork-aware PR creation for each migration task |
 
 ## Prerequisites
 
@@ -103,7 +158,26 @@ az deployment sub create --location eastus2 \
 
 ## Architecture
 
-See [Layer 1 SDD Plan](.github/prompts/plan-layer1SddLegacyRefactorAgent.prompt.md) for full architecture documentation.
+### Artifact Contract
+
+All 12 artifact schemas live in `specs/schemas/` and are validated with Ajv before storage:
+
+| Artifact | Producer | Description |
+|----------|----------|-------------|
+| `Manifest` | Both | Run metadata: agent, status, repo URL, artifact paths |
+| `RunLogEvent` | Planning | Skill invocation log with inputs, outputs, timing |
+| `DependencyGraph` | Planning | Directed graph of source file dependencies |
+| `StackAnalysis` | Planning | Technology inventory: languages, frameworks, build tools |
+| `RiskAssessment` | Planning | Per-file risk scores (churn, complexity, safety) |
+| `MigrationOptions` | Planning | Candidate migration paths with multi-dimensional scoring |
+| `UserDecisions` | Planning | Captured user responses to planning questions |
+| `DocCoverage` | Planning | Documentation gap analysis with remediation stubs |
+| `ModernizationPlan` | Planning | Phased migration plan with tasks and dependencies |
+| `ImplementationLog` | Implementation | Log of code changes linked to plan tasks |
+| `TestScaffold` | Implementation | Test files with entry points and starter templates |
+| `EvaluationReport` | Foundry | Agent quality metrics and regression detection |
+
+For full details, see [`specs/functional/artifacts.md`](specs/functional/artifacts.md) and [`specs/functional/agents.md`](specs/functional/agents.md).
 
 ## License
 
