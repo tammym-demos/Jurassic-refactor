@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": { "value": "eastus2" },
+    "resourceGroupName": { "value": "rg-jurassic-eastus2" },
+    "openAIAccountName": { "value": "jurassic-ai-zsaoi" },
+    "gpt4oDeploymentName": { "value": "gpt-4o" },
+    "gpt4oModelVersion": { "value": "2024-11-20" },
+    "gpt4oCapacity": { "value": 10 }
+  }
+}

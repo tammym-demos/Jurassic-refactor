@@ -1,0 +1,6 @@
+{
+  "projectEndpoint": "https://jurassic-ai-zsaoi.openai.azure.com/",
+  "modelDeployment": "gpt-4o",
+  "apiVersion": "2024-12-01-preview",
+  "authMethod": "DefaultAzureCredential"
+}
