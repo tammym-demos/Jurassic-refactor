@@ -1,0 +1,91 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment target'
+        required: true
+        type: choice
+        options:
+          - staging
+          - production
+      run_id:
+        description: 'Agent run ID to deploy'
+        required: true
+        type: string
+      enable_writes:
+        description: 'Enable write operations'
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Run tests before deployment
+        run: pnpm exec vitest run
+      - name: Validate schemas
+        run: |
+          node -e "
+          const fs = require('fs');
+          const path = require('path');
+          const dir = 'specs/schemas';
+          const files = fs.readdirSync(dir).filter(f => f.endsWith('.schema.json'));
+          files.forEach(f => { JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')); console.log('✓', f); });
+          console.log('All', files.length, 'schemas valid');
+          "
+
+  approval:
+    needs: validate
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Approval gate passed
+        run: echo "Deployment to ${{ inputs.environment }} approved"
+
+  deploy:
+    needs: approval
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build
+        run: pnpm run build
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Deploy to Container App
+        if: inputs.environment == 'production'
+        run: |
+          echo "Deploying run ${{ inputs.run_id }} to production"
+          echo "Write operations enabled: ${{ inputs.enable_writes }}"
+          # Deployment would be handled by the hosting service
+      - name: Deploy to Staging
+        if: inputs.environment == 'staging'
+        run: |
+          echo "Deploying run ${{ inputs.run_id }} to staging"

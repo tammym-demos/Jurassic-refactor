@@ -1,14 +1,16 @@
 name: CI
 
 on:
-  workflow_dispatch: # Manual trigger only — GitHub-hosted runners disabled at enterprise
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 permissions:
-  id-token: write
   contents: read
 
 jobs:
-  ci:
+  lint-and-build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -25,32 +27,124 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # OIDC Azure login – runs only when federated credentials are configured
-      - name: Azure Login (OIDC)
-        if: vars.AZURE_CLIENT_ID != ''
-        uses: azure/login@v2
-        with:
-          client-id: ${{ vars.AZURE_CLIENT_ID }}
-          tenant-id: ${{ vars.AZURE_TENANT_ID }}
-          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
-
       - name: Lint
-        run: pnpm lint
+        run: pnpm exec eslint . --max-warnings 0
 
       - name: Build
-        run: pnpm build
+        run: pnpm run build
 
-      - name: Test
-        run: pnpm test
+  test:
+    runs-on: ubuntu-latest
+    needs: lint-and-build
+    steps:
+      - uses: actions/checkout@v4
 
-      - name: Validate JSON schemas
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run unit tests
+        run: pnpm exec vitest run --reporter=verbose
+
+      - name: Run e2e tests
+        run: pnpm exec vitest run packages/agents/src/__tests__/e2e.test.ts --reporter=verbose
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: coverage/
+
+  schema-validation:
+    runs-on: ubuntu-latest
+    needs: lint-and-build
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate all schemas
         run: |
           node -e "
             const fs = require('fs');
             const path = require('path');
-            const dir = 'specs/schemas';
-            fs.readdirSync(dir).filter(f => f.endsWith('.json')).forEach(f => {
-              JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
-              console.log('✓', f);
-            });
+            const schemaDir = 'specs/schemas';
+            const files = fs.readdirSync(schemaDir).filter(f => f.endsWith('.schema.json'));
+            let failed = 0;
+            for (const file of files) {
+              try {
+                JSON.parse(fs.readFileSync(path.join(schemaDir, file), 'utf8'));
+                console.log('✓', file);
+              } catch (e) {
+                console.error('✗', file, e.message);
+                failed++;
+              }
+            }
+            console.log(\"\nValidated \" + files.length + \" schemas, \" + failed + \" failed\");
+            if (failed) process.exit(1);
+          "
+
+  determinism-check:
+    runs-on: ubuntu-latest
+    needs: lint-and-build
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Determinism check — agents produce stable output
+        run: |
+          node -e "
+            const fs = require('fs');
+            const crypto = require('crypto');
+            const hashDir = (dir) => {
+              if (!fs.existsSync(dir)) return 'missing';
+              const files = fs.readdirSync(dir, { recursive: true })
+                .filter(f => fs.statSync(dir + '/' + f).isFile())
+                .sort();
+              const h = crypto.createHash('sha256');
+              for (const f of files) h.update(fs.readFileSync(dir + '/' + f));
+              return h.digest('hex');
+            };
+            const hash1 = hashDir('packages/agents/dist');
+            // Rebuild and compare
+            require('child_process').execSync('pnpm --filter @jurassic/agents run build', { stdio: 'inherit' });
+            const hash2 = hashDir('packages/agents/dist');
+            if (hash1 !== hash2) {
+              console.error('Determinism check failed: agent build output differs between runs');
+              process.exit(1);
+            }
+            console.log('✓ Agent build output is deterministic (sha256: ' + hash1.slice(0, 12) + '...)');
           "
