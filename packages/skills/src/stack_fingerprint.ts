@@ -25,6 +25,7 @@ export interface StackFingerprintOutput {
   buildTools: DetectedItem[];
   packageManagers: DetectedItem[];
   runtimeDependencies: DetectedItem[];
+  confidence: number;
 }
 
 const SKIP_DIRS = new Set([
@@ -391,6 +392,7 @@ export class StackFingerprintSkill implements Skill {
       buildTools: detectBuildTools(repoPath),
       packageManagers: detectPackageManagers(repoPath),
       runtimeDependencies: detectRuntimeDependencies(repoPath),
+      confidence: files.length > 0 ? 0.9 : 0.5,
     };
   }
 }

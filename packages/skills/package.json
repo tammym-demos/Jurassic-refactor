@@ -10,7 +10,11 @@
     "test": "vitest run --passWithNoTests",
     "lint": "eslint src/"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@azure/ai-form-recognizer": "^5.0.0",
+    "@azure/identity": "^4.6.0",
+    "@octokit/rest": "^21.1.1"
+  },
   "devDependencies": {
     "typescript": "^5.4.0",
     "vitest": "^1.6.0"

@@ -43,6 +43,7 @@ export interface StackRecommendationOutput {
   topRecommendation: string;
   summary: string;
   userInfluence: string;
+  confidence: number;
 }
 
 function findDecision(
@@ -131,6 +132,7 @@ export class StackRecommendationSkill implements Skill {
         topRecommendation: "",
         summary: "No migration options provided.",
         userInfluence: "No user decisions to apply.",
+        confidence: 0.5,
       };
     }
 
@@ -189,6 +191,7 @@ export class StackRecommendationSkill implements Skill {
       topRecommendation: top.migrationId,
       summary: `Top recommendation: "${top.name}" with adjusted score ${top.adjustedScore}/100. ${recommendations.length} option(s) evaluated.`,
       userInfluence,
+      confidence: hasDecisions ? 0.9 : 0.75,
     };
   }
 }

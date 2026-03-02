@@ -1,5 +1,6 @@
 // pr_writer — Skill that creates PRs with code changes from approved modernization plans
 
+import { Octokit } from "@octokit/rest";
 import type { Skill } from "./index.js";
 
 export interface FileChange {
@@ -30,6 +31,7 @@ export interface PrWriterOutput {
   fileCount: number;
   status: "created" | "dry-run" | "failed";
   error?: string;
+  confidence: number;
 }
 
 export function buildBranchName(taskId: string): string {
@@ -87,37 +89,164 @@ export function buildPrBody(input: {
   return sections.join("\n");
 }
 
+function getOctokit(token?: string): Octokit {
+  const authToken = token ?? process.env.GITHUB_TOKEN;
+  if (!authToken) {
+    throw new Error(
+      "GitHub token is required. Provide a token or set the GITHUB_TOKEN environment variable.",
+    );
+  }
+  return new Octokit({ auth: authToken });
+}
+
+function handleGitHubError(err: unknown, context: string): never {
+  if (err instanceof Error && "status" in err) {
+    const status = (err as { status: number }).status;
+    if (status === 401) {
+      throw new Error(`${context}: authentication failed — check your GitHub token`);
+    }
+    if (status === 403) {
+      throw new Error(
+        `${context}: forbidden — possible rate limit or insufficient permissions`,
+      );
+    }
+    if (status === 404) {
+      throw new Error(`${context}: not found — verify owner, repo, and branch names`);
+    }
+    if (status === 422) {
+      throw new Error(`${context}: validation failed — ${err.message}`);
+    }
+  }
+  throw err instanceof Error ? err : new Error(String(err));
+}
+
 /** Create a branch on the fork. Override in tests for mocking. */
 export async function createBranch(
-  _owner: string,
-  _repo: string,
-  _branchName: string,
-  _baseBranch: string,
+  owner: string,
+  repo: string,
+  branchName: string,
+  baseBranch: string,
+  token?: string,
 ): Promise<void> {
-  // In production, calls GitHub MCP create_branch tool
+  const octokit = getOctokit(token);
+  try {
+    const { data: ref } = await octokit.git.getRef({
+      owner,
+      repo,
+      ref: `heads/${baseBranch}`,
+    });
+    await octokit.git.createRef({
+      owner,
+      repo,
+      ref: `refs/heads/${branchName}`,
+      sha: ref.object.sha,
+    });
+  } catch (err) {
+    handleGitHubError(err, "createBranch");
+  }
 }
 
 /** Push file changes to the branch on the fork. Override in tests for mocking. */
 export async function pushFiles(
-  _owner: string,
-  _repo: string,
-  _branchName: string,
-  _files: FileChange[],
+  owner: string,
+  repo: string,
+  branchName: string,
+  files: FileChange[],
+  commitMessage?: string,
+  token?: string,
 ): Promise<void> {
-  // In production, calls GitHub MCP push_files tool
+  const octokit = getOctokit(token);
+  try {
+    const { data: refData } = await octokit.git.getRef({
+      owner,
+      repo,
+      ref: `heads/${branchName}`,
+    });
+    const latestCommitSha = refData.object.sha;
+
+    const { data: commitData } = await octokit.git.getCommit({
+      owner,
+      repo,
+      commit_sha: latestCommitSha,
+    });
+    const baseTreeSha = commitData.tree.sha;
+
+    const treeEntries = await Promise.all(
+      files.map(async (file) => {
+        if (file.changeType === "delete") {
+          return {
+            path: file.path,
+            mode: "100644" as const,
+            type: "blob" as const,
+            sha: null,
+          };
+        }
+        const { data: blob } = await octokit.git.createBlob({
+          owner,
+          repo,
+          content: Buffer.from(file.content).toString("base64"),
+          encoding: "base64",
+        });
+        return {
+          path: file.path,
+          mode: "100644" as const,
+          type: "blob" as const,
+          sha: blob.sha,
+        };
+      }),
+    );
+
+    const { data: newTree } = await octokit.git.createTree({
+      owner,
+      repo,
+      base_tree: baseTreeSha,
+      tree: treeEntries,
+    });
+
+    const message = commitMessage ?? `[Jurassic] Apply changes (${files.length} file(s))`;
+    const { data: newCommit } = await octokit.git.createCommit({
+      owner,
+      repo,
+      message,
+      tree: newTree.sha,
+      parents: [latestCommitSha],
+    });
+
+    await octokit.git.updateRef({
+      owner,
+      repo,
+      ref: `heads/${branchName}`,
+      sha: newCommit.sha,
+    });
+  } catch (err) {
+    handleGitHubError(err, "pushFiles");
+  }
 }
 
 /** Create a pull request from the fork branch to the upstream base. Override in tests for mocking. */
 export async function createPullRequest(
-  _owner: string,
-  _repo: string,
-  _title: string,
-  _body: string,
-  _head: string,
-  _base: string,
+  owner: string,
+  repo: string,
+  title: string,
+  body: string,
+  head: string,
+  base: string,
+  token?: string,
 ): Promise<{ prNumber: number; prUrl: string }> {
-  // In production, calls GitHub MCP create_pull_request tool
-  return { prNumber: 0, prUrl: "" };
+  const octokit = getOctokit(token);
+  try {
+    const { data: pr } = await octokit.pulls.create({
+      owner,
+      repo,
+      title,
+      body,
+      head,
+      base,
+    });
+    return { prNumber: pr.number, prUrl: pr.html_url };
+  } catch (err) {
+    handleGitHubError(err, "createPullRequest");
+  }
 }
 
 function validateInput(context: unknown): PrWriterInput {
@@ -167,6 +296,7 @@ export const prWriterSkill: Skill = {
         body,
         fileCount,
         status: "dry-run",
+        confidence: body.length > 100 ? 0.9 : 0.7,
       };
     }
 
@@ -190,6 +320,7 @@ export const prWriterSkill: Skill = {
         body,
         fileCount,
         status: "created",
+        confidence: 0.95,
       };
     } catch (err) {
       return {
@@ -199,6 +330,7 @@ export const prWriterSkill: Skill = {
         fileCount,
         status: "failed",
         error: err instanceof Error ? err.message : String(err),
+        confidence: 0.0,
       };
     }
   },

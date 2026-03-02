@@ -34,6 +34,7 @@ export interface PlanSynthesisOutput {
   totalTasks: number;
   estimatedFileCount: number;
   summary: string;
+  confidence: number;
 }
 
 function formatTaskId(n: number): string {
@@ -227,6 +228,7 @@ export class PlanSynthesisSkill implements Skill {
       totalTasks,
       estimatedFileCount,
       summary,
+      confidence: totalTasks > 0 ? 0.85 : 0.5,
     };
   }
 }

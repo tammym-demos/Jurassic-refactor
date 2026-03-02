@@ -31,6 +31,7 @@ export interface DocCoverageOutput {
   missingReadmes: string[];
   gaps: DocGap[];
   stubs: Array<{ filePath: string; content: string }>;
+  confidence: number;
 }
 
 const SKIP_DIRS = new Set([
@@ -410,6 +411,7 @@ export class DocCoverageAnalysisSkill implements Skill {
       missingReadmes,
       gaps,
       stubs,
+      confidence: totalPublicAPIs > 0 ? 0.9 : 0.6,
     };
   }
 }

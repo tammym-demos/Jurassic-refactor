@@ -35,6 +35,7 @@ export interface TestScaffoldOutput {
   coveragePercentage: number;
   entries: TestableEntry[];
   templates: TestTemplate[];
+  confidence: number;
 }
 
 const SKIP_DIRS = new Set(["node_modules", ".git", "dist", "__pycache__", ".next", "build"]);
@@ -457,6 +458,7 @@ export class TestScaffoldSkill implements Skill {
       coveragePercentage,
       entries,
       templates,
+      confidence: entries.length > 0 ? 0.85 : 0.5,
     };
   }
 }

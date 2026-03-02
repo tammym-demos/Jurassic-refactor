@@ -21,6 +21,7 @@ export interface RepoSnapshotOutput {
   forkUrl?: string;
   totalFiles: number;
   fileIndex: FileEntry[];
+  confidence: number;
 }
 
 const SKIP_DIRS = new Set([
@@ -107,6 +108,7 @@ export class RepoSnapshotSkill implements Skill {
       ...(forkUrl ? { forkUrl } : {}),
       totalFiles: fileIndex.length,
       fileIndex,
+      confidence: fileIndex.length > 0 ? 0.95 : 0.5,
     };
   }
 }

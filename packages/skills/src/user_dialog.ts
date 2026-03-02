@@ -38,6 +38,7 @@ export interface UserDialogOutput {
   sessionId: string;
   completedAt: string;
   skippedQuestions: string[];
+  confidence: number;
 }
 
 const DEFAULT_QUESTIONS: Question[] = [
@@ -195,6 +196,7 @@ export class UserDialogSkill implements Skill {
       sessionId,
       completedAt: new Date().toISOString(),
       skippedQuestions,
+      confidence: questions.length > 0 ? decisions.length / questions.length : 0.5,
     };
   }
 }

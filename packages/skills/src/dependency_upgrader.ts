@@ -34,6 +34,7 @@ export interface DependencyUpgraderOutput {
     failed: number;
     alreadyCurrent: number;
   };
+  confidence: number;
 }
 
 async function upgradeNpm(
@@ -176,6 +177,6 @@ export class DependencyUpgraderSkill implements Skill {
         .length,
     };
 
-    return { results, stats };
+    return { results, stats, confidence: stats.total > 0 ? (stats.upgraded + stats.alreadyCurrent) / stats.total : 0.5 };
   }
 }

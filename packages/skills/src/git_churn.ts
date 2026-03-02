@@ -21,6 +21,7 @@ export interface GitChurnOutput {
     totalFilesChanged: number;
     analysisWindow: { from: string; to: string };
   };
+  confidence: number;
 }
 
 export class GitChurnSkill implements Skill {
@@ -49,6 +50,7 @@ export class GitChurnSkill implements Skill {
           totalFilesChanged: 0,
           analysisWindow: { from: "", to: "" },
         },
+        confidence: 0.5,
       };
     }
 
@@ -107,6 +109,7 @@ export class GitChurnSkill implements Skill {
         totalFilesChanged: hotspots.length,
         analysisWindow: { from: earliestDate, to: latestDate },
       },
+      confidence: commitLines.length >= 10 ? 0.9 : 0.7,
     };
   }
 }

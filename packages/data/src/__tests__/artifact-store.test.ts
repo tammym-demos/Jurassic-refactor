@@ -40,12 +40,13 @@ describe('ArtifactStore', () => {
     expect(marker).toBe('');
   });
 
-  it('should throw in fabric mode', async () => {
+  it('should throw in fabric mode when env vars are missing', async () => {
     process.env.JURASSIC_STORAGE_PROVIDER = 'fabric';
     const store = new ArtifactStore();
-    await expect(store.upload('r', 'a', 'n', {})).rejects.toThrow('Fabric integration not yet configured');
-    await expect(store.download('r', 'a', 'n')).rejects.toThrow('Fabric integration not yet configured');
-    await expect(store.list('r', 'a')).rejects.toThrow('Fabric integration not yet configured');
-    await expect(store.markApproved('r')).rejects.toThrow('Fabric integration not yet configured');
+    const msg = 'Fabric environment variables FABRIC_WORKSPACE_ID and FABRIC_LAKEHOUSE_ID must be set';
+    await expect(store.upload('r', 'a', 'n', {})).rejects.toThrow(msg);
+    await expect(store.download('r', 'a', 'n')).rejects.toThrow(msg);
+    await expect(store.list('r', 'a')).rejects.toThrow(msg);
+    await expect(store.markApproved('r')).rejects.toThrow(msg);
   });
 });

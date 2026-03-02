@@ -4,6 +4,7 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import type { Skill } from "@jurassic/skills";
 import { ApprovalGate } from "./approval-gate.js";
+import { ToolSelector, type SkillDescriptor, type ToolSelectionResult } from "../tool-selector.js";
 
 export interface ImplWorkflowConfig {
   repoPath: string;
@@ -13,6 +14,8 @@ export interface ImplWorkflowConfig {
   forkOwner: string;
   enableWrites: boolean;
   skills?: Map<string, Skill>;
+  /** Optional repo profile for LLM-driven tool selection. */
+  repoProfile?: unknown;
 }
 
 export interface ImplPhase {
@@ -33,6 +36,8 @@ export interface ImplWorkflowResult {
   totalArtifacts: number;
   durationMs: number;
   prsCreated: number;
+  /** Records which tool-selection mode was used. */
+  toolSelection?: ToolSelectionResult;
 }
 
 /** Phase definitions describing the implementation workflow sequence. */
@@ -70,7 +75,13 @@ export class ImplementationWorkflow {
     const artifactDir = path.join(config.outputDir, config.runId, "implementation");
     fs.mkdirSync(artifactDir, { recursive: true });
 
-    const phases = this.buildPhases();
+    // Tool selection: determine skill order (LLM or deterministic)
+    const toolSelection = await this.resolveToolSelection(config);
+    console.log(
+      `[ImplementationWorkflow] Tool selection mode: ${toolSelection.mode} — ${toolSelection.reasoning}`,
+    );
+
+    const phases = this.buildPhases(toolSelection);
     let anyFailed = false;
 
     for (const phase of phases) {
@@ -94,17 +105,50 @@ export class ImplementationWorkflow {
       totalArtifacts,
       durationMs: Date.now() - startTime,
       prsCreated: this.prsCreated,
+      toolSelection,
     };
   }
 
-  /** Build initial phase objects from definitions. */
-  private buildPhases(): ImplPhase[] {
-    return IMPL_PHASE_DEFINITIONS.map((def) => ({
+  /** Build initial phase objects from definitions.
+   *  If LLM tool selection provided a custom skill order, reorder skill-backed phases accordingly. */
+  private buildPhases(toolSelection?: ToolSelectionResult): ImplPhase[] {
+    let defs = [...IMPL_PHASE_DEFINITIONS];
+
+    if (toolSelection?.mode === "llm" && toolSelection.selectedSkills.length > 0) {
+      const skillOrder = toolSelection.selectedSkills;
+      const skillBacked = defs.filter((d) => d.skill && skillOrder.includes(d.skill));
+      const nonSkillBacked = defs.filter((d) => !d.skill || !skillOrder.includes(d.skill));
+
+      skillBacked.sort(
+        (a, b) => skillOrder.indexOf(a.skill!) - skillOrder.indexOf(b.skill!),
+      );
+
+      defs = [...nonSkillBacked.filter((d) => d.name === "validate_approval" || d.name === "load_plan"),
+        ...skillBacked,
+        ...nonSkillBacked.filter((d) => d.name !== "validate_approval" && d.name !== "load_plan")];
+    }
+
+    return defs.map((def) => ({
       name: def.name,
       description: def.description,
       status: "pending" as const,
       artifacts: [],
     }));
+  }
+
+  /** Resolve tool selection using ToolSelector (LLM or deterministic). */
+  private async resolveToolSelection(config: ImplWorkflowConfig): Promise<ToolSelectionResult> {
+    const skillDescriptors: SkillDescriptor[] = IMPL_PHASE_DEFINITIONS
+      .filter((d) => d.skill)
+      .map((d) => ({
+        name: d.skill!,
+        description: d.description,
+        inputSchema: { repoPath: { type: "string" } },
+        agent: "implementation" as const,
+      }));
+
+    const selector = new ToolSelector(skillDescriptors);
+    return selector.selectSkills({ repoProfile: config.repoProfile ?? {} });
   }
 
   /** Execute a single workflow phase. */

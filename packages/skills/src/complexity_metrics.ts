@@ -32,6 +32,7 @@ export interface ComplexityMetricsOutput {
   totalLoc: number;
   files: FileMetrics[];
   hotspots: FunctionMetrics[];
+  confidence: number;
 }
 
 const SUPPORTED_EXTENSIONS = new Set([".ts", ".js", ".py", ".c", ".cpp", ".h"]);
@@ -375,6 +376,7 @@ export class ComplexityMetricsSkill implements Skill {
       totalLoc,
       files,
       hotspots,
+      confidence: files.length > 0 ? 0.9 : 0.5,
     };
   }
 }

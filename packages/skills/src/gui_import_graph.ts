@@ -26,6 +26,7 @@ export interface GuiImportGraphOutput {
     componentCount: number;
     externalDeps: string[];
   };
+  confidence: number;
 }
 
 const SUPPORTED_EXTENSIONS = new Set([".js", ".jsx", ".ts", ".tsx", ".vue"]);
@@ -139,6 +140,7 @@ export const guiImportGraphSkill: Skill = {
         componentCount: components.length,
         externalDeps: [...externalDepsSet].sort(),
       },
+      confidence: nodes.length > 0 ? 0.9 : 0.5,
     };
   },
 };

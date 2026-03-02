@@ -36,6 +36,7 @@ export interface SafetyPathOutput {
   safetyIndicators: SafetyIndicator[];
   safetyZones: SafetyZone[];
   highRiskFiles: string[];
+  confidence: number;
 }
 
 const SKIP_DIRS = new Set([
@@ -255,6 +256,7 @@ export class SafetyPathAnalysisSkill implements Skill {
       safetyIndicators: allIndicators,
       safetyZones,
       highRiskFiles,
+      confidence: filePaths.length > 0 ? 0.9 : 0.5,
     };
   }
 }

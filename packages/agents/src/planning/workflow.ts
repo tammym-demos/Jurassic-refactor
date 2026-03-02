@@ -3,6 +3,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import type { Skill } from "@jurassic/skills";
+import { ToolSelector, type SkillDescriptor, type ToolSelectionResult } from "../tool-selector.js";
 
 export interface WorkflowConfig {
   repoPath: string;
@@ -11,6 +12,8 @@ export interface WorkflowConfig {
   interactive?: boolean;
   onQuestion?: (question: string, choices?: string[]) => Promise<string>;
   skills?: Map<string, Skill>;
+  /** Optional repo profile for LLM-driven tool selection. */
+  repoProfile?: unknown;
 }
 
 export interface WorkflowPhase {
@@ -30,6 +33,8 @@ export interface WorkflowResult {
   artifactDir: string;
   totalArtifacts: number;
   durationMs: number;
+  /** Records which tool-selection mode was used. */
+  toolSelection?: ToolSelectionResult;
 }
 
 /** Phase definitions describing the planning workflow sequence. */
@@ -64,7 +69,13 @@ export class PlanningWorkflow {
     const artifactDir = path.join(config.outputDir, config.runId, "planning");
     fs.mkdirSync(artifactDir, { recursive: true });
 
-    const phases = this.buildPhases(config);
+    // Tool selection: determine skill order (LLM or deterministic)
+    const toolSelection = await this.resolveToolSelection(config);
+    console.log(
+      `[PlanningWorkflow] Tool selection mode: ${toolSelection.mode} — ${toolSelection.reasoning}`,
+    );
+
+    const phases = this.buildPhases(config, toolSelection);
     let anyFailed = false;
 
     for (const phase of phases) {
@@ -84,19 +95,38 @@ export class PlanningWorkflow {
       artifactDir,
       totalArtifacts,
       durationMs: Date.now() - startTime,
+      toolSelection,
     };
   }
 
-  /** Build initial phase objects from definitions, filtering user_dialog for non-interactive runs. */
-  private buildPhases(config: WorkflowConfig): WorkflowPhase[] {
-    return PHASE_DEFINITIONS
-      .filter((def) => def.name !== "user_dialog" || config.interactive)
-      .map((def) => ({
-        name: def.name,
-        description: def.description,
-        status: "pending" as const,
-        artifacts: [],
-      }));
+  /** Build initial phase objects from definitions, filtering user_dialog for non-interactive runs.
+   *  If LLM tool selection provided a custom skill order, reorder skill-backed phases accordingly. */
+  private buildPhases(config: WorkflowConfig, toolSelection?: ToolSelectionResult): WorkflowPhase[] {
+    let defs = PHASE_DEFINITIONS.filter(
+      (def) => def.name !== "user_dialog" || config.interactive,
+    );
+
+    // If LLM mode provided a custom order, reorder skill-backed phases
+    if (toolSelection?.mode === "llm" && toolSelection.selectedSkills.length > 0) {
+      const skillOrder = toolSelection.selectedSkills;
+      const skillBacked = defs.filter((d) => d.skill && skillOrder.includes(d.skill));
+      const nonSkillBacked = defs.filter((d) => !d.skill || !skillOrder.includes(d.skill));
+
+      // Sort skill-backed phases by their position in the LLM-selected order
+      skillBacked.sort(
+        (a, b) => skillOrder.indexOf(a.skill!) - skillOrder.indexOf(b.skill!),
+      );
+
+      // Preserve non-skill phases in their original positions relative to skill phases
+      defs = [...skillBacked, ...nonSkillBacked];
+    }
+
+    return defs.map((def) => ({
+      name: def.name,
+      description: def.description,
+      status: "pending" as const,
+      artifacts: [],
+    }));
   }
 
   /** Execute a single workflow phase. */
@@ -181,6 +211,21 @@ export class PlanningWorkflow {
     };
     const filePath = path.join(outputDir, `RunLogEvent_${phase.name}.json`);
     fs.writeFileSync(filePath, JSON.stringify(event, null, 2), "utf-8");
+  }
+
+  /** Resolve tool selection using ToolSelector (LLM or deterministic). */
+  private async resolveToolSelection(config: WorkflowConfig): Promise<ToolSelectionResult> {
+    const skillDescriptors: SkillDescriptor[] = PHASE_DEFINITIONS
+      .filter((d) => d.skill)
+      .map((d) => ({
+        name: d.skill!,
+        description: d.description,
+        inputSchema: { repoPath: { type: "string" } },
+        agent: "planning" as const,
+      }));
+
+    const selector = new ToolSelector(skillDescriptors);
+    return selector.selectSkills({ repoProfile: config.repoProfile ?? {} });
   }
 
   /** Validate that artifact files referenced by phases actually exist. */

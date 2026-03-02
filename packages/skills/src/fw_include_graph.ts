@@ -17,6 +17,7 @@ export interface FwIncludeGraphOutput {
     totalIncludes: number;
     cycleCount: number;
   };
+  confidence: number;
 }
 
 const FIRMWARE_EXTENSIONS = new Set([".c", ".h", ".cpp", ".hpp"]);
@@ -150,6 +151,7 @@ export const fwIncludeGraphSkill: Skill = {
         totalIncludes: edges.length,
         cycleCount,
       },
+      confidence: nodes.length > 0 ? 0.9 : 0.5,
     };
   },
 };

@@ -40,6 +40,7 @@ export interface MigrationExecutorOutput {
   phaseName: string;
   status: "completed" | "partial" | "failed";
   taskResults: TaskResult[];
+  confidence: number;
 }
 
 async function executeDependencyUpgrade(
@@ -167,6 +168,7 @@ export class MigrationExecutorSkill implements Skill {
         phaseName: "unknown",
         status: "failed",
         taskResults: [],
+        confidence: 0.0,
       };
     }
 
@@ -213,6 +215,7 @@ export class MigrationExecutorSkill implements Skill {
       phaseName: phase.name,
       status,
       taskResults,
+      confidence: status === "completed" ? 0.95 : status === "partial" ? 0.6 : 0.1,
     };
   }
 }

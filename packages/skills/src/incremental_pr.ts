@@ -31,6 +31,7 @@ export interface IncrementalPrOutput {
     created: number;
     failed: number;
   };
+  confidence: number;
 }
 
 /** Sanitize a task id into a valid git branch segment. */
@@ -93,7 +94,7 @@ export const incrementalPrSkill: Skill = {
     const tasks = input.tasks;
 
     if (tasks.length === 0) {
-      return { pullRequests: [], stats: { total: 0, created: 0, failed: 0 } };
+      return { pullRequests: [], stats: { total: 0, created: 0, failed: 0 }, confidence: 0.5 };
     }
 
     const pullRequests: PullRequestEntry[] = tasks.map((task) => ({
@@ -111,6 +112,7 @@ export const incrementalPrSkill: Skill = {
         created: pullRequests.filter((pr) => pr.status === "created").length,
         failed: pullRequests.filter((pr) => pr.status === "failed").length,
       },
+      confidence: 0.9, // structural skill — always produces valid dry-run entries
     };
   },
 };

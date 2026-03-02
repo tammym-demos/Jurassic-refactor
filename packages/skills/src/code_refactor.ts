@@ -32,6 +32,7 @@ export interface CodeRefactorOutput {
     description: string;
   }>;
   error?: string;
+  confidence: number;
 }
 
 function applyRename(
@@ -100,6 +101,7 @@ export class CodeRefactorSkill implements Skill {
           filePath: task.filePath,
           status: "completed",
           changes: [{ type: "delete", target: task.filePath, description: "file deleted" }],
+          confidence: 0.95,
         };
       }
 
@@ -113,6 +115,7 @@ export class CodeRefactorSkill implements Skill {
           filePath: task.filePath,
           status: "completed",
           changes: [{ type: "create", target: task.filePath, description: "file created" }],
+          confidence: 0.95,
         };
       }
 
@@ -127,6 +130,7 @@ export class CodeRefactorSkill implements Skill {
           status: "failed",
           changes: [],
           error: `file not found: ${task.filePath}`,
+          confidence: 0.0,
         };
       }
 
@@ -167,11 +171,16 @@ export class CodeRefactorSkill implements Skill {
 
       await writeFile(fullPath, content, "utf-8");
 
+      const applied = changes.filter(
+        (c) => !c.description.includes("skipped") && !c.description.includes("not yet implemented") && !c.description.includes("unsupported"),
+      ).length;
+
       return {
         taskId: task.id,
         filePath: task.filePath,
         status: "completed",
         changes,
+        confidence: task.transformations.length > 0 ? applied / task.transformations.length : 0.85,
       };
     } catch (err) {
       return {
@@ -180,6 +189,7 @@ export class CodeRefactorSkill implements Skill {
         status: "failed",
         changes,
         error: (err as Error).message,
+        confidence: 0.0,
       };
     }
   }

@@ -24,6 +24,7 @@ export interface PyImportGraphOutput {
     totalImports: number;
     externalDeps: string[];
   };
+  confidence: number;
 }
 
 async function collectPyFiles(dir: string): Promise<string[]> {
@@ -109,6 +110,7 @@ export class PyImportGraphSkill implements Skill {
         totalImports,
         externalDeps: [...externalSet].sort(),
       },
+      confidence: nodes.length > 0 ? 0.9 : 0.5,
     };
   }
 }

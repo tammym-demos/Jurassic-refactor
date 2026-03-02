@@ -24,6 +24,7 @@ export interface TestWriterOutput {
     priority: "high" | "medium" | "low";
     template: string;
   }>;
+  confidence: number;
 }
 
 function computeTestFilePath(filePath: string, language: string): string {
@@ -96,6 +97,6 @@ export const testWriter: Skill = {
       priority: computePriority(file.filePath, input.riskScores),
       template: generateTemplate(file.language, file.filePath, file.entryPoints),
     }));
-    return { testFiles };
+    return { testFiles, confidence: testFiles.length > 0 ? 0.85 : 0.5 };
   },
 };

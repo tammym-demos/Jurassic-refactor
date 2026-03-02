@@ -22,6 +22,7 @@ export interface PolicyResult {
   overallAllowed: boolean;
   agentType: string;
   summary: string;
+  confidence: number;
 }
 
 export interface PolicyRule {
@@ -175,6 +176,7 @@ export class PolicyEnforcer {
       overallAllowed,
       agentType: input.agentType,
       summary,
+      confidence: 0.95, // deterministic rule evaluation
     };
   }
 
