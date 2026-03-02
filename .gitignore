@@ -6,6 +6,15 @@ __pycache__/
 # Node.js
 node_modules/
 
+# TypeScript build output
+*.d.ts
+*.d.ts.map
+*.js.map
+packages/*/src/**/*.js
+apps/*/src/**/*.js
+!eslint.config.mjs
+!vitest.config.ts
+
 # C extensions
 *.so
 
