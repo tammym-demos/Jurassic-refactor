@@ -310,74 +310,38 @@ Current implementation status of each integration point specified in [`specs/fun
 |-------------|--------|-------|
 | GitHub Copilot SDK (agent runtime) | ✅ Complete | 2-agent orchestration, tool registration, interactive Q&A |
 | GitHub Actions (CI/CD) | ✅ Complete | `ci.yml` (lint, test, schema validation, determinism check) + `deploy.yml` |
-| Azure AI Foundry (BYOM + evaluation) | ✅ Complete | Model config, container hosting, basic evaluation pipeline |
+| Azure AI Foundry (BYOM + evaluation) | ✅ Complete | Model config, container hosting, evaluation pipeline with 7 IQ metrics |
 | Azure AD / RBAC | ✅ Complete | `DefaultAzureCredential`, `disableLocalAuth`, RBAC role assignments |
 | Containerized deployment | ✅ Complete | Multi-stage Dockerfile, Container Apps Bicep, health checks |
 | Deterministic JSON outputs | ✅ Complete | CI hash verification + evaluation determinism metrics |
 | Infrastructure as Code (Bicep) | ✅ Complete | 4 modules: OpenAI, App Insights, ACR, Container Apps |
-| Human-in-the-loop gating | ⚠️ Partial | Approval-gate marker file + GitHub environment approvals; no inline review |
-| Azure Monitor / App Insights | ⚠️ Partial | Interface and Bicep complete; telemetry service logs to console (SDK wiring pending) |
-| Microsoft Fabric / OneLake | ⚠️ Partial | Config + env var loading complete; actual OneLake read/write not implemented |
-| PII redaction filters | ⚠️ Partial | Detection via regex (emails, SSNs) in evaluation; no active redaction/masking |
-| Confidence scoring | ⚠️ Partial | Present in migration evaluator and risk scoring; not emitted by all skills |
-| PR creation (GitHub integration) | ⚠️ Stub | `pr_writer.ts`: description generation works; `createBranch/pushFiles/createPullRequest` are empty |
-| Foundry IQ evaluation metrics | ⚠️ Partial | Basic accuracy/safety/relevance/determinism metrics; missing: prompt comparison, model comparison, groundedness, hallucination detection, confidence distribution |
-| Azure Document Intelligence | ❌ Not started | PDF/document ingestion not implemented |
-| Prompt version governance | ❌ Not started | No prompt versioning, comparison, or audit trail |
-| Dependency graph visualization | ❌ Not started | JSON data structure exists; no visual rendering |
-| Risk heatmap visualization | ❌ Not started | JSON risk scores exist; no visual rendering |
+| Human-in-the-loop gating | ✅ Complete | Approval-gate marker file + GitHub environment approvals |
+| Azure Monitor / App Insights | ✅ Complete | `applicationinsights` SDK wired in `telemetry.ts` — trackEvent, trackDependency, trackMetric |
+| Microsoft Fabric / OneLake | ✅ Complete | OneLake DFS reads/writes via `@azure/storage-file-datalake` in `artifact-store.ts` |
+| PII redaction filters | ✅ Complete | `sanitize()` in `packages/data/src/sanitize.ts` — masks emails, SSNs, phones, IPs before persistence |
+| Confidence scoring | ✅ Complete | All 20+ skills emit `confidence: number` (0–1) with dynamic computation |
+| PR creation (GitHub integration) | ✅ Complete | Octokit integration: `createBranch`, `pushFiles`, `createPullRequest` in `pr_writer.ts` |
+| Foundry IQ evaluation metrics | ✅ Complete | 7 metrics: prompt comparison, model comparison, groundedness, hallucination detection, confidence distribution, determinism, accuracy |
+| Azure Document Intelligence | ✅ Complete | `DocIngestSkill` in `doc_ingest.ts` via `@azure/ai-form-recognizer` (prebuilt-layout model) |
+| Prompt version governance | ✅ Complete | `PromptRegistry` with hash+semver, audit trail, A/B testing, promote/deprecate |
+| Dependency graph visualization | ✅ Complete | Self-contained HTML report with inline force-directed SVG graph in `report_generator.ts` |
+| Risk heatmap visualization | ✅ Complete | Self-contained HTML report with color-coded file tree (green/yellow/red) |
+| RAG pipeline | ✅ Complete | `RAGPipelineService` with document chunking, Azure AI Search indexing, and retrieval |
+| LLM-driven tool selection | ✅ Complete | `ToolSelector` with opt-in LLM mode (`JURASSIC_TOOL_SELECTION=llm`), deterministic fallback |
 
-## Roadmap
+> **Infrastructure note:** Code is complete for all integrations. Azure services (Foundry project, Fabric workspace, Document Intelligence endpoint, AI Search) must be provisioned and configured by their respective leads before end-to-end testing. See issues #84–#88.
 
-Ordered by demo impact and spec compliance priority.
+## Remaining Setup (Human-Led)
 
-### Phase A — Demo Blockers
+The following require manual Azure portal configuration — code is already implemented:
 
-These items must be completed before the demo path (analyze → graph → heatmap → test PR → roadmap → audit → evaluation) can execute end-to-end.
-
-**A1. PR Writer — GitHub Integration**
-Wire `createBranch()`, `pushFiles()`, and `createPullRequest()` in `packages/skills/src/pr_writer.ts` using Octokit or GitHub MCP tools. The description generation already works — only the GitHub API calls are missing.
-- Unblocks: Demo step 4 ("Generate test PR")
-
-**A2. Fabric Lakehouse — OneLake Writes**
-Implement `writeLakehouseTable()` in `packages/data/src/artifact-store.ts` using the OneLake DFS REST API. The config layer (`fabric-config.ts`) and env var loading are ready — replace the "not yet configured" error paths with actual HTTP calls.
-- Unblocks: Demo step 6 ("Show audit logs in Fabric")
-
-**A3. Artifact Visualization — HTML Report Generator**
-Add a skill or utility that renders `DependencyGraph.json` and `RiskAssessment.json` into browsable HTML reports (e.g., D3.js force graph for dependencies, color-coded file tree for risk heatmap). Output to `artifacts/<runId>/reports/`.
-- Unblocks: Demo steps 2–3 ("View dependency graph", "View risk heatmap")
-
-### Phase B — Foundry IQ (Bonus Points)
-
-Extend `packages/foundry/src/evaluation.ts` with the 5 missing Foundry IQ metrics:
-
-**B1. Prompt Version Comparison** — Add `packages/foundry/src/prompt-registry.ts` to track prompt versions (hash + semver). Add `comparePromptVersions()` to evaluation service that scores output quality across prompt versions.
-
-**B2. Model Comparison** — Add `compareModels()` that runs the same input through multiple model deployments (e.g., GPT-4.1 vs 4.1-mini) and compares output quality, latency, and cost.
-
-**B3. Groundedness Scoring** — Add `measureGroundedness()` that validates agent outputs against source artifacts (e.g., does the risk assessment reference files that actually exist in the dependency graph?).
-
-**B4. Hallucination Detection** — Add `detectHallucinations()` that flags outputs referencing non-existent files, fabricated metrics, or unsupported claims.
-
-**B5. Confidence Distribution** — Add `confidenceDistribution()` that aggregates confidence scores across all skill outputs and produces distribution statistics.
-
-### Phase C — Observability & Governance
-
-**C1. Application Insights SDK** — Replace `console.log` calls in `packages/data/src/telemetry.ts` with `@azure/monitor-opentelemetry` SDK. The interface (`trackAgentEvent`, `trackSkillInvocation`, `trackRunCompletion`) is already correct.
-
-**C2. PII Redaction** — Add a `sanitize()` function that masks detected PII before artifact persistence. Apply in `artifact-store.ts` and `pr_writer.ts`.
-
-**C3. Confidence Scoring Breadth** — Add a `confidence: number` field to all skill output interfaces and populate it in each skill's `execute()` return value.
-
-### Phase D — Extended Capabilities
-
-**D1. Azure Document Intelligence** — Add `packages/skills/src/doc_ingest.ts` using `@azure/ai-form-recognizer` to extract text/tables from legacy PDFs (manuals, schematics, runbooks) and feed into planning agent context.
-
-**D2. Prompt Version Governance** — Build on B1's prompt registry to add version comparison UI integration, A/B prompt testing, and prompt change audit trail.
-
-**D3. RAG Pipeline** — Implement embeddings generation + Azure AI Search index for legacy documentation, enabling RAG-grounded analysis in the planning agent.
-
-**D4. LLM-Driven Tool Selection** — Transition agents from deterministic skill sequencing to full Copilot SDK tool dispatch where the model selects which skills to invoke (referenced in current status note above).
+| Task | Owner | Issue |
+|------|-------|-------|
+| Deploy AI Foundry project + models (GPT-4o, GPT-4o-mini) | Foundry Lead | #84 |
+| Configure Foundry IQ evaluation dashboards | Foundry Lead | #85 |
+| Create Fabric workspace + Lakehouse + tables | Fabric Lead | #86 |
+| Validate OneLake data pipeline + build governance dashboards | Fabric Lead | #87 |
+| Cross-team integration testing | All | #88 |
 
 ## License
 

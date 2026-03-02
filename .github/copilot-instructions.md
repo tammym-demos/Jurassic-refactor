@@ -53,18 +53,24 @@ npx eslint "packages/*/src/**/*.ts"  # Lint
 4. **No code exfiltration**: All analysis stays within tenant boundaries
 5. **Human-in-the-loop**: Planning artifacts must be approved before implementation
 
-## Current Gaps (from spec)
+## Current Status
 
-When working on this codebase, be aware of these unfinished integrations:
+All spec-required integrations are code-complete. The following Azure services require manual provisioning before end-to-end testing:
 
-- `packages/skills/src/pr_writer.ts` — `createBranch()`, `pushFiles()`, `createPullRequest()` are **empty stubs**
-- `packages/data/src/artifact-store.ts` — Fabric OneLake writes throw "not yet configured"
-- `packages/data/src/telemetry.ts` — logs to `console.log` instead of Application Insights SDK
-- `packages/foundry/src/evaluation.ts` — missing 5 Foundry IQ metrics (groundedness, hallucination, model comparison, prompt comparison, confidence distribution)
-- No Azure Document Intelligence (PDF ingestion) skill exists
-- No prompt version governance system exists
-- No visualization rendering for dependency graphs or risk heatmaps
-- Confidence scoring not emitted by all skills — only `migration_evaluator` and `risk_scoring`
+- **Azure AI Foundry**: Deploy project + models (GPT-4o, GPT-4o-mini) — see issue #84
+- **Microsoft Fabric**: Create workspace + Lakehouse — see issue #86
+- **Azure Document Intelligence**: Provision endpoint, set `AZURE_DOCUMENT_INTELLIGENCE_ENDPOINT`
+- **Azure AI Search**: Provision endpoint for RAG pipeline, set `AZURE_SEARCH_ENDPOINT`
+
+## README Maintenance Rule
+
+**When pushing changes that add, remove, or modify any capability, integration, skill, or configuration, the README.md Integration Status table must be updated in the same commit.** This ensures the README always reflects the current state of the codebase. Specifically:
+
+- Adding a new skill → update the Skills table in README
+- Changing an integration status → update the Integration Status table
+- Adding/removing environment variables → update Prerequisites section
+- Changing CLI commands or flags → update Usage section
+- Modifying artifact schemas → update Architecture / Artifact Contract table
 
 ## Spec & Schema References
 
