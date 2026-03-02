@@ -4,7 +4,7 @@
 
 This is a **pnpm monorepo** implementing a 2-agent Modernization Intelligence Layer for legacy codebases, built with GitHub Copilot SDK and Azure AI Foundry.
 
-See `.specify/memory/constitution.md` for the full constitution and spec compliance status.
+> **Required reading:** Before starting any task, read [`.specify/memory/constitution.md`](.specify/memory/constitution.md). It contains the project constitution — security rules, required Azure integrations, coding standards, and spec compliance status. These rules are mandatory and override any conflicting assumptions.
 
 ## Architecture
 
