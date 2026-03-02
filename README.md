@@ -145,9 +145,9 @@ packages/
 ├── agents/    — 2-agent system (Planning + Implementation) with orchestrator
 ├── skills/    — 25+ analysis & implementation skills (DSL parsers, graph builders, risk scoring, refactoring)
 ├── schemas/   — 12 JSON schemas + Ajv validation (artifact contract)
-├── foundry/   — Azure AI Foundry integration (BYOM model config)
+├── foundry/   — Azure AI Foundry integration (model config, evaluation, prompt registry)
 ├── auth/      — Azure authentication (DefaultAzureCredential, environment detection)
-├── data/      — Data services (artifact store, telemetry, run metadata)
+├── data/      — Data services (artifact store, telemetry, PII sanitization, RAG pipeline, Fabric config)
 apps/
 └── cli/       — CLI wrapper (plan, implement, full-pipeline commands)
 ```
@@ -186,6 +186,8 @@ apps/
 | `test_scaffold` | Identifies testable entry points and generates starter templates |
 | `pr_writer` | Generates PR descriptions from plan tasks |
 | `incremental_pr` | Fork-aware PR creation for each migration task |
+| `doc_ingest` | Azure Document Intelligence PDF/document ingestion |
+| `report_generator` | HTML visualization for dependency graphs and risk heatmaps |
 
 ## Prerequisites
 
@@ -205,6 +207,8 @@ apps/
 
 4. Create Azure AI Foundry project and deploy GPT-4o model
 5. Set `AZURE_AI_PROJECT_ENDPOINT` env var
+6. For Document Intelligence: set `AZURE_DOCUMENT_INTELLIGENCE_ENDPOINT`
+7. For RAG pipeline: set `AZURE_SEARCH_ENDPOINT` and `AZURE_OPENAI_ENDPOINT`
 
 ### Azure Data Services Setup
 
