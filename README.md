@@ -112,7 +112,7 @@ The [`@github/copilot-sdk`](https://github.com/github/copilot-sdk) (`^0.1.29`) p
 | **Interactive Q&A** | The SDK's conversational loop enables the Planning Agent to ask clarifying questions mid-analysis |
 | **Structured output** | Enforces schema-validated artifact generation via the 12 JSON schemas in `packages/schemas` |
 
-> **Current status**: The SDK is installed and the skill/schema infrastructure is built, but the agents currently orchestrate skills in a deterministic sequence. Full LLM-driven tool selection (where the model decides which skills to invoke) is planned for Phase D once all skills are implemented.
+> **Current status**: The SDK is installed and the skill/schema infrastructure is built. Agents support both deterministic skill sequencing (default) and LLM-driven tool selection (opt-in via `JURASSIC_TOOL_SELECTION=llm` env var). The `ToolSelector` in `packages/agents/src/tool-selector.ts` is wired into both agent workflows with automatic deterministic fallback.
 
 ### Azure AI Foundry
 
