@@ -12,3 +12,6 @@ export type { PromptVersion, PromptComparisonResult, PromptAuditEntry, ABTestRes
 
 export { FoundryIQClient, BUILTIN_EVALUATORS, artifactsToEvalDataset, runFoundryIQEvaluation } from './foundry-iq.js';
 export type { FoundryIQConfig, EvaluationDataItem, TestingCriterion, EvalDefinition, EvalRun, EvalOutputItem } from './foundry-iq.js';
+
+export { formatEvalItemsTable, formatCriteriaSummaryTable, extractAggregateSummary, formatRunComparisonTable, formatDetailedItemTable, toJsonLines } from './eval-formatters.js';
+export type { TabularEvalResult, CriteriaSummary, AggregateEvalSummary } from './eval-formatters.js';

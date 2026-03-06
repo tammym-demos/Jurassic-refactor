@@ -105,6 +105,9 @@ importers:
         specifier: ^3.4.0
         version: 3.14.0
     devDependencies:
+      '@jurassic/foundry':
+        specifier: workspace:*
+        version: link:../foundry
       typescript:
         specifier: ^5.4.0
         version: 5.9.3
