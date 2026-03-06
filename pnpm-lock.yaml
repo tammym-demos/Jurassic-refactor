@@ -51,6 +51,9 @@ importers:
       '@github/copilot-sdk':
         specifier: ^0.1.29
         version: 0.1.29
+      '@jurassic/data':
+        specifier: workspace:*
+        version: link:../data
       '@jurassic/schemas':
         specifier: workspace:*
         version: link:../schemas
@@ -156,6 +159,9 @@ importers:
         specifier: ^21.1.1
         version: 21.1.1
     devDependencies:
+      '@jurassic/agents':
+        specifier: workspace:*
+        version: link:../agents
       typescript:
         specifier: ^5.4.0
         version: 5.9.3

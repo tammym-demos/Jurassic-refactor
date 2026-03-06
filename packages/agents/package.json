@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@github/copilot-sdk": "^0.1.29",
+    "@jurassic/data": "workspace:*",
     "@jurassic/schemas": "workspace:*",
     "@jurassic/skills": "workspace:*"
   },

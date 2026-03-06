@@ -100,17 +100,20 @@ export class PlanningAgent extends BaseAgent {
       // Step 1: Analyze dependencies
       const depGraph = await this.analyzeDependencies();
       artifactPaths.push(this.writeArtifact("DependencyGraph", depGraph));
-      this.log("stack_fingerprint", { step: "dependencies" }, { nodeCount: depGraph.nodes.length });
+      const nodes = (depGraph.nodes ?? []) as unknown[];
+      this.log("stack_fingerprint", { step: "dependencies" }, { nodeCount: nodes.length });
 
       // Step 2: Analyze technology stack
       const stackAnalysis = await this.analyzeStack();
       artifactPaths.push(this.writeArtifact("StackAnalysis", stackAnalysis));
-      this.log("stack_fingerprint", { step: "stack" }, { languageCount: stackAnalysis.languages.length });
+      const languages = (stackAnalysis.languages ?? []) as unknown[];
+      this.log("stack_fingerprint", { step: "stack" }, { languageCount: languages.length });
 
       // Step 3: Score risks
       const riskAssessment = await this.assessRisks();
       artifactPaths.push(this.writeArtifact("RiskAssessment", riskAssessment));
-      this.log("risk_scoring", {}, { itemCount: riskAssessment.items.length });
+      const riskItems = (riskAssessment.items ?? []) as unknown[];
+      this.log("risk_scoring", {}, { itemCount: riskItems.length });
 
       // Step 4: Analyze documentation coverage
       const docCoverage = await this.analyzeDocCoverage();
@@ -120,7 +123,8 @@ export class PlanningAgent extends BaseAgent {
       // Step 5: Generate migration options
       const migrationOptions = await this.generateMigrationOptions(stackAnalysis);
       artifactPaths.push(this.writeArtifact("MigrationOptions", migrationOptions));
-      this.log("migration_evaluator", {}, { optionCount: migrationOptions.options.length });
+      const options = (migrationOptions.options ?? []) as unknown[];
+      this.log("migration_evaluator", {}, { optionCount: options.length });
 
       // Step 6: Interactive Q&A (if enabled)
       let userDecisions: Record<string, unknown> = { decisions: [] };
@@ -134,7 +138,8 @@ export class PlanningAgent extends BaseAgent {
       const selectedOptionId = this.selectBestOption(migrationOptions, userDecisions);
       const plan = await this.generatePlan(selectedOptionId, riskAssessment);
       artifactPaths.push(this.writeArtifact("ModernizationPlan", plan));
-      this.log("migration_evaluator", { step: "plan" }, { phaseCount: plan.phases.length });
+      const phases = (plan.phases ?? []) as unknown[];
+      this.log("migration_evaluator", { step: "plan" }, { phaseCount: phases.length });
 
       // Step 8: Write manifest
       const manifest = {
