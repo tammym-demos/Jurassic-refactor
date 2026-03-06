@@ -74,7 +74,7 @@ function createMockOutputItems(count: number = 3): EvalOutputItem[] {
         name: "relevance",
         metric: "relevance_score",
         score: i % 3 === 0 ? 0.6 : 0.8,
-        label: (i % 3 === 0 ? "fail" : "pass") as const,
+        label: (i % 3 === 0 ? "fail" : "pass") as "pass" | "fail",
         threshold: 0.7,
         passed: i % 3 !== 0,
         reason: i % 3 === 0 ? "Response not relevant to query" : undefined,

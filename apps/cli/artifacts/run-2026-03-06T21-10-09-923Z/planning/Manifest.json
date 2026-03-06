@@ -1,0 +1,12 @@
+{
+  "runId": "run-2026-03-06T21-10-09-923Z",
+  "repoUrl": "https://github.com/chejuichia/ODrive",
+  "profilePath": "",
+  "startedAt": "2026-03-06T21:10:09.931Z",
+  "completedAt": "2026-03-06T21:10:10.771Z",
+  "agent": "planning",
+  "status": "failed",
+  "artifactPaths": [
+    "artifacts\\run-2026-03-06T21-10-09-923Z\\planning\\DependencyGraph.json"
+  ]
+}

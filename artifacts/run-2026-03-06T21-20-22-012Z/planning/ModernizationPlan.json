@@ -1,0 +1,39 @@
+{
+  "selectedOptionId": "js-to-ts",
+  "phases": [
+    {
+      "phaseNumber": 1,
+      "name": "Foundation",
+      "description": "Dependency upgrades and build system changes.",
+      "tasks": [],
+      "dependencies": []
+    },
+    {
+      "phaseNumber": 2,
+      "name": "Core Migration",
+      "description": "Refactor high-risk files with most dependencies.",
+      "tasks": [],
+      "dependencies": [
+        1
+      ]
+    },
+    {
+      "phaseNumber": 3,
+      "name": "Test Coverage",
+      "description": "Generate tests for all changed files.",
+      "tasks": [],
+      "dependencies": [
+        2
+      ]
+    },
+    {
+      "phaseNumber": 4,
+      "name": "Documentation",
+      "description": "Update docs for changed APIs.",
+      "tasks": [],
+      "dependencies": [
+        3
+      ]
+    }
+  ]
+}

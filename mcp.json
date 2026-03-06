@@ -1,0 +1,164 @@
+{
+  "$schema": "https://raw.githubusercontent.com/modelcontextprotocol/servers/main/schemas/mcp.schema.json",
+  "name": "jurassic-modernization-agent",
+  "version": "1.0.0",
+  "description": "Modernization Intelligence Layer - 2-agent system for legacy codebase analysis and modernization",
+  "servers": {
+    "jurassic-planning": {
+      "command": "npx",
+      "args": ["jurassic", "mcp-server", "--agent", "planning"],
+      "description": "Planning Agent MCP server - read-only analysis of legacy codebases",
+      "env": {
+        "AZURE_AI_PROJECT_ENDPOINT": "${AZURE_AI_PROJECT_ENDPOINT}",
+        "APPLICATIONINSIGHTS_CONNECTION_STRING": "${APPLICATIONINSIGHTS_CONNECTION_STRING}",
+        "JURASSIC_TOOL_SELECTION": "deterministic"
+      }
+    },
+    "jurassic-implementation": {
+      "command": "npx",
+      "args": ["jurassic", "mcp-server", "--agent", "implementation"],
+      "description": "Implementation Agent MCP server - executes approved modernization plans",
+      "env": {
+        "AZURE_AI_PROJECT_ENDPOINT": "${AZURE_AI_PROJECT_ENDPOINT}",
+        "APPLICATIONINSIGHTS_CONNECTION_STRING": "${APPLICATIONINSIGHTS_CONNECTION_STRING}",
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}",
+        "JURASSIC_TOOL_SELECTION": "deterministic"
+      }
+    }
+  },
+  "tools": {
+    "planning": [
+      {
+        "name": "repo_snapshot",
+        "description": "Fork-aware file indexing with language detection and file metadata"
+      },
+      {
+        "name": "fw_include_graph",
+        "description": "Build C/C++ include dependency graph with Tarjan SCC cycle detection"
+      },
+      {
+        "name": "py_import_graph",
+        "description": "Build Python import dependency graph with external package tracking"
+      },
+      {
+        "name": "gui_import_graph",
+        "description": "Build JavaScript/Vue import graph with component detection"
+      },
+      {
+        "name": "git_churn",
+        "description": "Analyze git history for file change frequency and hotspots"
+      },
+      {
+        "name": "complexity_metrics",
+        "description": "Calculate code complexity metrics per file"
+      },
+      {
+        "name": "risk_scoring",
+        "description": "Score risk per file based on churn, complexity, and safety factors"
+      },
+      {
+        "name": "safety_path_analysis",
+        "description": "Identify safety-critical code paths and execution zones"
+      },
+      {
+        "name": "stack_fingerprint",
+        "description": "Identify technology stack: languages, frameworks, build tools"
+      },
+      {
+        "name": "doc_coverage_analysis",
+        "description": "Analyze documentation coverage and identify gaps"
+      },
+      {
+        "name": "plan_synthesis",
+        "description": "Synthesize phased modernization plan from analysis artifacts"
+      },
+      {
+        "name": "user_dialog",
+        "description": "Interactive Q&A to capture user decisions mid-analysis"
+      },
+      {
+        "name": "policy",
+        "description": "Enforce governance, safety, and compliance policies"
+      }
+    ],
+    "implementation": [
+      {
+        "name": "code_refactor",
+        "description": "Apply language-aware code transformations (rename, extract, replace)"
+      },
+      {
+        "name": "migration_executor",
+        "description": "Execute migration phases from approved modernization plan"
+      },
+      {
+        "name": "migration_evaluator",
+        "description": "Evaluate migration feasibility with multi-dimensional scoring"
+      },
+      {
+        "name": "dependency_upgrader",
+        "description": "Upgrade npm/pip dependencies with version pinning"
+      },
+      {
+        "name": "test_writer",
+        "description": "Generate test code for vitest, pytest, or C assert frameworks"
+      },
+      {
+        "name": "test_scaffold",
+        "description": "Identify testable entry points and generate starter templates"
+      },
+      {
+        "name": "pr_writer",
+        "description": "Generate PR descriptions and create pull requests via GitHub API"
+      },
+      {
+        "name": "incremental_pr",
+        "description": "Create focused PRs for each migration task on user's fork"
+      },
+      {
+        "name": "doc_ingest",
+        "description": "Ingest PDF/documents via Azure Document Intelligence"
+      },
+      {
+        "name": "report_generator",
+        "description": "Generate HTML visualizations for dependency graphs and risk heatmaps"
+      }
+    ]
+  },
+  "resources": {
+    "artifacts": {
+      "uri": "file://./artifacts/{runId}/",
+      "description": "Schema-validated JSON artifacts produced by agents"
+    },
+    "schemas": {
+      "uri": "file://./specs/schemas/",
+      "description": "JSON schemas for artifact validation"
+    }
+  },
+  "prompts": {
+    "analyze_legacy_repo": {
+      "description": "Analyze a legacy repository and produce modernization intelligence",
+      "arguments": [
+        {
+          "name": "fork_owner",
+          "description": "GitHub username that owns the fork",
+          "required": true
+        },
+        {
+          "name": "repo_name",
+          "description": "Name of the repository to analyze",
+          "required": true
+        }
+      ]
+    },
+    "execute_modernization_plan": {
+      "description": "Execute an approved modernization plan with incremental PRs",
+      "arguments": [
+        {
+          "name": "run_id",
+          "description": "ID of the planning run with approved artifacts",
+          "required": true
+        }
+      ]
+    }
+  }
+}

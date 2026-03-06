@@ -1,0 +1,16 @@
+{
+  "repoUrl": "https://github.com/chejuichia/ODrive",
+  "upstreamUrl": "https://github.com/odriverobotics/ODrive",
+  "repoName": "ODrive",
+  "defaultBranch": "master",
+  "pinnedShas": {
+    "baseline": "3a2e4dd1bfbda9e4c534d5c7d8428a99c361e783",
+    "stress": "e2df8e9e74655144819a3734e2e99e1aa44d8bd7"
+  },
+  "profilePath": "specs/repos/odrive.profile.json",
+  "foundry": {
+    "projectEndpoint": "${AZURE_AI_PROJECT_ENDPOINT}",
+    "modelDeployment": "gpt-4o",
+    "evaluationEnabled": true
+  }
+}

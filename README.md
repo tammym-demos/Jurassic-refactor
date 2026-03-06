@@ -34,6 +34,69 @@ Jurassic Refactor targets complex, aging repositories (C/C++ firmware, Python to
   ModernizationPlan, ...                                    and TestScaffold
 ```
 
+### Architecture Diagram
+
+```mermaid
+flowchart TB
+    subgraph User["👤 User"]
+        Fork["Fork Target Repo"]
+        Review["Review & Approve Plan"]
+        MergePR["Review & Merge PRs"]
+    end
+
+    subgraph PlanningAgent["🔍 Planning Agent (Read-Only)"]
+        RepoSnapshot["repo_snapshot"]
+        IncludeGraph["fw_include_graph"]
+        PyGraph["py_import_graph"]
+        RiskScore["risk_scoring"]
+        PlanSynth["plan_synthesis"]
+        UserDialog["user_dialog"]
+    end
+
+    subgraph Artifacts["📦 Schema-Validated Artifacts"]
+        DependencyGraph["DependencyGraph.json"]
+        RiskAssessment["RiskAssessment.json"]
+        ModernizationPlan["ModernizationPlan.json"]
+        TestScaffold["TestScaffold.json"]
+    end
+
+    subgraph ImplAgent["🔧 Implementation Agent (Write)"]
+        CodeRefactor["code_refactor"]
+        TestWriter["test_writer"]
+        PRWriter["pr_writer"]
+        DepUpgrader["dependency_upgrader"]
+    end
+
+    subgraph Azure["☁️ Azure Services"]
+        Foundry["Azure AI Foundry<br/>(GPT-4o BYOM)"]
+        Fabric["Microsoft Fabric<br/>(OneLake Audit)"]
+        AppInsights["Application Insights<br/>(Telemetry)"]
+        DocIntel["Document Intelligence<br/>(PDF Ingestion)"]
+        AISearch["Azure AI Search<br/>(RAG Pipeline)"]
+    end
+
+    subgraph GitHub["🐙 GitHub"]
+        CopilotSDK["GitHub Copilot SDK"]
+        Actions["GitHub Actions CI/CD"]
+        PRs["Incremental PRs"]
+    end
+
+    Fork --> PlanningAgent
+    PlanningAgent --> Artifacts
+    Artifacts --> Review
+    Review -->|APPROVED| ImplAgent
+    ImplAgent --> PRs
+    PRs --> MergePR
+
+    PlanningAgent <--> CopilotSDK
+    ImplAgent <--> CopilotSDK
+    PlanningAgent <--> Foundry
+    ImplAgent <--> Foundry
+    Artifacts --> Fabric
+    PlanningAgent --> AppInsights
+    ImplAgent --> AppInsights
+```
+
 ## User Workflow
 
 The human is always in control. The software performs heavy analysis autonomously, but the user approves every plan before any code is changed and reviews each PR before merging.

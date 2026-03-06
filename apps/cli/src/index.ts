@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { readFileSync } from "node:fs";
 import { Orchestrator } from "@jurassic/agents/orchestrator.js";
 import type { AgentContext } from "@jurassic/agents/base.js";
 import type { OrchestratorCommand } from "@jurassic/agents/orchestrator.js";
@@ -14,6 +15,8 @@ Commands:
 Options:
   --fork-owner <owner>   GitHub owner of the fork to target
   --repo <owner/repo>    Full repository identifier
+  --fixture <path>       Path to fixture JSON file
+  --profile <path>       Path to profile JSON file
   --interactive          Enable interactive Q&A during planning
   --plan-approved        Skip approval gate for implementation
   --run-id <id>          Custom run identifier
@@ -25,6 +28,8 @@ export interface ParsedArgs {
   command: OrchestratorCommand;
   forkOwner?: string;
   repo?: string;
+  fixture?: string;
+  profile?: string;
   interactive: boolean;
   planApproved: boolean;
   runId: string;
@@ -69,6 +74,12 @@ export function parseArgs(argv: string[]): ParsedArgs {
       case "--repo":
         result.repo = argv[++i];
         break;
+      case "--fixture":
+        result.fixture = argv[++i];
+        break;
+      case "--profile":
+        result.profile = argv[++i];
+        break;
       case "--interactive":
         result.interactive = true;
         break;
@@ -98,10 +109,24 @@ async function main(): Promise<void> {
     process.exit(0);
   }
 
-  // Resolve repository target
+  // Resolve fixture and profile paths (need fixture first to get repo name)
+  const fixturePath = args.fixture ?? "";
+  const profilePath = args.profile ?? "";
+
+  if (!fixturePath) {
+    console.error("Error: --fixture is required.\n");
+    console.log(USAGE);
+    process.exit(1);
+  }
+
+  // Read fixture to get repo name
+  const fixtureData = JSON.parse(readFileSync(fixturePath, "utf-8")) as { repoName?: string; upstreamUrl?: string };
+  const repoName = fixtureData.repoName ?? fixtureData.upstreamUrl?.split("/").pop() ?? "repo";
+
+  // Resolve repository target  
   let repoPath: string;
   if (args.forkOwner) {
-    repoPath = `https://github.com/${args.forkOwner}`;
+    repoPath = `https://github.com/${args.forkOwner}/${repoName}`;
   } else if (args.repo) {
     repoPath = args.repo;
   } else {
@@ -113,8 +138,8 @@ async function main(): Promise<void> {
   const context: AgentContext = {
     runId: args.runId,
     repoPath,
-    fixturePath: "",
-    profilePath: "",
+    fixturePath,
+    profilePath,
     artifactsDir: args.artifactsDir,
   };
 

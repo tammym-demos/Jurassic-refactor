@@ -1,0 +1,15 @@
+{
+  "runId": "run-2026-03-06T21-17-52-978Z",
+  "repoUrl": "https://github.com/chejuichia/ODrive",
+  "profilePath": "",
+  "startedAt": "2026-03-06T21:17:52.984Z",
+  "completedAt": "2026-03-06T21:17:57.912Z",
+  "agent": "planning",
+  "status": "failed",
+  "artifactPaths": [
+    "artifacts\\run-2026-03-06T21-17-52-978Z\\planning\\DependencyGraph.json",
+    "artifacts\\run-2026-03-06T21-17-52-978Z\\planning\\StackAnalysis.json",
+    "artifacts\\run-2026-03-06T21-17-52-978Z\\planning\\RiskAssessment.json",
+    "artifacts\\run-2026-03-06T21-17-52-978Z\\planning\\DocCoverage.json"
+  ]
+}

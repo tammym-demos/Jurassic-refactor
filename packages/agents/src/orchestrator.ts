@@ -3,7 +3,7 @@
 import { type AgentContext } from "./base.js";
 import { PlanningAgent, type PlanningAgentOptions } from "./planning/index.js";
 import { ImplementationAgent } from "./implementation/index.js";
-import { existsSync, readFileSync } from "fs";
+import { existsSync, readFileSync, readdirSync } from "fs";
 import { join } from "path";
 
 /** Commands the orchestrator can dispatch. */
@@ -194,7 +194,6 @@ export class Orchestrator {
   private listArtifacts(context: AgentContext, agentName: string): string[] {
     const dir = join(context.artifactsDir, context.runId, agentName);
     if (!existsSync(dir)) return [];
-    const { readdirSync } = require("fs") as typeof import("fs");
     try {
       return readdirSync(dir)
         .filter((f: string) => f.endsWith(".json"))

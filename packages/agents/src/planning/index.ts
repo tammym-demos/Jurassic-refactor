@@ -2,15 +2,40 @@
 
 import { BaseAgent, type AgentContext } from "../base.js";
 import type { ArtifactName } from "@jurassic/schemas";
-import type { Skill } from "@jurassic/skills";
+import {
+  RepoSnapshotSkill,
+  fwIncludeGraphSkill,
+  PyImportGraphSkill,
+  guiImportGraphSkill,
+  GitChurnSkill,
+  ComplexityMetricsSkill,
+  RiskScoringSkill,
+  SafetyPathAnalysisSkill,
+  StackFingerprintSkill,
+  DocCoverageAnalysisSkill,
+  MigrationEvaluatorSkill,
+  PlanSynthesisSkill,
+  UserDialogSkill,
+  type Skill,
+} from "@jurassic/skills";
+import { execSync } from "node:child_process";
+import { existsSync, mkdirSync, rmSync } from "node:fs";
+import { join } from "node:path";
 
 /** Skills registered by the Planning Agent for analysis. */
 const PLANNING_SKILLS = [
   "repo_snapshot",
-  "include_graph",
+  "fw_include_graph",
+  "py_import_graph",
+  "gui_import_graph",
+  "git_churn",
+  "complexity_metrics",
   "risk_scoring",
+  "safety_path_analysis",
   "stack_fingerprint",
+  "doc_coverage_analysis",
   "migration_evaluator",
+  "plan_synthesis",
   "user_dialog",
 ] as const;
 
@@ -56,6 +81,7 @@ export class PlanningAgent extends BaseAgent {
   private skills = new Map<PlanningSkillName, Skill>();
   private options: PlanningAgentOptions;
   private runLog: Array<Record<string, unknown>> = [];
+  private localRepoPath: string = "";
 
   constructor(options: PlanningAgentOptions = {}) {
     super();
@@ -68,8 +94,62 @@ export class PlanningAgent extends BaseAgent {
    */
   override async initialize(context: AgentContext): Promise<void> {
     await super.initialize(context);
-    // Skills will be registered here once implemented (Phase D)
-    // For now, the agent operates with direct analysis methods
+    
+    // Clone the repository if it's a URL
+    this.localRepoPath = await this.ensureLocalRepo();
+    
+    // Register all skills
+    this.registerSkill("repo_snapshot", new RepoSnapshotSkill());
+    this.registerSkill("fw_include_graph", fwIncludeGraphSkill);
+    this.registerSkill("py_import_graph", new PyImportGraphSkill());
+    this.registerSkill("gui_import_graph", guiImportGraphSkill);
+    this.registerSkill("git_churn", new GitChurnSkill());
+    this.registerSkill("complexity_metrics", new ComplexityMetricsSkill());
+    this.registerSkill("risk_scoring", new RiskScoringSkill());
+    this.registerSkill("safety_path_analysis", new SafetyPathAnalysisSkill());
+    this.registerSkill("stack_fingerprint", new StackFingerprintSkill());
+    this.registerSkill("doc_coverage_analysis", new DocCoverageAnalysisSkill());
+    this.registerSkill("migration_evaluator", new MigrationEvaluatorSkill());
+    this.registerSkill("plan_synthesis", new PlanSynthesisSkill());
+    this.registerSkill("user_dialog", new UserDialogSkill());
+  }
+
+  /**
+   * Clone the target repo to a local directory if needed.
+   */
+  private async ensureLocalRepo(): Promise<string> {
+    const repoPath = this.context!.repoPath;
+    
+    // If it's already a local path, use it directly
+    if (existsSync(repoPath)) {
+      return repoPath;
+    }
+    
+    // If it's a GitHub URL, clone it
+    if (repoPath.includes("github.com")) {
+      const cloneDir = join(this.context!.artifactsDir, ".repos");
+      if (!existsSync(cloneDir)) {
+        mkdirSync(cloneDir, { recursive: true });
+      }
+      
+      // Extract repo name from URL
+      const repoName = repoPath.split("/").pop()?.replace(".git", "") ?? "repo";
+      const localPath = join(cloneDir, repoName);
+      
+      // Clone if not already cloned
+      if (!existsSync(localPath)) {
+        console.log(`Cloning ${repoPath} to ${localPath}...`);
+        execSync(`git clone --depth 100 ${repoPath} "${localPath}"`, {
+          stdio: "inherit",
+        });
+      } else {
+        console.log(`Using existing clone at ${localPath}`);
+      }
+      
+      return localPath;
+    }
+    
+    throw new Error(`Cannot resolve repository path: ${repoPath}`);
   }
 
   /**
@@ -136,7 +216,7 @@ export class PlanningAgent extends BaseAgent {
 
       // Step 7: Generate modernization plan
       const selectedOptionId = this.selectBestOption(migrationOptions, userDecisions);
-      const plan = await this.generatePlan(selectedOptionId, riskAssessment);
+      const plan = await this.generatePlan(selectedOptionId, riskAssessment, stackAnalysis, depGraph, userDecisions);
       artifactPaths.push(this.writeArtifact("ModernizationPlan", plan));
       const phases = (plan.phases ?? []) as unknown[];
       this.log("migration_evaluator", { step: "plan" }, { phaseCount: phases.length });
@@ -144,7 +224,7 @@ export class PlanningAgent extends BaseAgent {
       // Step 8: Write manifest
       const manifest = {
         runId: this.context!.runId,
-        repoUrl: this.loadFixture().repoUrl as string,
+        repoUrl: this.context!.repoPath,
         profilePath: this.context!.profilePath,
         startedAt,
         completedAt: new Date().toISOString(),
@@ -162,7 +242,7 @@ export class PlanningAgent extends BaseAgent {
       // Write failed manifest
       const manifest = {
         runId: this.context!.runId,
-        repoUrl: this.loadFixture().repoUrl as string,
+        repoUrl: this.context!.repoPath,
         profilePath: this.context!.profilePath,
         startedAt,
         completedAt: new Date().toISOString(),
@@ -182,19 +262,136 @@ export class PlanningAgent extends BaseAgent {
 
   // ─── Analysis methods (delegates to skills when registered) ───
 
+  /**
+   * Transform raw skill output to schema-compliant DependencyGraph format.
+   */
+  private transformToSchemaFormat(
+    rawResult: Record<string, unknown>,
+    language: string,
+  ): Record<string, unknown> {
+    const rawNodes = (rawResult.nodes ?? []) as string[];
+    const rawEdges = (rawResult.edges ?? []) as Array<{ from?: string; to?: string }>;
+    
+    // Convert string nodes to schema-compliant node objects
+    const nodes = rawNodes.map((nodePath: string) => {
+      const ext = nodePath.split(".").pop()?.toLowerCase() ?? "";
+      const nodeType = ext === "h" || ext === "hpp" ? "header" : "source";
+      return {
+        path: nodePath,
+        type: nodeType,
+        language,
+        loc: 0, // Would need actual LOC count for accuracy
+      };
+    });
+    
+    // Convert edges from {from, to} to {source, target, type}
+    const edges = rawEdges.map((edge) => ({
+      source: edge.from ?? "",
+      target: edge.to ?? "",
+      type: "include" as const,
+    }));
+    
+    return { nodes, edges };
+  }
+
   private async analyzeDependencies(): Promise<Record<string, unknown>> {
-    const skill = this.skills.get("include_graph");
-    if (skill) {
-      return (await skill.execute({ repoPath: this.context!.repoPath })) as Record<string, unknown>;
+    // Try C/C++ include graph first (for firmware projects like ODrive)
+    const fwSkill = this.skills.get("fw_include_graph");
+    if (fwSkill) {
+      try {
+        const result = await fwSkill.execute({ repoPath: this.localRepoPath }) as Record<string, unknown>;
+        if ((result.nodes as unknown[])?.length > 0) {
+          return this.transformToSchemaFormat(result, "cpp");
+        }
+      } catch {
+        // Firmware dir not found, try other graphs
+      }
     }
-    // Stub: return empty graph when skill not registered
+    
+    // Try Python import graph
+    const pySkill = this.skills.get("py_import_graph");
+    if (pySkill) {
+      try {
+        const result = await pySkill.execute({ repoPath: this.localRepoPath }) as Record<string, unknown>;
+        if ((result.nodes as unknown[])?.length > 0) {
+          return this.transformToSchemaFormat(result, "python");
+        }
+      } catch {
+        // Python dir not found
+      }
+    }
+    
+    // Try GUI/JS import graph
+    const guiSkill = this.skills.get("gui_import_graph");
+    if (guiSkill) {
+      try {
+        const result = await guiSkill.execute({ repoPath: this.localRepoPath }) as Record<string, unknown>;
+        if ((result.nodes as unknown[])?.length > 0) {
+          return this.transformToSchemaFormat(result, "javascript");
+        }
+      } catch {
+        // GUI dir not found
+      }
+    }
+    
     return { nodes: [], edges: [] };
+  }
+
+  /**
+   * Transform stack fingerprint output to schema-compliant StackAnalysis format.
+   */
+  private transformStackToSchema(rawResult: Record<string, unknown>): Record<string, unknown> {
+    type RawItem = { name: string; version?: string; confidence?: number };
+    
+    const rawLanguages = (rawResult.languages ?? []) as RawItem[];
+    const rawFrameworks = (rawResult.frameworks ?? []) as RawItem[];
+    const rawBuildTools = (rawResult.buildTools ?? []) as RawItem[];
+    const rawPackageManagers = (rawResult.packageManagers ?? []) as RawItem[];
+    const rawRuntimeDeps = (rawResult.runtimeDependencies ?? []) as RawItem[];
+    
+    const totalLangs = rawLanguages.length || 1;
+    const languages = rawLanguages.map((item, idx) => ({
+      name: item.name,
+      percentage: Math.round((100 / totalLangs) * 10) / 10, // Rough estimate
+      files: Math.max(1, Math.floor(10 / (idx + 1))),  // Placeholder
+    }));
+    
+    const frameworks = rawFrameworks.map((item) => ({
+      name: item.name,
+      version: item.version ?? "unknown",
+      confidence: item.confidence ?? 0.8,
+    }));
+    
+    const buildTools = rawBuildTools.map((item) => ({
+      name: item.name,
+      version: item.version ?? "unknown",
+    }));
+    
+    const packageManagers = rawPackageManagers.map((item) => ({
+      name: item.name,
+      version: item.version ?? "unknown",
+    }));
+    
+    const runtimeDependencies = rawRuntimeDeps.map((item) => ({
+      name: item.name,
+      version: item.version ?? "unknown",
+      source: "detected" as const,
+    }));
+    
+    return {
+      languages,
+      frameworks,
+      buildTools,
+      packageManagers,
+      runtimeDependencies,
+    };
   }
 
   private async analyzeStack(): Promise<Record<string, unknown>> {
     const skill = this.skills.get("stack_fingerprint");
     if (skill) {
-      return (await skill.execute({ repoPath: this.context!.repoPath })) as Record<string, unknown>;
+      const rawResult = (await skill.execute({ repoPath: this.localRepoPath })) as Record<string, unknown>;
+      return this.transformStackToSchema(rawResult);
     }
     return {
       languages: [],
@@ -206,35 +403,195 @@ export class PlanningAgent extends BaseAgent {
   }
 
   private async assessRisks(): Promise<Record<string, unknown>> {
-    const skill = this.skills.get("risk_scoring");
-    if (skill) {
-      return (await skill.execute({ repoPath: this.context!.repoPath })) as Record<string, unknown>;
+    // First gather prerequisite data
+    const gitChurnSkill = this.skills.get("git_churn");
+    const complexitySkill = this.skills.get("complexity_metrics");
+    const safetySkill = this.skills.get("safety_path_analysis");
+    
+    let churnData: Record<string, unknown> | undefined;
+    let complexityData: Record<string, unknown> | undefined;
+    let safetyData: Record<string, unknown> | undefined;
+    
+    if (gitChurnSkill) {
+      try {
+        churnData = await gitChurnSkill.execute({ repoPath: this.localRepoPath }) as Record<string, unknown>;
+      } catch {
+        // Git churn analysis failed
+      }
+    }
+    
+    if (complexitySkill) {
+      try {
+        complexityData = await complexitySkill.execute({ repoPath: this.localRepoPath }) as Record<string, unknown>;
+      } catch {
+        // Complexity analysis failed
+      }
+    }
+    
+    if (safetySkill) {
+      try {
+        safetyData = await safetySkill.execute({ repoPath: this.localRepoPath }) as Record<string, unknown>;
+      } catch {
+        // Safety analysis failed
+      }
+    }
+    
+    // Now run risk scoring with all the data
+    const riskSkill = this.skills.get("risk_scoring");
+    if (riskSkill) {
+      const rawResult = (await riskSkill.execute({
+        repoPath: this.localRepoPath,
+        churnData,
+        complexityData,
+        safetyData,
+      })) as Record<string, unknown>;
+      return this.transformRiskToSchema(rawResult);
     }
     return { items: [] };
   }
 
+  /**
+   * Transform risk scoring output to schema-compliant RiskAssessment format.
+   */
+  private transformRiskToSchema(rawResult: Record<string, unknown>): Record<string, unknown> {
+    type RawItem = {
+      filePath: string;
+      overallScore?: number;
+      churnScore?: number;
+      complexityScore?: number;
+      safetyScore?: number;
+      evidence?: string[];
+    };
+    
+    const rawItems = (rawResult.items ?? []) as RawItem[];
+    
+    const items = rawItems.map((item) => ({
+      filePath: item.filePath,
+      riskScore: Math.min((item.overallScore ?? 0) / 100, 1),
+      factors: {
+        churn: Math.min((item.churnScore ?? 0) / 100, 1),
+        complexity: Math.min((item.complexityScore ?? 0) / 100, 1),
+        safetyPath: Math.min((item.safetyScore ?? 0) / 100, 1),
+        docCoverage: 0.5, // Not computed by skill
+        testCoverage: 0.5, // Not computed by skill
+      },
+      safetyFlags: item.evidence?.filter(e => e.toLowerCase().includes('safety')) ?? [],
+    }));
+    
+    return { items };
+  }
+
   private async analyzeDocCoverage(): Promise<Record<string, unknown>> {
-    const skill = this.skills.get("repo_snapshot");
+    const skill = this.skills.get("doc_coverage_analysis");
     if (skill) {
-      return (await skill.execute({
-        repoPath: this.context!.repoPath,
-        mode: "doc-coverage",
-      })) as Record<string, unknown>;
+      const rawResult = (await skill.execute({ repoPath: this.localRepoPath })) as Record<string, unknown>;
+      return this.transformDocCoverageToSchema(rawResult);
     }
     return { overallPercentage: 0, gaps: [], stubs: [] };
   }
 
+  /**
+   * Transform doc coverage skill output to schema-compliant DocCoverage format.
+   */
+  private transformDocCoverageToSchema(rawResult: Record<string, unknown>): Record<string, unknown> {
+    type RawGap = {
+      filePath: string;
+      symbol?: string;
+      type?: string;
+    };
+    type RawStub = {
+      filePath: string;
+      content?: string;
+    };
+    
+    const rawGaps = (rawResult.gaps ?? []) as RawGap[];
+    const rawStubs = (rawResult.stubs ?? []) as RawStub[];
+    const missingReadmes = (rawResult.missingReadmes ?? []) as string[];
+    
+    // Convert gaps to schema format
+    const gaps: Array<{filePath: string; type: string; description: string}> = [];
+    
+    // Add missing readmes as gaps
+    for (const readmePath of missingReadmes) {
+      gaps.push({
+        filePath: readmePath,
+        type: "missing-readme",
+        description: `Missing README file at ${readmePath}`,
+      });
+    }
+    
+    // Add API gaps with mapped type
+    for (const gap of rawGaps) {
+      gaps.push({
+        filePath: gap.filePath,
+        type: "undocumented-api",
+        description: `Undocumented ${gap.type ?? "symbol"}: ${gap.symbol ?? "unknown"}`,
+      });
+    }
+    
+    // Convert stubs to schema format (content → template)
+    const stubs = rawStubs.map((stub) => ({
+      filePath: stub.filePath,
+      template: stub.content ?? "",
+    }));
+    
+    return {
+      overallPercentage: rawResult.overallPercentage ?? 0,
+      gaps,
+      stubs,
+    };
+  }
+
   private async generateMigrationOptions(
-    _stackAnalysis: Record<string, unknown>,
+    stackAnalysis: Record<string, unknown>,
   ): Promise<Record<string, unknown>> {
     const skill = this.skills.get("migration_evaluator");
     if (skill) {
-      return (await skill.execute({
-        repoPath: this.context!.repoPath,
-        stackAnalysis: _stackAnalysis,
+      const rawResult = (await skill.execute({
+        stackFingerprint: stackAnalysis,
       })) as Record<string, unknown>;
+      return this.transformMigrationOptionsToSchema(rawResult);
     }
     return { options: [] };
+  }
+
+  /**
+   * Transform migration evaluator output to schema-compliant MigrationOptions format.
+   */
+  private transformMigrationOptionsToSchema(rawResult: Record<string, unknown>): Record<string, unknown> {
+    type RawOption = {
+      id: string;
+      name: string;
+      description?: string;
+      sourceStack?: string[];
+      targetStack?: string[];
+      scores?: {
+        effort?: number;
+        risk?: number;
+        ecosystemSupport?: number;
+        teamReadiness?: number;
+      };
+      prerequisites?: string[];
+    };
+    
+    const rawOptions = (rawResult.options ?? []) as RawOption[];
+    
+    const options = rawOptions.map((opt) => ({
+      id: opt.id,
+      name: opt.name,
+      description: opt.description ?? "",
+      fromStack: (opt.sourceStack ?? []).join(", ") || "unknown",
+      toStack: (opt.targetStack ?? []).join(", ") || "modern",
+      scores: {
+        effort: Math.min((opt.scores?.effort ?? 0) / 100, 1),
+        risk: Math.min((opt.scores?.risk ?? 0) / 100, 1),
+        ecosystemSupport: Math.min((opt.scores?.ecosystemSupport ?? 0) / 100, 1),
+        teamExpertise: Math.min((opt.scores?.teamReadiness ?? 50) / 100, 1),
+      },
+      prerequisites: opt.prerequisites ?? [],
+    }));
+    
+    return { options };
   }
 
   private async gatherUserDecisions(
@@ -252,9 +609,82 @@ export class PlanningAgent extends BaseAgent {
 
   private async generatePlan(
     selectedOptionId: string,
-    _riskAssessment: Record<string, unknown>,
+    riskAssessment: Record<string, unknown>,
+    stackData?: Record<string, unknown>,
+    depGraph?: Record<string, unknown>,
+    userDecisions?: Record<string, unknown>,
   ): Promise<Record<string, unknown>> {
+    const skill = this.skills.get("plan_synthesis");
+    if (skill) {
+      // Get the selected migration option details
+      const migrationOption = {
+        id: selectedOptionId,
+        name: selectedOptionId,
+        targetStack: "modernized",
+        effort: "medium",
+      };
+      
+      const rawResult = (await skill.execute({
+        riskItems: riskAssessment.items ?? [],
+        stackData: stackData ?? { languages: [], frameworks: [], buildTools: [] },
+        migrationOption,
+        dependencyGraph: depGraph,
+        userDecisions,
+      })) as Record<string, unknown>;
+      return this.transformPlanToSchema(rawResult, selectedOptionId);
+    }
     return { selectedOptionId, phases: [] };
+  }
+
+  /**
+   * Transform plan synthesis output to schema-compliant ModernizationPlan format.
+   */
+  private transformPlanToSchema(rawResult: Record<string, unknown>, selectedOptionId: string): Record<string, unknown> {
+    type RawTask = {
+      id?: string;
+      title?: string;
+      description?: string;
+      priority?: string;
+      riskIds?: string[];
+    };
+    type RawPhase = {
+      number?: number;
+      name?: string;
+      description?: string;
+      tasks?: RawTask[];
+    };
+    
+    const rawPhases = (rawResult.phases ?? []) as RawPhase[];
+    
+    const phases = rawPhases.map((phase, index) => ({
+      phaseNumber: phase.number ?? index + 1,
+      name: phase.name ?? `Phase ${index + 1}`,
+      description: phase.description ?? "",
+      tasks: (phase.tasks ?? []).map((task, taskIdx) => ({
+        taskId: task.id ?? `task-${index + 1}-${taskIdx + 1}`,
+        description: task.description ?? task.title ?? "",
+        riskId: (task.riskIds ?? [])[0], // Take first if any
+        estimatedEffort: this.mapPriorityToEffort(task.priority),
+      })),
+      dependencies: index > 0 ? [index] : [], // Each phase depends on previous
+    }));
+    
+    return {
+      selectedOptionId,
+      phases,
+    };
+  }
+
+  private mapPriorityToEffort(priority?: string): "low" | "medium" | "high" {
+    switch (priority) {
+      case "critical":
+      case "high":
+        return "high";
+      case "medium":
+        return "medium";
+      default:
+        return "low";
+    }
   }
 
   private selectBestOption(
