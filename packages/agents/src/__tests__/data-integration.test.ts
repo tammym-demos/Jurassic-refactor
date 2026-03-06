@@ -60,8 +60,8 @@ function createBridge(overrides: Partial<DataIntegrationConfig> = {}) {
 describe("AgentDataBridge", () => {
   it("uploadArtifact delegates to artifact store", async () => {
     const { bridge, artifactStore } = createBridge();
-    await bridge.uploadArtifact("run-1", "plan", { steps: [] });
-    expect(artifactStore.upload).toHaveBeenCalledWith("run-1", "agent", "plan", { steps: [] });
+    await bridge.uploadArtifact("run-1", "planning", "plan", { steps: [] });
+    expect(artifactStore.upload).toHaveBeenCalledWith("run-1", "planning", "plan", { steps: [] });
   });
 
   it("downloadArtifact delegates to artifact store", async () => {

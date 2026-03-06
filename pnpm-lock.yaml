@@ -38,6 +38,9 @@ importers:
       '@jurassic/agents':
         specifier: workspace:*
         version: link:../../packages/agents
+      '@jurassic/foundry':
+        specifier: workspace:*
+        version: link:../../packages/foundry
     devDependencies:
       typescript:
         specifier: ^5.4.0
@@ -54,6 +57,9 @@ importers:
       '@jurassic/data':
         specifier: workspace:*
         version: link:../data
+      '@jurassic/foundry':
+        specifier: workspace:*
+        version: link:../foundry
       '@jurassic/schemas':
         specifier: workspace:*
         version: link:../schemas

@@ -3,11 +3,11 @@
 import { type AgentContext } from "./base.js";
 import { PlanningAgent, type PlanningAgentOptions } from "./planning/index.js";
 import { ImplementationAgent } from "./implementation/index.js";
-import { existsSync, readFileSync, readdirSync } from "fs";
+import { existsSync, readFileSync, readdirSync, writeFileSync } from "fs";
 import { join } from "path";
 
 /** Commands the orchestrator can dispatch. */
-export type OrchestratorCommand = "plan" | "implement" | "full-pipeline";
+export type OrchestratorCommand = "plan" | "implement" | "full-pipeline" | "evaluate";
 
 /** Options for orchestrator execution. */
 export interface OrchestratorOptions {
@@ -21,6 +21,10 @@ export interface OrchestratorOptions {
   skipApproval?: boolean;
   /** If true, the plan has been approved (required for 'implement'). */
   planApproved?: boolean;
+  /** Baseline run ID for evaluation regression detection. */
+  baselineRunId?: string;
+  /** If true, run evaluation after pipeline completes. */
+  runEvaluation?: boolean;
 }
 
 /** Result of an orchestrator run. */
@@ -40,6 +44,7 @@ export interface OrchestratorResult {
  * - `plan`: Run the Planning Agent (read-only analysis)
  * - `implement`: Run the Implementation Agent (requires approved plan)
  * - `full-pipeline`: plan → approval gate → implement
+ * - `evaluate`: Run evaluation on existing artifacts
  *
  * The orchestrator enforces the approval gate:
  * Planning Agent artifacts must be explicitly approved before
@@ -61,6 +66,9 @@ export class Orchestrator {
 
       case "full-pipeline":
         return this.executeFullPipeline(context, options);
+
+      case "evaluate":
+        return this.executeEvaluate(context, options.baselineRunId);
 
       default:
         return {
@@ -166,12 +174,80 @@ export class Orchestrator {
       command: "implement",
     });
 
+    // Step 4: Optional evaluation
+    let evalArtifacts: string[] = [];
+    if (options.runEvaluation) {
+      try {
+        const evalResult = await this.executeEvaluate(context, options.baselineRunId);
+        evalArtifacts = evalResult.artifactPaths;
+      } catch (error) {
+        // Evaluation failure shouldn't fail the pipeline, just log warning
+        console.warn("Evaluation failed:", error instanceof Error ? error.message : String(error));
+      }
+    }
+
     return {
       command: "full-pipeline",
       status: implResult.status,
-      artifactPaths: [...planResult.artifactPaths, ...implResult.artifactPaths],
+      artifactPaths: [...planResult.artifactPaths, ...implResult.artifactPaths, ...evalArtifacts],
       error: implResult.error,
     };
+  }
+
+  /**
+   * Run evaluation on artifacts from a completed run.
+   */
+  private async executeEvaluate(
+    context: AgentContext,
+    baselineRunId?: string,
+  ): Promise<OrchestratorResult> {
+    const artifactDir = join(context.artifactsDir, context.runId, "planning");
+    
+    if (!existsSync(artifactDir)) {
+      return {
+        command: "evaluate",
+        status: "failed",
+        artifactPaths: [],
+        error: `No artifacts found for run ${context.runId}`,
+      };
+    }
+
+    try {
+      // Dynamic import to avoid circular dependencies
+      const { EvaluationService } = await import("@jurassic/foundry");
+      const evaluationService = new EvaluationService();
+      
+      const baselineDir = baselineRunId 
+        ? join(context.artifactsDir, baselineRunId, "planning")
+        : undefined;
+
+      const report = await evaluationService.evaluate({
+        runId: context.runId,
+        agentType: "planning",
+        artifactDir,
+        baselineDir,
+      });
+
+      // Save evaluation report
+      const reportPath = join(context.artifactsDir, context.runId, "EvaluationReport.json");
+      writeFileSync(reportPath, JSON.stringify(report, null, 2));
+
+      return {
+        command: "evaluate",
+        status: report.passed ? "completed" : "failed",
+        artifactPaths: [reportPath],
+        error: report.passed 
+          ? undefined 
+          : `Evaluation failed (score: ${report.overallScore.toFixed(3)})`,
+      };
+    } catch (error) {
+      return {
+        command: "evaluate",
+        status: "failed",
+        artifactPaths: [],
+        error: error instanceof Error ? error.message : String(error),
+      };
+    }
   }
 
   /**

@@ -21,6 +21,18 @@ import {
 import { execSync } from "node:child_process";
 import { existsSync, mkdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
+import { pathToFileURL } from "node:url";
+
+/**
+ * Convert a path to a valid URI. If already a URI, return as-is.
+ */
+function toUri(pathOrUri: string): string {
+  if (pathOrUri.startsWith("http://") || pathOrUri.startsWith("https://") || pathOrUri.startsWith("file://")) {
+    return pathOrUri;
+  }
+  // Convert local path to file:// URI
+  return pathToFileURL(pathOrUri).href;
+}
 
 /** Skills registered by the Planning Agent for analysis. */
 const PLANNING_SKILLS = [
@@ -224,7 +236,7 @@ export class PlanningAgent extends BaseAgent {
       // Step 8: Write manifest
       const manifest = {
         runId: this.context!.runId,
-        repoUrl: this.context!.repoPath,
+        repoUrl: toUri(this.context!.repoPath),
         profilePath: this.context!.profilePath,
         startedAt,
         completedAt: new Date().toISOString(),
@@ -242,7 +254,7 @@ export class PlanningAgent extends BaseAgent {
       // Write failed manifest
       const manifest = {
         runId: this.context!.runId,
-        repoUrl: this.context!.repoPath,
+        repoUrl: toUri(this.context!.repoPath),
         profilePath: this.context!.profilePath,
         startedAt,
         completedAt: new Date().toISOString(),
@@ -623,9 +635,40 @@ export class PlanningAgent extends BaseAgent {
         targetStack: "modernized",
         effort: "medium",
       };
+
+      // Transform risk items from RiskAssessment schema to PlanSynthesisInput format
+      type RiskItem = { filePath: string; riskScore: number; factors?: Record<string, number>; safetyFlags?: string[] };
+      const rawItems = (riskAssessment.items ?? []) as RiskItem[];
+      const riskItems = rawItems.map(item => {
+        const score = item.riskScore * 100; // Convert 0-1 to 0-100
+        let severity: string;
+        if (score >= 70) severity = "critical";
+        else if (score >= 50) severity = "high";
+        else if (score >= 30) severity = "medium";
+        else severity = "low";
+
+        const evidence: string[] = [];
+        if (item.factors) {
+          if (item.factors.churn > 0.5) evidence.push("High code churn");
+          if (item.factors.complexity > 0.7) evidence.push("High complexity");
+          if (item.factors.safetyPath > 0.5) evidence.push("Safety-critical path");
+          if (item.factors.docCoverage < 0.3) evidence.push("Poor documentation");
+          if (item.factors.testCoverage < 0.3) evidence.push("Low test coverage");
+        }
+        if (item.safetyFlags && item.safetyFlags.length > 0) {
+          evidence.push(...item.safetyFlags.map(f => `Safety flag: ${f}`));
+        }
+
+        return {
+          filePath: item.filePath,
+          overallScore: score,
+          severity,
+          evidence,
+        };
+      });
       
       const rawResult = (await skill.execute({
-        riskItems: riskAssessment.items ?? [],
+        riskItems,
         stackData: stackData ?? { languages: [], frameworks: [], buildTools: [] },
         migrationOption,
         dependencyGraph: depGraph,
