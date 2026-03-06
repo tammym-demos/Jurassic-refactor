@@ -15,7 +15,8 @@
   },
   "dependencies": {
     "@jurassic/agents": "workspace:*",
-    "@jurassic/foundry": "workspace:*"
+    "@jurassic/foundry": "workspace:*",
+    "@jurassic/skills": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.4.0",

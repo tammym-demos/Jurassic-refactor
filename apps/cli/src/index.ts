@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
-import { readFileSync, existsSync } from "node:fs";
-import { join } from "node:path";
+import { readFileSync, existsSync, writeFileSync } from "node:fs";
+import { join, basename } from "node:path";
 import { Orchestrator } from "@jurassic/agents/orchestrator.js";
 import type { AgentContext } from "@jurassic/agents/base.js";
 import type { OrchestratorCommand } from "@jurassic/agents/orchestrator.js";
 import { EvaluationService, runFoundryIQEvaluation } from "@jurassic/foundry";
+import { generateDependencyGraphReport, generateRiskHeatmapReport } from "@jurassic/skills/report_generator.js";
 
 const USAGE = `Usage: jurassic <command> [options]
 
@@ -14,6 +15,7 @@ Commands:
   implement       Run the Implementation Agent (requires approved plan)
   full-pipeline   Run plan → approval → implement
   evaluate        Evaluate artifacts from a completed run
+  visualize       Generate HTML reports from artifacts
 
 Options:
   --fork-owner <owner>   GitHub owner of the fork to target
@@ -26,11 +28,13 @@ Options:
   --artifacts-dir <path> Artifacts output directory (default: ./artifacts)
   --cloud                Use Azure AI Foundry cloud evaluation (requires AZURE_AI_PROJECT_ENDPOINT)
   --baseline <run-id>    Baseline run ID for regression detection
+  --artifact <name>      Artifact to visualize (DependencyGraph, RiskAssessment)
+  --output <path>        Output HTML file path
   --help                 Show this help message
 `;
 
 export interface ParsedArgs {
-  command: OrchestratorCommand | "evaluate";
+  command: OrchestratorCommand | "evaluate" | "visualize";
   forkOwner?: string;
   repo?: string;
   fixture?: string;
@@ -42,9 +46,11 @@ export interface ParsedArgs {
   help: boolean;
   cloud: boolean;
   baseline?: string;
+  artifact?: string;
+  output?: string;
 }
 
-const VALID_COMMANDS = new Set<string>(["plan", "implement", "full-pipeline", "evaluate"]);
+const VALID_COMMANDS = new Set<string>(["plan", "implement", "full-pipeline", "evaluate", "visualize"]);
 
 function generateRunId(): string {
   const ts = new Date().toISOString().replace(/[:.]/g, "-");
@@ -105,6 +111,12 @@ export function parseArgs(argv: string[]): ParsedArgs {
         break;
       case "--baseline":
         result.baseline = argv[++i];
+        break;
+      case "--artifact":
+        result.artifact = argv[++i];
+        break;
+      case "--output":
+        result.output = argv[++i];
         break;
       case "--help":
         result.help = true;
@@ -239,12 +251,82 @@ async function runEvaluate(args: ParsedArgs): Promise<void> {
   }
 }
 
+/**
+ * Generate HTML visualization from artifacts.
+ * Supports DependencyGraph (force-directed graph) and RiskAssessment (heatmap).
+ */
+function runVisualize(args: ParsedArgs): void {
+  const SUPPORTED_ARTIFACTS = ["DependencyGraph", "RiskAssessment"];
+  
+  if (!args.artifact) {
+    console.error("Error: --artifact is required for visualize command.");
+    console.error(`Supported artifacts: ${SUPPORTED_ARTIFACTS.join(", ")}`);
+    process.exit(1);
+  }
+
+  if (!SUPPORTED_ARTIFACTS.includes(args.artifact)) {
+    console.error(`Error: Unsupported artifact type: ${args.artifact}`);
+    console.error(`Supported artifacts: ${SUPPORTED_ARTIFACTS.join(", ")}`);
+    process.exit(1);
+  }
+
+  // Find the artifact file
+  const planningDir = join(args.artifactsDir, args.runId, "planning");
+  const artifactPath = join(planningDir, `${args.artifact}.json`);
+
+  if (!existsSync(artifactPath)) {
+    console.error(`Error: Artifact not found: ${artifactPath}`);
+    console.error(`Run 'jurassic plan' first to generate ${args.artifact}.json`);
+    process.exit(1);
+  }
+
+  // Read artifact data
+  const artifactData = JSON.parse(readFileSync(artifactPath, "utf-8"));
+
+  // Generate HTML report based on artifact type
+  let html: string;
+  if (args.artifact === "DependencyGraph") {
+    console.log(`Generating dependency graph visualization...`);
+    html = generateDependencyGraphReport(artifactData);
+  } else {
+    console.log(`Generating risk heatmap visualization...`);
+    html = generateRiskHeatmapReport(artifactData);
+  }
+
+  // Determine output path
+  const outputPath = args.output ?? join(args.artifactsDir, args.runId, `${args.artifact}.html`);
+  
+  // Write HTML file
+  writeFileSync(outputPath, html, "utf-8");
+  
+  console.log(`\n✓ Visualization created: ${outputPath}`);
+  console.log(`\nOpen in browser to view the interactive ${args.artifact === "DependencyGraph" ? "dependency graph" : "risk heatmap"}.`);
+  
+  // Show stats
+  if (args.artifact === "DependencyGraph") {
+    const nodes = artifactData.nodes?.length ?? 0;
+    const edges = artifactData.edges?.length ?? 0;
+    console.log(`  Nodes: ${nodes}  |  Edges: ${edges}`);
+  } else {
+    const items = artifactData.items?.length ?? 0;
+    console.log(`  Files analyzed: ${items}`);
+  }
+  
+  process.exit(0);
+}
+
 async function main(): Promise<void> {
   const args = parseArgs(process.argv.slice(2));
 
   if (args.help) {
     console.log(USAGE);
     process.exit(0);
+  }
+
+  // Handle visualize command separately (synchronous)
+  if (args.command === "visualize") {
+    runVisualize(args);
+    return;
   }
 
   // Handle evaluate command separately

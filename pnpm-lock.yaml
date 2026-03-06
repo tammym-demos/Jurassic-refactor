@@ -41,6 +41,9 @@ importers:
       '@jurassic/foundry':
         specifier: workspace:*
         version: link:../../packages/foundry
+      '@jurassic/skills':
+        specifier: workspace:*
+        version: link:../../packages/skills
     devDependencies:
       typescript:
         specifier: ^5.4.0

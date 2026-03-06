@@ -5,6 +5,10 @@
   "description": "Custom analysis and implementation skills for Planning and Implementation agents",
   "type": "module",
   "main": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./report_generator.js": "./dist/report_generator.js"
+  },
   "scripts": {
     "build": "tsc",
     "test": "vitest run --passWithNoTests",
