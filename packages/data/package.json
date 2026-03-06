@@ -10,7 +10,8 @@
     "./artifact-store": "./dist/artifact-store.js",
     "./telemetry": "./dist/telemetry.js",
     "./run-metadata": "./dist/run-metadata.js",
-    "./fabric-config": "./dist/fabric-config.js"
+    "./fabric-config": "./dist/fabric-config.js",
+    "./lakehouse-tables": "./dist/lakehouse-tables.js"
   },
   "scripts": {
     "build": "tsc",

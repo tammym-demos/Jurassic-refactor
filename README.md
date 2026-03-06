@@ -321,7 +321,7 @@ Current implementation status of each integration point specified in [`specs/fun
 | Infrastructure as Code (Bicep) | ✅ Complete | 4 modules: OpenAI, App Insights, ACR, Container Apps |
 | Human-in-the-loop gating | ✅ Complete | Approval-gate marker file + GitHub environment approvals |
 | Azure Monitor / App Insights | ✅ Complete | `applicationinsights` SDK wired in `telemetry.ts` — trackEvent, trackDependency, trackMetric |
-| Microsoft Fabric / OneLake | ✅ Complete | OneLake DFS reads/writes via `@azure/storage-file-datalake` in `artifact-store.ts` |
+| Microsoft Fabric / OneLake | ✅ Complete | OneLake DFS reads/writes via `@azure/storage-file-datalake` in `artifact-store.ts` + `lakehouse-tables.ts` for structured audit tables (runs, skill_invocations, artifacts, evaluations) |
 | PII redaction filters | ✅ Complete | `sanitize()` in `packages/data/src/sanitize.ts` — masks emails, SSNs, phones, IPs before persistence |
 | Confidence scoring | ✅ Complete | All 20+ skills emit `confidence: number` (0–1) with dynamic computation |
 | PR creation (GitHub integration) | ✅ Complete | Octokit integration: `createBranch`, `pushFiles`, `createPullRequest` in `pr_writer.ts` |
@@ -343,7 +343,7 @@ The following require manual Azure portal configuration — code is already impl
 |------|-------|-------|
 | Deploy AI Foundry project + models (GPT-4o, GPT-4o-mini) | Foundry Lead | #84 |
 | Configure Foundry IQ evaluation dashboards | Foundry Lead | #85 |
-| Create Fabric workspace + Lakehouse + tables | Fabric Lead | #86 |
+| ~~Create Fabric workspace + Lakehouse + tables~~ | ~~Fabric Lead~~ | ~~#86~~ ✅ Code complete — workspace ID and lakehouse ID configured in `data.config.json` |
 | Validate OneLake data pipeline + build governance dashboards | Fabric Lead | #87 |
 | Cross-team integration testing | All | #88 |
 
