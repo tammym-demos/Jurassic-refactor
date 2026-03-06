@@ -7,7 +7,8 @@
   "main": "dist/index.js",
   "exports": {
     "./orchestrator.js": "./dist/orchestrator.js",
-    "./base.js": "./dist/base.js"
+    "./base.js": "./dist/base.js",
+    "./implementation/approval-gate": "./dist/implementation/approval-gate.js"
   },
   "scripts": {
     "build": "tsc",
@@ -16,6 +17,7 @@
   },
   "dependencies": {
     "@github/copilot-sdk": "^0.1.29",
+    "@jurassic/data": "workspace:*",
     "@jurassic/schemas": "workspace:*",
     "@jurassic/skills": "workspace:*"
   },

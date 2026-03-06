@@ -29,8 +29,9 @@ export class ArtifactStore {
   private getFabricFileClient(filePath: string) {
     const config = getFabricConfig();
     const client = this.getDataLakeClient();
-    const fileSystemClient = client.getFileSystemClient(`${config.workspaceId}/${config.lakehouseId}`);
-    return fileSystemClient.getFileClient(`Files/${filePath}`);
+    // OneLake path structure: workspace (filesystem) / lakehouse / Files / path
+    const fileSystemClient = client.getFileSystemClient(config.workspaceId);
+    return fileSystemClient.getFileClient(`${config.lakehouseId}/Files/${filePath}`);
   }
 
   async upload(runId: string, agentName: string, artifactName: string, data: unknown): Promise<string> {
@@ -71,8 +72,9 @@ export class ArtifactStore {
     if (this.mode === 'fabric') {
       const config = getFabricConfig();
       const client = this.getDataLakeClient();
-      const fileSystemClient = client.getFileSystemClient(`${config.workspaceId}/${config.lakehouseId}`);
-      const dirPath = `Files/artifacts/${runId}/${agentName}`;
+      // OneLake path structure: workspace (filesystem) / lakehouse / Files / path
+      const fileSystemClient = client.getFileSystemClient(config.workspaceId);
+      const dirPath = `${config.lakehouseId}/Files/artifacts/${runId}/${agentName}`;
       const names: string[] = [];
       try {
         for await (const item of fileSystemClient.listPaths({ path: dirPath })) {

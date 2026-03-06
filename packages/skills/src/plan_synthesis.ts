@@ -50,9 +50,11 @@ function severityToPriority(severity: string): PlanTask["priority"] {
   }
 }
 
+type RiskItem = { filePath: string; overallScore: number; severity: string; evidence: string[] };
+
 function sortBySeverity(
-  items: Array<{ overallScore: number; severity: string }>,
-): Array<{ overallScore: number; severity: string }> {
+  items: RiskItem[],
+): RiskItem[] {
   return [...items].sort((a, b) => b.overallScore - a.overallScore);
 }
 

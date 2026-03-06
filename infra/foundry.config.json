@@ -1,8 +1,11 @@
 {
-  "projectEndpoint": "https://jurassic-ai-zsaoi.openai.azure.com/",
+  "projectEndpoint": "https://jurassic-ai-foundry.openai.azure.com/",
   "modelDeployment": "gpt-4o",
+  "comparisonDeployment": "gpt-4o-mini",
   "apiVersion": "2024-12-01-preview",
   "authMethod": "DefaultAzureCredential",
+  "subscriptionId": "55a21ac9-472f-4164-b5fb-fb57f32566d3",
+  "resourceGroup": "rg-copilotchallenge",
   "appInsightsConnectionString": "InstrumentationKey=5ad3fc2f-0a21-4090-b79e-f67e77aab052;IngestionEndpoint=https://eastus2-3.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus2.livediagnostics.monitor.azure.com/;ApplicationId=6c168e82-0564-46d9-ae28-4bdf2ddf94ef",
   "acrLoginServer": "jurassicacrzsaoi.azurecr.io",
   "containerAppUrl": "https://jurassic-agent.internal.calmdesert-8ba752d1.eastus2.azurecontainerapps.io"

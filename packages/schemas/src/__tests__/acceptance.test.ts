@@ -151,6 +151,26 @@ const artifactSamples: Record<ArtifactName, unknown> = {
       },
     ],
   },
+  EvaluationReport: {
+    runId: "run-001",
+    evaluatedAt: "2026-01-01T00:10:00Z",
+    metrics: {
+      artifactCompleteness: 0.95,
+      schemaValidationRate: 1.0,
+      determinismScore: 0.98,
+    },
+    status: "pass",
+    details: [
+      {
+        artifact: "Manifest.json",
+        result: "pass",
+      },
+      {
+        artifact: "StackAnalysis.json",
+        result: "pass",
+      },
+    ],
+  },
 };
 
 describe("Acceptance: Schema validation for all artifact types", () => {

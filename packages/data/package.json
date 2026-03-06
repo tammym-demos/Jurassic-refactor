@@ -5,6 +5,14 @@
   "description": "Azure data services - Microsoft Fabric, Cosmos DB, Application Insights",
   "type": "module",
   "main": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./artifact-store": "./dist/artifact-store.js",
+    "./telemetry": "./dist/telemetry.js",
+    "./run-metadata": "./dist/run-metadata.js",
+    "./fabric-config": "./dist/fabric-config.js",
+    "./lakehouse-tables": "./dist/lakehouse-tables.js"
+  },
   "scripts": {
     "build": "tsc",
     "test": "vitest run --passWithNoTests",

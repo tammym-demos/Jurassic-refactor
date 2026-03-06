@@ -1,6 +1,6 @@
-import { ArtifactStore } from "../../data/src/artifact-store.js";
-import { TelemetryService } from "../../data/src/telemetry.js";
-import { RunMetadataService } from "../../data/src/run-metadata.js";
+import { ArtifactStore } from "@jurassic/data/artifact-store";
+import { TelemetryService } from "@jurassic/data/telemetry";
+import { RunMetadataService } from "@jurassic/data/run-metadata";
 
 export interface DataIntegrationConfig {
   storageProvider: "local" | "fabric";

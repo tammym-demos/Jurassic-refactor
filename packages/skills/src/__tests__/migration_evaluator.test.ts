@@ -136,7 +136,7 @@ describe("MigrationEvaluatorSkill", () => {
           { name: "JavaScript", confidence: 0.8 },
         ],
         frameworks: [{ name: "Express", confidence: 1.0 }],
-        buildTools: [{ name: "Make", confidence: 1.0 }],
+        buildTools: [{ name: "Make" }],
       },
     };
 
