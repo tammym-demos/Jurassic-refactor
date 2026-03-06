@@ -12,7 +12,8 @@
     "./run-metadata": "./dist/run-metadata.js",
     "./fabric-config": "./dist/fabric-config.js",
     "./lakehouse-tables": "./dist/lakehouse-tables.js",
-    "./onelake-pipeline": "./dist/onelake-pipeline.js"
+    "./onelake-pipeline": "./dist/onelake-pipeline.js",
+    "./fabric-iq": "./dist/fabric-iq.js"
   },
   "scripts": {
     "build": "tsc",
