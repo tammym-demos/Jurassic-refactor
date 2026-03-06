@@ -3,7 +3,7 @@ import * as os from "node:os";
 import * as path from "node:path";
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { PolicyEnforcer, globMatch, type PolicyInput } from "../policy.js";
-import { ApprovalGate } from "../../../agents/src/implementation/approval-gate.js";
+import { ApprovalGate } from "@jurassic/agents/implementation/approval-gate";
 
 // ---------------------------------------------------------------------------
 // Helpers
