@@ -7,9 +7,9 @@ export interface FabricConfig {
   endpoint: string;
 }
 
-// Default values from infra/data.config.json
-const DEFAULT_WORKSPACE_ID = 'aac91a30-f5cd-4297-9394-14c5968f1748';
-const DEFAULT_LAKEHOUSE_ID = '2bbfd781-0d8e-419a-954f-75d0565e056c';
+// Default values from infra/data.config.json (jcdemo workspace / cms_lakehouse)
+const DEFAULT_WORKSPACE_ID = 'da35acf0-cf50-4977-ba4d-3b14155cc434';
+const DEFAULT_LAKEHOUSE_ID = '61d96c84-c43a-48a1-9fe2-5cc79772bc63';
 const DEFAULT_ENDPOINT = 'https://onelake.dfs.fabric.microsoft.com';
 
 let cachedConfig: FabricConfig | null = null;

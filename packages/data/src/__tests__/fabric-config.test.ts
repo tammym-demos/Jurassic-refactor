@@ -35,8 +35,8 @@ describe('fabric-config', () => {
 
   it('should return default values when env vars are not set', () => {
     const config = getFabricConfig();
-    expect(config.workspaceId).toBe('aac91a30-f5cd-4297-9394-14c5968f1748');
-    expect(config.lakehouseId).toBe('2bbfd781-0d8e-419a-954f-75d0565e056c');
+    expect(config.workspaceId).toBe('da35acf0-cf50-4977-ba4d-3b14155cc434');
+    expect(config.lakehouseId).toBe('61d96c84-c43a-48a1-9fe2-5cc79772bc63');
     expect(config.endpoint).toBe('https://onelake.dfs.fabric.microsoft.com');
   });
 
@@ -76,7 +76,7 @@ describe('fabric-config', () => {
 
     const config = getFabricConfig();
     expect(config.workspaceId).toBe('override-workspace');
-    expect(config.lakehouseId).toBe('2bbfd781-0d8e-419a-954f-75d0565e056c'); // Default
+    expect(config.lakehouseId).toBe('61d96c84-c43a-48a1-9fe2-5cc79772bc63'); // Default
     expect(config.endpoint).toBe('https://onelake.dfs.fabric.microsoft.com'); // Default
   });
 });

@@ -6,10 +6,10 @@
     "artifactsDir": ".jurassic/data/artifacts"
   },
   "fabric": {
-    "workspaceId": "aac91a30-f5cd-4297-9394-14c5968f1748",
-    "lakehouseId": "2bbfd781-0d8e-419a-954f-75d0565e056c",
+    "workspaceId": "da35acf0-cf50-4977-ba4d-3b14155cc434",
+    "lakehouseId": "61d96c84-c43a-48a1-9fe2-5cc79772bc63",
     "endpoint": "https://onelake.dfs.fabric.microsoft.com",
-    "comment": "Set FABRIC_WORKSPACE_ID and FABRIC_LAKEHOUSE_ID env vars to override, then set storageProvider to 'fabric'"
+    "comment": "jcdemo workspace / cms_lakehouse in current tenant"
   },
   "telemetry": {
     "appInsightsConnectionString": "InstrumentationKey=5ad3fc2f-0a21-4090-b79e-f67e77aab052;IngestionEndpoint=https://eastus2-3.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus2.livediagnostics.monitor.azure.com/;ApplicationId=6c168e82-0564-46d9-ae28-4bdf2ddf94ef"

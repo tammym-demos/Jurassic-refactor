@@ -31,8 +31,9 @@ describe.skipIf(!shouldRun)('Fabric OneLake E2E', () => {
     try {
       const config = getFabricConfig();
       const client = new DataLakeServiceClient(config.endpoint, new DefaultAzureCredential());
-      const fileSystemClient = client.getFileSystemClient(`${config.workspaceId}/${config.lakehouseId}`);
-      const dirPath = `Files/artifacts/${testRunId}`;
+      // OneLake path structure: workspace (filesystem) / lakehouse / Files / path
+      const fileSystemClient = client.getFileSystemClient(config.workspaceId);
+      const dirPath = `${config.lakehouseId}/Files/artifacts/${testRunId}`;
       
       // List and delete all files in test directory
       for await (const item of fileSystemClient.listPaths({ path: dirPath, recursive: true })) {
@@ -47,7 +48,7 @@ describe.skipIf(!shouldRun)('Fabric OneLake E2E', () => {
     
     delete process.env.JURASSIC_STORAGE_PROVIDER;
     clearFabricConfigCache();
-  });
+  }, 60000); // Extended timeout for cleanup
 
   it('should have valid Fabric configuration', () => {
     const config = getFabricConfig();
@@ -88,10 +89,13 @@ describe.skipIf(!shouldRun)('Fabric OneLake E2E', () => {
     await store.upload(testRunId, 'test-agent', 'artifact-a', { a: 1 });
     await store.upload(testRunId, 'test-agent', 'artifact-b', { b: 2 });
     
+    // Small delay for eventual consistency
+    await new Promise(r => setTimeout(r, 1000));
+    
     const artifacts = await store.list(testRunId, 'test-agent');
     expect(artifacts).toContain('artifact-a');
     expect(artifacts).toContain('artifact-b');
-  });
+  }, 30000); // Extended timeout for list operation
 
   it('should create APPROVED marker in OneLake', async () => {
     await store.markApproved(testRunId);
