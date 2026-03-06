@@ -1,5 +1,26 @@
 import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { validateArtifactSafe, type ArtifactName } from "@jurassic/schemas";
+
+/**
+ * Schema-compliant EvaluationReport matching specs/schemas/EvaluationReport.schema.json
+ * This format is used for persistence and Foundry IQ dashboard integration.
+ */
+export interface SchemaCompliantReport {
+  runId: string;
+  evaluatedAt: string;
+  metrics: {
+    artifactCompleteness: number;
+    schemaValidationRate: number;
+    determinismScore: number;
+  };
+  status: "pass" | "fail" | "warning";
+  details?: Array<{
+    artifact: string;
+    result: "pass" | "fail" | "missing";
+    message?: string;
+  }>;
+}
 
 export interface EvaluationConfig {
   runId: string;
@@ -301,7 +322,8 @@ export class EvaluationService {
     if (graphContent) {
       try {
         const graph = JSON.parse(graphContent) as { nodes?: unknown[] };
-        const hasNodes = Array.isArray(graph.nodes) && graph.nodes.length > 0;
+        const nodes = graph.nodes;
+        const hasNodes = Array.isArray(nodes) && nodes.length > 0;
         results.push({
           name: "graph-non-empty",
           category: "relevance",
@@ -309,7 +331,7 @@ export class EvaluationService {
           threshold: 0.7,
           passed: hasNodes,
           details: hasNodes
-            ? `DependencyGraph has ${graph.nodes.length} nodes`
+            ? `DependencyGraph has ${nodes.length} nodes`
             : "DependencyGraph has no nodes",
         });
       } catch {
@@ -329,7 +351,8 @@ export class EvaluationService {
     if (planContent) {
       try {
         const plan = JSON.parse(planContent) as { phases?: unknown[] };
-        const hasPhases = Array.isArray(plan.phases) && plan.phases.length > 0;
+        const phases = plan.phases;
+        const hasPhases = Array.isArray(phases) && phases.length > 0;
         results.push({
           name: "plan-has-phases",
           category: "relevance",
@@ -337,7 +360,7 @@ export class EvaluationService {
           threshold: 0.7,
           passed: hasPhases,
           details: hasPhases
-            ? `ModernizationPlan has ${plan.phases.length} phases`
+            ? `ModernizationPlan has ${phases.length} phases`
             : "ModernizationPlan has no phases",
         });
       } catch {
@@ -917,5 +940,167 @@ export class EvaluationService {
     }
 
     return scores;
+  }
+
+  /**
+   * Convert detailed EvaluationReport to schema-compliant format for persistence
+   * and Foundry IQ dashboard integration.
+   */
+  async toSchemaFormat(
+    report: EvaluationReport,
+    artifactDir: string,
+  ): Promise<SchemaCompliantReport> {
+    // Extract individual metrics from the metrics array
+    const artifactCompleteness =
+      report.metrics.find((m) => m.name === "artifact-completeness")?.score ?? 0;
+    const determinismScore =
+      report.metrics.find((m) => m.name === "determinism")?.score ?? 1;
+
+    // Calculate schema validation rate by checking artifacts against their schemas
+    const schemaValidationRate = await this.computeSchemaValidationRate(artifactDir);
+
+    // Determine overall status
+    let status: SchemaCompliantReport["status"];
+    if (!report.passed) {
+      status = "fail";
+    } else if (report.regressions.some((r) => r.severity === "warning")) {
+      status = "warning";
+    } else {
+      status = "pass";
+    }
+
+    // Build per-artifact details
+    const details = await this.buildArtifactDetails(artifactDir);
+
+    const schemaReport: SchemaCompliantReport = {
+      runId: report.runId,
+      evaluatedAt: report.evaluatedAt,
+      metrics: {
+        artifactCompleteness,
+        schemaValidationRate,
+        determinismScore,
+      },
+      status,
+      details,
+    };
+
+    // Validate against schema before returning
+    const validation = validateArtifactSafe("EvaluationReport", schemaReport);
+    if (!validation.valid) {
+      console.warn(
+        "Generated EvaluationReport does not pass schema validation:",
+        validation.errors,
+      );
+    }
+
+    return schemaReport;
+  }
+
+  private async computeSchemaValidationRate(artifactDir: string): Promise<number> {
+    const artifactSchemaMap: Record<string, ArtifactName> = {
+      "Manifest.json": "Manifest",
+      "DependencyGraph.json": "DependencyGraph",
+      "RiskAssessment.json": "RiskAssessment",
+      "ModernizationPlan.json": "ModernizationPlan",
+      "StackAnalysis.json": "StackAnalysis",
+      "DocCoverage.json": "DocCoverage",
+      "TestScaffold.json": "TestScaffold",
+      "ImplementationLog.json": "ImplementationLog",
+    };
+
+    let validCount = 0;
+    let totalCount = 0;
+
+    try {
+      const files = await readJsonFiles(artifactDir);
+      for (const file of files) {
+        const schemaName = artifactSchemaMap[file.name];
+        if (!schemaName) continue;
+
+        totalCount++;
+        try {
+          const data = JSON.parse(file.content);
+          const validation = validateArtifactSafe(schemaName, data);
+          if (validation.valid) {
+            validCount++;
+          }
+        } catch {
+          // Invalid JSON or validation error
+        }
+      }
+    } catch {
+      // Directory read failed
+    }
+
+    return totalCount > 0 ? validCount / totalCount : 1;
+  }
+
+  private async buildArtifactDetails(
+    artifactDir: string,
+  ): Promise<SchemaCompliantReport["details"]> {
+    const expectedArtifacts = [
+      "Manifest.json",
+      "DependencyGraph.json",
+      "RiskAssessment.json",
+      "ModernizationPlan.json",
+    ];
+
+    const artifactSchemaMap: Record<string, ArtifactName> = {
+      "Manifest.json": "Manifest",
+      "DependencyGraph.json": "DependencyGraph",
+      "RiskAssessment.json": "RiskAssessment",
+      "ModernizationPlan.json": "ModernizationPlan",
+    };
+
+    const details: NonNullable<SchemaCompliantReport["details"]> = [];
+
+    let files: { name: string; content: string }[];
+    try {
+      files = await readJsonFiles(artifactDir);
+    } catch {
+      // If we can't read the directory, mark all as missing
+      for (const artifact of expectedArtifacts) {
+        details.push({ artifact, result: "missing", message: "Artifact directory unreadable" });
+      }
+      return details;
+    }
+
+    const fileMap = new Map(files.map((f) => [f.name, f.content]));
+
+    for (const artifact of expectedArtifacts) {
+      const content = fileMap.get(artifact);
+      if (!content) {
+        details.push({ artifact, result: "missing" });
+        continue;
+      }
+
+      const schemaName = artifactSchemaMap[artifact];
+      if (!schemaName) {
+        details.push({ artifact, result: "pass" });
+        continue;
+      }
+
+      try {
+        const data = JSON.parse(content);
+        const validation = validateArtifactSafe(schemaName, data);
+        if (validation.valid) {
+          details.push({ artifact, result: "pass" });
+        } else {
+          details.push({
+            artifact,
+            result: "fail",
+            message: validation.errors?.map((e: { message?: string }) => e.message).join("; "),
+          });
+        }
+      } catch (err) {
+        details.push({
+          artifact,
+          result: "fail",
+          message: err instanceof Error ? err.message : "Invalid JSON",
+        });
+      }
+    }
+
+    return details;
   }
 }

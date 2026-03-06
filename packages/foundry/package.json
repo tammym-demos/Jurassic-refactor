@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "@azure/identity": "^4.2.0",
-    "@jurassic/auth": "workspace:*"
+    "@jurassic/auth": "workspace:*",
+    "@jurassic/schemas": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.4.0",

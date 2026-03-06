@@ -7,7 +7,8 @@
   "main": "dist/index.js",
   "exports": {
     "./orchestrator.js": "./dist/orchestrator.js",
-    "./base.js": "./dist/base.js"
+    "./base.js": "./dist/base.js",
+    "./implementation/approval-gate": "./dist/implementation/approval-gate.js"
   },
   "scripts": {
     "build": "tsc",
