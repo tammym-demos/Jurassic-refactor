@@ -9,3 +9,6 @@ export type { HostingConfig, DeploymentResult, DeploymentStep } from './hosting.
 
 export { PromptRegistry } from './prompt-registry.js';
 export type { PromptVersion, PromptComparisonResult, PromptAuditEntry, ABTestResult } from './prompt-registry.js';
+
+export { FoundryIQClient, BUILTIN_EVALUATORS, artifactsToEvalDataset, runFoundryIQEvaluation } from './foundry-iq.js';
+export type { FoundryIQConfig, EvaluationDataItem, TestingCriterion, EvalDefinition, EvalRun, EvalOutputItem } from './foundry-iq.js';
