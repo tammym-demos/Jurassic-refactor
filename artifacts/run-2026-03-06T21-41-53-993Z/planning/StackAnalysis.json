@@ -1,0 +1,33 @@
+{
+  "languages": [
+    {
+      "name": "Python",
+      "percentage": 20,
+      "files": 10
+    },
+    {
+      "name": "C",
+      "percentage": 20,
+      "files": 5
+    },
+    {
+      "name": "C++",
+      "percentage": 20,
+      "files": 3
+    },
+    {
+      "name": "JavaScript",
+      "percentage": 20,
+      "files": 2
+    },
+    {
+      "name": "Vue.js",
+      "percentage": 20,
+      "files": 2
+    }
+  ],
+  "frameworks": [],
+  "buildTools": [],
+  "packageManagers": [],
+  "runtimeDependencies": []
+}

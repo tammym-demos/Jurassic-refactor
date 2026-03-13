@@ -1,0 +1,4899 @@
+{
+  "nodes": [
+    {
+      "path": "Board\\v3\\board.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Inc\\adc.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Inc\\board.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Inc\\can.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Inc\\dma.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Inc\\FreeRTOSConfig.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Inc\\gpio.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Inc\\i2c.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Inc\\main.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Inc\\mxconstants.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Inc\\prev_board_ver\\main_V3_2.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Inc\\prev_board_ver\\main_V3_4.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Inc\\spi.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Inc\\stm32f4xx_hal_conf.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Inc\\stm32f4xx_it.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Inc\\tim.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Inc\\usart.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Inc\\usbd_cdc_if.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Inc\\usbd_conf.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Inc\\usbd_desc.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Inc\\usb_device.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Src\\adc.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Src\\can.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Src\\dma.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Src\\freertos.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Src\\gpio.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Src\\i2c.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Src\\main.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Src\\prev_board_ver\\adc_V3_2.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Src\\prev_board_ver\\adc_V3_4.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Src\\prev_board_ver\\gpio_V3_2.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Src\\prev_board_ver\\gpio_V3_4.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Src\\spi.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Src\\stm32f4xx_hal_msp.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Src\\stm32f4xx_hal_timebase_TIM.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Src\\stm32f4xx_it.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Src\\system_stm32f4xx.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Src\\tim.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Src\\usart.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Src\\usbd_cdc_if.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Src\\usbd_conf.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Src\\usbd_desc.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Board\\v3\\Src\\usb_device.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "communication\\ascii_protocol.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "communication\\ascii_protocol.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "communication\\can\\canbus.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "communication\\can\\can_helpers.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "communication\\can\\can_simple.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "communication\\can\\can_simple.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "communication\\can\\odrive_can.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "communication\\can\\odrive_can.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "communication\\communication.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "communication\\communication.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "communication\\interface_can.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "communication\\interface_i2c.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "communication\\interface_i2c.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "communication\\interface_uart.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "communication\\interface_uart.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "communication\\interface_usb.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "communication\\interface_usb.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "doctest\\doctest.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "doctest\\parts\\doctest.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "doctest\\parts\\doctest_fwd.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Drivers\\DRV8301\\drv8301.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Drivers\\DRV8301\\drv8301.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Drivers\\gate_driver.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Drivers\\STM32\\stm32_gpio.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Drivers\\STM32\\stm32_gpio.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Drivers\\STM32\\stm32_nvm.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Drivers\\STM32\\stm32_nvm.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Drivers\\STM32\\stm32_spi_arbiter.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Drivers\\STM32\\stm32_spi_arbiter.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Drivers\\STM32\\stm32_system.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Drivers\\STM32\\stm32_system.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Drivers\\STM32\\stm32_timer.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\channel_discoverer.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\crc.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\fibre.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\include\\fibre\\async_stream.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\include\\fibre\\bufptr.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\include\\fibre\\callback.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\include\\fibre\\channel_discoverer.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\include\\fibre\\cpp_utils.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\include\\fibre\\event_loop.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\include\\fibre\\fibre.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\include\\fibre\\introspection.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\include\\fibre\\libfibre.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\include\\fibre\\simple_serdes.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\include\\fibre\\status.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\legacy_object_client.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\legacy_object_client.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\legacy_protocol.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\legacy_protocol.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\libfibre.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\logging.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\logging.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\platform_support\\epoll_event_loop.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\platform_support\\epoll_event_loop.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\platform_support\\libusb_transport.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\platform_support\\libusb_transport.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\platform_support\\posix_socket.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\platform_support\\posix_socket.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\platform_support\\posix_tcp_backend.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\platform_support\\posix_tcp_backend.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\print_utils.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\protocol.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "fibre-cpp\\stream_utils.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "FreeRTOS-openocd.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "freertos_vars.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\acim_estimator.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\acim_estimator.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\arm_cos_f32.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\arm_sin_f32.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\axis.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\axis.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\component.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\controller.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\controller.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\current_limiter.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\encoder.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\encoder.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\endstop.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\endstop.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\foc.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\foc.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\low_level.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\low_level.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\main.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\mechanical_brake.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\mechanical_brake.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\motor.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\motor.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\nvm_config.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\odrive_main.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\open_loop_controller.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\open_loop_controller.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\oscilloscope.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\oscilloscope.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\phase_control_law.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\pwm_input.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\pwm_input.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\sensorless_estimator.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\sensorless_estimator.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\task_timer.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\thermistor.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\thermistor.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\timer.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\trapTraj.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\trapTraj.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\utils.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "MotorControl\\utils.hpp",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "syscalls.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Tests\\test_can.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Tests\\test_rotate.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Tests\\test_runner.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Tests\\test_timer.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "Tests\\test_trap_traj.cpp",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\stm32f405xx.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\stm32f4xx.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\system_stm32f4xx.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Device\\ST\\STM32F7xx\\Include\\stm32f722xx.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Device\\ST\\STM32F7xx\\Include\\stm32f7xx.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Device\\ST\\STM32F7xx\\Include\\system_stm32f7xx.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Include\\arm_common_tables.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Include\\arm_const_structs.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Include\\arm_math.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Include\\cmsis_armcc.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Include\\cmsis_armclang.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Include\\cmsis_compiler.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Include\\cmsis_gcc.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Include\\cmsis_iccarm.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Include\\cmsis_version.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Include\\core_armv8mbl.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Include\\core_armv8mml.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Include\\core_cm0.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Include\\core_cm0plus.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Include\\core_cm1.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Include\\core_cm23.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Include\\core_cm3.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Include\\core_cm33.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Include\\core_cm4.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Include\\core_cm7.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Include\\core_sc000.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Include\\core_sc300.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Include\\mpu_armv7.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Include\\mpu_armv8.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\CMSIS\\Include\\tz_context.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\croutine.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\event_groups.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\include\\croutine.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\include\\event_groups.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\include\\FreeRTOS.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\include\\list.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\include\\message_buffer.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\include\\mpu_prototypes.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\include\\mpu_wrappers.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\include\\portable.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\include\\projdefs.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\include\\queue.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\include\\semphr.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\include\\StackMacros.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\include\\stack_macros.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\include\\stream_buffer.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\include\\task.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\include\\timers.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\list.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM4F\\port.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM4F\\portmacro.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\port.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\portable\\MemMang\\heap_4.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\queue.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\stream_buffer.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\tasks.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\FreeRTOS\\Source\\timers.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\Legacy\\stm32_hal_legacy.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_adc.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_adc_ex.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_can.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_cortex.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_dma.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_dma_ex.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_flash.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_flash_ex.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_flash_ramfunc.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_gpio.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_gpio_ex.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_i2c.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_i2c_ex.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_pcd.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_pcd_ex.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_pwr.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_pwr_ex.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_rcc.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_rcc_ex.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_spi.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_tim.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_tim_ex.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_uart.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_usb.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_adc.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_adc_ex.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_can.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_cortex.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_dma.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_dma_ex.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_flash.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_flash_ex.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_flash_ramfunc.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_gpio.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_i2c.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_i2c_ex.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_pcd.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_pcd_ex.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_pwr.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_pwr_ex.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_rcc.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_rcc_ex.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_spi.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_tim.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_tim_ex.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_uart.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_ll_usb.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32_USB_Device_Library\\Class\\CDC\\Inc\\usbd_cdc.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32_USB_Device_Library\\Class\\CDC\\Src\\usbd_cdc.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_core.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_ctlreq.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_def.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_ioreq.h",
+      "type": "header",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32_USB_Device_Library\\Core\\Src\\usbd_core.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32_USB_Device_Library\\Core\\Src\\usbd_ctlreq.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    },
+    {
+      "path": "ThirdParty\\STM32_USB_Device_Library\\Core\\Src\\usbd_ioreq.c",
+      "type": "source",
+      "language": "cpp",
+      "loc": 0
+    }
+  ],
+  "edges": [
+    {
+      "source": "Board\\v3\\board.cpp",
+      "target": "Board\\v3\\Inc\\board.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\board.cpp",
+      "target": "MotorControl\\odrive_main.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\board.cpp",
+      "target": "MotorControl\\low_level.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\board.cpp",
+      "target": "Drivers\\STM32\\stm32_timer.hpp",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\board.cpp",
+      "target": "Board\\v3\\Inc\\adc.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\board.cpp",
+      "target": "Board\\v3\\Inc\\dma.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\board.cpp",
+      "target": "Board\\v3\\Inc\\tim.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\board.cpp",
+      "target": "Board\\v3\\Inc\\usart.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\board.cpp",
+      "target": "freertos_vars.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\adc.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\adc.h",
+      "target": "Board\\v3\\Inc\\main.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\board.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\board.h",
+      "target": "Board\\v3\\Inc\\gpio.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\board.h",
+      "target": "Board\\v3\\Inc\\spi.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\board.h",
+      "target": "Board\\v3\\Inc\\tim.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\board.h",
+      "target": "Board\\v3\\Inc\\can.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\board.h",
+      "target": "Board\\v3\\Inc\\i2c.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\board.h",
+      "target": "Board\\v3\\Inc\\usb_device.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\board.h",
+      "target": "Board\\v3\\Inc\\main.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\board.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\board.h",
+      "target": "ThirdParty\\CMSIS\\Include\\arm_math.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\board.h",
+      "target": "Drivers\\STM32\\stm32_system.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\board.h",
+      "target": "Drivers\\DRV8301\\drv8301.hpp",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\board.h",
+      "target": "Drivers\\STM32\\stm32_gpio.hpp",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\board.h",
+      "target": "Drivers\\STM32\\stm32_spi_arbiter.hpp",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\board.h",
+      "target": "MotorControl\\pwm_input.hpp",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\board.h",
+      "target": "MotorControl\\thermistor.hpp",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\board.h",
+      "target": "MotorControl\\motor.hpp",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\board.h",
+      "target": "MotorControl\\encoder.hpp",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\can.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\can.h",
+      "target": "Board\\v3\\Inc\\main.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\dma.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\dma.h",
+      "target": "Board\\v3\\Inc\\main.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\gpio.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\gpio.h",
+      "target": "Board\\v3\\Inc\\main.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\i2c.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\i2c.h",
+      "target": "Board\\v3\\Inc\\main.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\main.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\main.h",
+      "target": "Board\\v3\\Inc\\prev_board_ver\\main_V3_2.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\main.h",
+      "target": "Board\\v3\\Inc\\prev_board_ver\\main_V3_4.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\spi.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\spi.h",
+      "target": "Board\\v3\\Inc\\main.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\stm32f4xx_hal_conf.h",
+      "target": "Board\\v3\\Inc\\main.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\stm32f4xx_hal_conf.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_rcc.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\stm32f4xx_hal_conf.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_gpio.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\stm32f4xx_hal_conf.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_dma.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\stm32f4xx_hal_conf.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_cortex.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\stm32f4xx_hal_conf.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_adc.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\stm32f4xx_hal_conf.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_can.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\stm32f4xx_hal_conf.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_flash.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\stm32f4xx_hal_conf.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_i2c.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\stm32f4xx_hal_conf.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_pwr.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\stm32f4xx_hal_conf.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_spi.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\stm32f4xx_hal_conf.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_tim.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\stm32f4xx_hal_conf.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_uart.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\stm32f4xx_hal_conf.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_pcd.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\stm32f4xx_it.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\stm32f4xx_it.h",
+      "target": "Board\\v3\\Inc\\main.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\tim.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\tim.h",
+      "target": "Board\\v3\\Inc\\main.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\usart.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\usart.h",
+      "target": "Board\\v3\\Inc\\main.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\usbd_cdc_if.h",
+      "target": "ThirdParty\\STM32_USB_Device_Library\\Class\\CDC\\Inc\\usbd_cdc.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\usbd_conf.h",
+      "target": "ThirdParty\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\stm32f4xx.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\usbd_conf.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\usbd_desc.h",
+      "target": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_def.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\usb_device.h",
+      "target": "ThirdParty\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\stm32f4xx.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\usb_device.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Inc\\usb_device.h",
+      "target": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_def.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\adc.c",
+      "target": "Board\\v3\\Inc\\adc.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\adc.c",
+      "target": "Board\\v3\\Inc\\gpio.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\adc.c",
+      "target": "Board\\v3\\Inc\\dma.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\adc.c",
+      "target": "Board\\v3\\Src\\prev_board_ver\\adc_V3_2.c",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\adc.c",
+      "target": "Board\\v3\\Src\\prev_board_ver\\adc_V3_4.c",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\can.c",
+      "target": "Board\\v3\\Inc\\can.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\can.c",
+      "target": "Board\\v3\\Inc\\gpio.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\dma.c",
+      "target": "Board\\v3\\Inc\\dma.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\freertos.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\FreeRTOS.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\freertos.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\task.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\freertos.c",
+      "target": "Board\\v3\\Inc\\main.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\freertos.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\gpio.c",
+      "target": "Board\\v3\\Inc\\gpio.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\gpio.c",
+      "target": "Board\\v3\\Src\\prev_board_ver\\gpio_V3_2.c",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\gpio.c",
+      "target": "Board\\v3\\Src\\prev_board_ver\\gpio_V3_4.c",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\i2c.c",
+      "target": "Board\\v3\\Inc\\i2c.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\i2c.c",
+      "target": "Board\\v3\\Inc\\gpio.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\i2c.c",
+      "target": "Board\\v3\\Inc\\dma.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\main.c",
+      "target": "Board\\v3\\Inc\\main.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\main.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\main.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\main.c",
+      "target": "Board\\v3\\Inc\\adc.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\main.c",
+      "target": "Board\\v3\\Inc\\can.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\main.c",
+      "target": "Board\\v3\\Inc\\dma.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\main.c",
+      "target": "Board\\v3\\Inc\\spi.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\main.c",
+      "target": "Board\\v3\\Inc\\tim.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\main.c",
+      "target": "Board\\v3\\Inc\\usart.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\main.c",
+      "target": "Board\\v3\\Inc\\usb_device.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\main.c",
+      "target": "Board\\v3\\Inc\\gpio.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\spi.c",
+      "target": "Board\\v3\\Inc\\spi.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\spi.c",
+      "target": "Board\\v3\\Inc\\gpio.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\spi.c",
+      "target": "Board\\v3\\Inc\\dma.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\stm32f4xx_hal_msp.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\stm32f4xx_hal_timebase_TIM.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\stm32f4xx_hal_timebase_TIM.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_tim.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\stm32f4xx_it.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\stm32f4xx_it.c",
+      "target": "ThirdParty\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\stm32f4xx.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\stm32f4xx_it.c",
+      "target": "Board\\v3\\Inc\\stm32f4xx_it.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\stm32f4xx_it.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\stm32f4xx_it.c",
+      "target": "Drivers\\STM32\\stm32_system.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\system_stm32f4xx.c",
+      "target": "ThirdParty\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\stm32f4xx.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\tim.c",
+      "target": "Board\\v3\\Inc\\tim.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\tim.c",
+      "target": "Board\\v3\\Inc\\gpio.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\usart.c",
+      "target": "Board\\v3\\Inc\\usart.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\usart.c",
+      "target": "Board\\v3\\Inc\\gpio.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\usart.c",
+      "target": "Board\\v3\\Inc\\dma.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\usbd_cdc_if.c",
+      "target": "Board\\v3\\Inc\\usbd_cdc_if.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\usbd_cdc_if.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\usbd_cdc_if.c",
+      "target": "communication\\interface_usb.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\usbd_cdc_if.c",
+      "target": "freertos_vars.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\usbd_conf.c",
+      "target": "ThirdParty\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\stm32f4xx.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\usbd_conf.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\usbd_conf.c",
+      "target": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_def.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\usbd_conf.c",
+      "target": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_core.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\usbd_desc.c",
+      "target": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_core.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\usbd_desc.c",
+      "target": "Board\\v3\\Inc\\usbd_desc.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\usbd_desc.c",
+      "target": "Board\\v3\\Inc\\usbd_conf.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\usbd_desc.c",
+      "target": "MotorControl\\odrive_main.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\usb_device.c",
+      "target": "Board\\v3\\Inc\\usb_device.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\usb_device.c",
+      "target": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_core.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\usb_device.c",
+      "target": "Board\\v3\\Inc\\usbd_desc.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\usb_device.c",
+      "target": "ThirdParty\\STM32_USB_Device_Library\\Class\\CDC\\Inc\\usbd_cdc.h",
+      "type": "include"
+    },
+    {
+      "source": "Board\\v3\\Src\\usb_device.c",
+      "target": "Board\\v3\\Inc\\usbd_cdc_if.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\ascii_protocol.cpp",
+      "target": "MotorControl\\odrive_main.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\ascii_protocol.cpp",
+      "target": "communication\\communication.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\ascii_protocol.cpp",
+      "target": "communication\\ascii_protocol.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\ascii_protocol.cpp",
+      "target": "MotorControl\\utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\ascii_protocol.cpp",
+      "target": "fibre-cpp\\include\\fibre\\cpp_utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\ascii_protocol.cpp",
+      "target": "communication\\interface_can.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\ascii_protocol.hpp",
+      "target": "fibre-cpp\\include\\fibre\\async_stream.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\ascii_protocol.hpp",
+      "target": "fibre-cpp\\stream_utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\can\\canbus.hpp",
+      "target": "communication\\can\\can_helpers.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\can\\can_simple.cpp",
+      "target": "communication\\can\\can_simple.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\can\\can_simple.cpp",
+      "target": "MotorControl\\odrive_main.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\can\\can_simple.hpp",
+      "target": "communication\\can\\canbus.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\can\\can_simple.hpp",
+      "target": "MotorControl\\axis.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\can\\odrive_can.cpp",
+      "target": "communication\\can\\odrive_can.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\can\\odrive_can.cpp",
+      "target": "Board\\v3\\Inc\\can.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\can\\odrive_can.cpp",
+      "target": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\can\\odrive_can.cpp",
+      "target": "freertos_vars.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\can\\odrive_can.cpp",
+      "target": "MotorControl\\utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\can\\odrive_can.hpp",
+      "target": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\can\\odrive_can.hpp",
+      "target": "communication\\can\\canbus.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\can\\odrive_can.hpp",
+      "target": "communication\\can\\can_simple.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\communication.cpp",
+      "target": "communication\\communication.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\communication.cpp",
+      "target": "communication\\interface_usb.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\communication.cpp",
+      "target": "communication\\interface_uart.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\communication.cpp",
+      "target": "communication\\interface_can.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\communication.cpp",
+      "target": "communication\\interface_i2c.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\communication.cpp",
+      "target": "MotorControl\\odrive_main.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\communication.cpp",
+      "target": "freertos_vars.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\communication.cpp",
+      "target": "MotorControl\\utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\communication.cpp",
+      "target": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\communication.cpp",
+      "target": "Board\\v3\\Inc\\gpio.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\communication.cpp",
+      "target": "fibre-cpp\\include\\fibre\\async_stream.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\communication.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_i2c.cpp",
+      "target": "communication\\interface_i2c.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_i2c.cpp",
+      "target": "Board\\v3\\Inc\\i2c.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_uart.cpp",
+      "target": "communication\\interface_uart.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_uart.cpp",
+      "target": "communication\\ascii_protocol.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_uart.cpp",
+      "target": "MotorControl\\utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_uart.cpp",
+      "target": "fibre-cpp\\include\\fibre\\async_stream.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_uart.cpp",
+      "target": "fibre-cpp\\legacy_protocol.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_uart.cpp",
+      "target": "Board\\v3\\Inc\\usart.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_uart.cpp",
+      "target": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_uart.cpp",
+      "target": "freertos_vars.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_uart.cpp",
+      "target": "MotorControl\\odrive_main.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_uart.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_uart.h",
+      "target": "Board\\v3\\Inc\\usart.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_uart.h",
+      "target": "fibre-cpp\\stream_utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_usb.cpp",
+      "target": "communication\\interface_usb.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_usb.cpp",
+      "target": "communication\\ascii_protocol.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_usb.cpp",
+      "target": "MotorControl\\utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_usb.cpp",
+      "target": "fibre-cpp\\include\\fibre\\async_stream.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_usb.cpp",
+      "target": "fibre-cpp\\legacy_protocol.hpp",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_usb.cpp",
+      "target": "ThirdParty\\STM32_USB_Device_Library\\Class\\CDC\\Inc\\usbd_cdc.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_usb.cpp",
+      "target": "Board\\v3\\Inc\\usbd_cdc_if.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_usb.cpp",
+      "target": "Board\\v3\\Inc\\usb_device.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_usb.cpp",
+      "target": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_usb.cpp",
+      "target": "freertos_vars.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_usb.cpp",
+      "target": "MotorControl\\odrive_main.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_usb.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "type": "include"
+    },
+    {
+      "source": "communication\\interface_usb.h",
+      "target": "fibre-cpp\\stream_utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "doctest\\doctest.h",
+      "target": "doctest\\parts\\doctest_fwd.h",
+      "type": "include"
+    },
+    {
+      "source": "doctest\\parts\\doctest.cpp",
+      "target": "doctest\\parts\\doctest_fwd.h",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\DRV8301\\drv8301.cpp",
+      "target": "Drivers\\DRV8301\\drv8301.hpp",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\DRV8301\\drv8301.cpp",
+      "target": "MotorControl\\utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\DRV8301\\drv8301.cpp",
+      "target": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\DRV8301\\drv8301.cpp",
+      "target": "Board\\v3\\Inc\\board.h",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\DRV8301\\drv8301.hpp",
+      "target": "Drivers\\gate_driver.hpp",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\DRV8301\\drv8301.hpp",
+      "target": "Drivers\\STM32\\stm32_spi_arbiter.hpp",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\DRV8301\\drv8301.hpp",
+      "target": "Drivers\\STM32\\stm32_gpio.hpp",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\STM32\\stm32_gpio.cpp",
+      "target": "Drivers\\STM32\\stm32_gpio.hpp",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\STM32\\stm32_gpio.hpp",
+      "target": "Board\\v3\\Inc\\gpio.h",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\STM32\\stm32_nvm.c",
+      "target": "Drivers\\STM32\\stm32_nvm.h",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\STM32\\stm32_nvm.c",
+      "target": "ThirdParty\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\stm32f405xx.h",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\STM32\\stm32_nvm.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\STM32\\stm32_nvm.c",
+      "target": "ThirdParty\\CMSIS\\Device\\ST\\STM32F7xx\\Include\\stm32f722xx.h",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\STM32\\stm32_nvm.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\STM32\\stm32_spi_arbiter.cpp",
+      "target": "Drivers\\STM32\\stm32_spi_arbiter.hpp",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\STM32\\stm32_spi_arbiter.cpp",
+      "target": "Drivers\\STM32\\stm32_system.h",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\STM32\\stm32_spi_arbiter.cpp",
+      "target": "MotorControl\\utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\STM32\\stm32_spi_arbiter.cpp",
+      "target": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\STM32\\stm32_spi_arbiter.hpp",
+      "target": "Drivers\\STM32\\stm32_gpio.hpp",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\STM32\\stm32_spi_arbiter.hpp",
+      "target": "Board\\v3\\Inc\\spi.h",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\STM32\\stm32_system.cpp",
+      "target": "Drivers\\STM32\\stm32_system.h",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\STM32\\stm32_system.h",
+      "target": "ThirdParty\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\stm32f405xx.h",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\STM32\\stm32_system.h",
+      "target": "ThirdParty\\CMSIS\\Device\\ST\\STM32F7xx\\Include\\stm32f722xx.h",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\STM32\\stm32_timer.hpp",
+      "target": "Drivers\\STM32\\stm32_system.h",
+      "type": "include"
+    },
+    {
+      "source": "Drivers\\STM32\\stm32_timer.hpp",
+      "target": "Board\\v3\\Inc\\tim.h",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\channel_discoverer.cpp",
+      "target": "fibre-cpp\\include\\fibre\\channel_discoverer.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\fibre.cpp",
+      "target": "fibre-cpp\\include\\fibre\\fibre.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\fibre.cpp",
+      "target": "fibre-cpp\\logging.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\fibre.cpp",
+      "target": "fibre-cpp\\include\\fibre\\channel_discoverer.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\fibre.cpp",
+      "target": "fibre-cpp\\legacy_protocol.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\fibre.cpp",
+      "target": "fibre-cpp\\print_utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\include\\fibre\\async_stream.hpp",
+      "target": "fibre-cpp\\include\\fibre\\bufptr.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\include\\fibre\\async_stream.hpp",
+      "target": "fibre-cpp\\include\\fibre\\callback.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\include\\fibre\\channel_discoverer.hpp",
+      "target": "fibre-cpp\\include\\fibre\\async_stream.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\include\\fibre\\channel_discoverer.hpp",
+      "target": "fibre-cpp\\include\\fibre\\callback.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\include\\fibre\\channel_discoverer.hpp",
+      "target": "fibre-cpp\\include\\fibre\\status.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\include\\fibre\\event_loop.hpp",
+      "target": "fibre-cpp\\include\\fibre\\callback.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\include\\fibre\\fibre.hpp",
+      "target": "fibre-cpp\\include\\fibre\\callback.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\include\\fibre\\fibre.hpp",
+      "target": "fibre-cpp\\include\\fibre\\bufptr.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\include\\fibre\\fibre.hpp",
+      "target": "fibre-cpp\\include\\fibre\\cpp_utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\include\\fibre\\fibre.hpp",
+      "target": "fibre-cpp\\include\\fibre\\event_loop.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\include\\fibre\\fibre.hpp",
+      "target": "fibre-cpp\\include\\fibre\\channel_discoverer.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\include\\fibre\\fibre.hpp",
+      "target": "fibre-cpp\\platform_support\\libusb_transport.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\include\\fibre\\fibre.hpp",
+      "target": "fibre-cpp\\platform_support\\posix_tcp_backend.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\include\\fibre\\simple_serdes.hpp",
+      "target": "fibre-cpp\\include\\fibre\\cpp_utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\legacy_object_client.cpp",
+      "target": "fibre-cpp\\legacy_object_client.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\legacy_object_client.cpp",
+      "target": "fibre-cpp\\legacy_protocol.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\legacy_object_client.cpp",
+      "target": "fibre-cpp\\include\\fibre\\simple_serdes.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\legacy_object_client.cpp",
+      "target": "fibre-cpp\\logging.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\legacy_object_client.cpp",
+      "target": "fibre-cpp\\print_utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\legacy_object_client.cpp",
+      "target": "fibre-cpp\\crc.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\legacy_object_client.hpp",
+      "target": "fibre-cpp\\include\\fibre\\async_stream.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\legacy_object_client.hpp",
+      "target": "fibre-cpp\\include\\fibre\\callback.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\legacy_object_client.hpp",
+      "target": "fibre-cpp\\include\\fibre\\cpp_utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\legacy_object_client.hpp",
+      "target": "fibre-cpp\\include\\fibre\\fibre.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\legacy_protocol.cpp",
+      "target": "fibre-cpp\\legacy_protocol.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\legacy_protocol.cpp",
+      "target": "fibre-cpp\\protocol.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\legacy_protocol.cpp",
+      "target": "fibre-cpp\\crc.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\legacy_protocol.cpp",
+      "target": "fibre-cpp\\logging.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\legacy_protocol.cpp",
+      "target": "fibre-cpp\\print_utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\legacy_protocol.cpp",
+      "target": "fibre-cpp\\include\\fibre\\async_stream.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\legacy_protocol.hpp",
+      "target": "fibre-cpp\\include\\fibre\\async_stream.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\legacy_protocol.hpp",
+      "target": "fibre-cpp\\legacy_object_client.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\libfibre.cpp",
+      "target": "fibre-cpp\\include\\fibre\\libfibre.h",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\libfibre.cpp",
+      "target": "fibre-cpp\\include\\fibre\\fibre.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\libfibre.cpp",
+      "target": "fibre-cpp\\logging.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\libfibre.cpp",
+      "target": "fibre-cpp\\print_utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\libfibre.cpp",
+      "target": "fibre-cpp\\legacy_protocol.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\libfibre.cpp",
+      "target": "fibre-cpp\\legacy_object_client.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\logging.cpp",
+      "target": "fibre-cpp\\logging.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\logging.hpp",
+      "target": "fibre-cpp\\include\\fibre\\cpp_utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\platform_support\\epoll_event_loop.cpp",
+      "target": "fibre-cpp\\platform_support\\epoll_event_loop.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\platform_support\\epoll_event_loop.cpp",
+      "target": "fibre-cpp\\logging.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\platform_support\\epoll_event_loop.hpp",
+      "target": "fibre-cpp\\include\\fibre\\event_loop.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\platform_support\\libusb_transport.cpp",
+      "target": "fibre-cpp\\platform_support\\libusb_transport.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\platform_support\\libusb_transport.cpp",
+      "target": "fibre-cpp\\logging.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\platform_support\\libusb_transport.cpp",
+      "target": "fibre-cpp\\print_utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\platform_support\\libusb_transport.cpp",
+      "target": "fibre-cpp\\include\\fibre\\fibre.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\platform_support\\libusb_transport.hpp",
+      "target": "fibre-cpp\\include\\fibre\\event_loop.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\platform_support\\libusb_transport.hpp",
+      "target": "fibre-cpp\\include\\fibre\\async_stream.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\platform_support\\libusb_transport.hpp",
+      "target": "fibre-cpp\\include\\fibre\\channel_discoverer.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\platform_support\\posix_socket.cpp",
+      "target": "fibre-cpp\\platform_support\\posix_socket.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\platform_support\\posix_socket.cpp",
+      "target": "fibre-cpp\\logging.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\platform_support\\posix_socket.cpp",
+      "target": "fibre-cpp\\print_utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\platform_support\\posix_socket.hpp",
+      "target": "fibre-cpp\\include\\fibre\\event_loop.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\platform_support\\posix_socket.hpp",
+      "target": "fibre-cpp\\include\\fibre\\cpp_utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\platform_support\\posix_socket.hpp",
+      "target": "fibre-cpp\\include\\fibre\\bufptr.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\platform_support\\posix_socket.hpp",
+      "target": "fibre-cpp\\include\\fibre\\async_stream.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\platform_support\\posix_tcp_backend.cpp",
+      "target": "fibre-cpp\\platform_support\\posix_tcp_backend.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\platform_support\\posix_tcp_backend.cpp",
+      "target": "fibre-cpp\\platform_support\\posix_socket.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\platform_support\\posix_tcp_backend.cpp",
+      "target": "fibre-cpp\\logging.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\platform_support\\posix_tcp_backend.cpp",
+      "target": "fibre-cpp\\include\\fibre\\fibre.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\platform_support\\posix_tcp_backend.hpp",
+      "target": "fibre-cpp\\include\\fibre\\event_loop.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\platform_support\\posix_tcp_backend.hpp",
+      "target": "fibre-cpp\\platform_support\\posix_socket.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\platform_support\\posix_tcp_backend.hpp",
+      "target": "fibre-cpp\\include\\fibre\\channel_discoverer.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\print_utils.hpp",
+      "target": "fibre-cpp\\include\\fibre\\bufptr.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\protocol.hpp",
+      "target": "fibre-cpp\\include\\fibre\\cpp_utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\protocol.hpp",
+      "target": "fibre-cpp\\include\\fibre\\bufptr.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\protocol.hpp",
+      "target": "fibre-cpp\\include\\fibre\\simple_serdes.hpp",
+      "type": "include"
+    },
+    {
+      "source": "fibre-cpp\\stream_utils.hpp",
+      "target": "fibre-cpp\\include\\fibre\\async_stream.hpp",
+      "type": "include"
+    },
+    {
+      "source": "FreeRTOS-openocd.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\FreeRTOS.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\acim_estimator.cpp",
+      "target": "MotorControl\\acim_estimator.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\acim_estimator.cpp",
+      "target": "Board\\v3\\Inc\\board.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\acim_estimator.hpp",
+      "target": "MotorControl\\component.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\arm_cos_f32.c",
+      "target": "Board\\v3\\Inc\\board.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\arm_cos_f32.c",
+      "target": "ThirdParty\\CMSIS\\Include\\arm_math.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\arm_cos_f32.c",
+      "target": "ThirdParty\\CMSIS\\Include\\arm_common_tables.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\arm_sin_f32.c",
+      "target": "Board\\v3\\Inc\\board.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\arm_sin_f32.c",
+      "target": "ThirdParty\\CMSIS\\Include\\arm_math.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\arm_sin_f32.c",
+      "target": "ThirdParty\\CMSIS\\Include\\arm_common_tables.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\axis.cpp",
+      "target": "Board\\v3\\Inc\\gpio.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\axis.cpp",
+      "target": "MotorControl\\odrive_main.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\axis.cpp",
+      "target": "MotorControl\\utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\axis.cpp",
+      "target": "communication\\interface_can.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\axis.hpp",
+      "target": "MotorControl\\encoder.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\axis.hpp",
+      "target": "MotorControl\\acim_estimator.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\axis.hpp",
+      "target": "MotorControl\\sensorless_estimator.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\axis.hpp",
+      "target": "MotorControl\\controller.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\axis.hpp",
+      "target": "MotorControl\\open_loop_controller.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\axis.hpp",
+      "target": "MotorControl\\trapTraj.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\axis.hpp",
+      "target": "MotorControl\\endstop.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\axis.hpp",
+      "target": "MotorControl\\mechanical_brake.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\axis.hpp",
+      "target": "MotorControl\\low_level.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\axis.hpp",
+      "target": "MotorControl\\utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\axis.hpp",
+      "target": "MotorControl\\task_timer.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\controller.cpp",
+      "target": "MotorControl\\odrive_main.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\encoder.cpp",
+      "target": "MotorControl\\odrive_main.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\encoder.cpp",
+      "target": "Drivers\\STM32\\stm32_system.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\encoder.hpp",
+      "target": "Board\\v3\\Inc\\board.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\encoder.hpp",
+      "target": "Drivers\\STM32\\stm32_spi_arbiter.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\encoder.hpp",
+      "target": "MotorControl\\utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\encoder.hpp",
+      "target": "MotorControl\\component.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\endstop.cpp",
+      "target": "MotorControl\\odrive_main.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\endstop.hpp",
+      "target": "MotorControl\\timer.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\foc.cpp",
+      "target": "MotorControl\\foc.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\foc.cpp",
+      "target": "Board\\v3\\Inc\\board.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\foc.hpp",
+      "target": "MotorControl\\phase_control_law.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\foc.hpp",
+      "target": "MotorControl\\component.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\low_level.cpp",
+      "target": "Board\\v3\\Inc\\board.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\low_level.cpp",
+      "target": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\low_level.cpp",
+      "target": "Board\\v3\\Inc\\adc.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\low_level.cpp",
+      "target": "Board\\v3\\Inc\\gpio.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\low_level.cpp",
+      "target": "Board\\v3\\Inc\\main.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\low_level.cpp",
+      "target": "Board\\v3\\Inc\\spi.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\low_level.cpp",
+      "target": "Board\\v3\\Inc\\tim.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\low_level.cpp",
+      "target": "MotorControl\\utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\low_level.cpp",
+      "target": "MotorControl\\odrive_main.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\low_level.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\low_level.h",
+      "target": "Board\\v3\\Inc\\adc.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\main.cpp",
+      "target": "MotorControl\\odrive_main.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\main.cpp",
+      "target": "MotorControl\\nvm_config.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\main.cpp",
+      "target": "Board\\v3\\Inc\\usart.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\main.cpp",
+      "target": "freertos_vars.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\main.cpp",
+      "target": "Board\\v3\\Inc\\usb_device.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\main.cpp",
+      "target": "communication\\interface_usb.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\main.cpp",
+      "target": "communication\\interface_uart.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\main.cpp",
+      "target": "communication\\interface_i2c.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\main.cpp",
+      "target": "communication\\interface_can.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\mechanical_brake.cpp",
+      "target": "MotorControl\\odrive_main.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\motor.cpp",
+      "target": "MotorControl\\motor.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\motor.cpp",
+      "target": "MotorControl\\axis.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\motor.cpp",
+      "target": "MotorControl\\low_level.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\motor.cpp",
+      "target": "MotorControl\\odrive_main.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\motor.hpp",
+      "target": "Board\\v3\\Inc\\board.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\motor.hpp",
+      "target": "MotorControl\\foc.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\nvm_config.hpp",
+      "target": "Drivers\\STM32\\stm32_nvm.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\nvm_config.hpp",
+      "target": "fibre-cpp\\crc.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\odrive_main.h",
+      "target": "Board\\v3\\Inc\\board.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\odrive_main.h",
+      "target": "communication\\interface_usb.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\odrive_main.h",
+      "target": "communication\\interface_i2c.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\odrive_main.h",
+      "target": "communication\\interface_uart.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\odrive_main.h",
+      "target": "MotorControl\\task_timer.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\odrive_main.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\odrive_main.h",
+      "target": "MotorControl\\utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\odrive_main.h",
+      "target": "MotorControl\\low_level.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\odrive_main.h",
+      "target": "MotorControl\\encoder.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\odrive_main.h",
+      "target": "MotorControl\\sensorless_estimator.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\odrive_main.h",
+      "target": "MotorControl\\controller.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\odrive_main.h",
+      "target": "MotorControl\\current_limiter.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\odrive_main.h",
+      "target": "MotorControl\\thermistor.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\odrive_main.h",
+      "target": "MotorControl\\trapTraj.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\odrive_main.h",
+      "target": "MotorControl\\endstop.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\odrive_main.h",
+      "target": "MotorControl\\mechanical_brake.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\odrive_main.h",
+      "target": "MotorControl\\axis.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\odrive_main.h",
+      "target": "MotorControl\\oscilloscope.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\odrive_main.h",
+      "target": "communication\\communication.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\odrive_main.h",
+      "target": "communication\\can\\odrive_can.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\open_loop_controller.cpp",
+      "target": "MotorControl\\open_loop_controller.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\open_loop_controller.cpp",
+      "target": "Board\\v3\\Inc\\board.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\open_loop_controller.hpp",
+      "target": "MotorControl\\component.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\oscilloscope.cpp",
+      "target": "MotorControl\\oscilloscope.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\pwm_input.cpp",
+      "target": "MotorControl\\pwm_input.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\pwm_input.cpp",
+      "target": "MotorControl\\odrive_main.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\pwm_input.hpp",
+      "target": "Board\\v3\\Inc\\tim.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\sensorless_estimator.cpp",
+      "target": "MotorControl\\odrive_main.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\sensorless_estimator.hpp",
+      "target": "MotorControl\\component.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\task_timer.hpp",
+      "target": "Board\\v3\\Inc\\board.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\thermistor.cpp",
+      "target": "MotorControl\\odrive_main.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\thermistor.cpp",
+      "target": "MotorControl\\low_level.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\thermistor.hpp",
+      "target": "MotorControl\\current_limiter.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\trapTraj.cpp",
+      "target": "MotorControl\\odrive_main.h",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\trapTraj.cpp",
+      "target": "MotorControl\\utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\utils.cpp",
+      "target": "MotorControl\\utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "MotorControl\\utils.cpp",
+      "target": "Board\\v3\\Inc\\board.h",
+      "type": "include"
+    },
+    {
+      "source": "syscalls.c",
+      "target": "Board\\v3\\Inc\\board.h",
+      "type": "include"
+    },
+    {
+      "source": "Tests\\test_can.cpp",
+      "target": "doctest\\doctest.h",
+      "type": "include"
+    },
+    {
+      "source": "Tests\\test_can.cpp",
+      "target": "communication\\can\\can_helpers.hpp",
+      "type": "include"
+    },
+    {
+      "source": "Tests\\test_rotate.cpp",
+      "target": "doctest\\doctest.h",
+      "type": "include"
+    },
+    {
+      "source": "Tests\\test_runner.cpp",
+      "target": "doctest\\doctest.h",
+      "type": "include"
+    },
+    {
+      "source": "Tests\\test_timer.cpp",
+      "target": "doctest\\doctest.h",
+      "type": "include"
+    },
+    {
+      "source": "Tests\\test_timer.cpp",
+      "target": "MotorControl\\timer.hpp",
+      "type": "include"
+    },
+    {
+      "source": "Tests\\test_trap_traj.cpp",
+      "target": "doctest\\doctest.h",
+      "type": "include"
+    },
+    {
+      "source": "Tests\\test_trap_traj.cpp",
+      "target": "MotorControl\\utils.hpp",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\stm32f405xx.h",
+      "target": "ThirdParty\\CMSIS\\Include\\core_cm4.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\stm32f405xx.h",
+      "target": "ThirdParty\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\system_stm32f4xx.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\stm32f4xx.h",
+      "target": "ThirdParty\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\stm32f405xx.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\stm32f4xx.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Device\\ST\\STM32F7xx\\Include\\stm32f722xx.h",
+      "target": "ThirdParty\\CMSIS\\Include\\core_cm7.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Device\\ST\\STM32F7xx\\Include\\stm32f722xx.h",
+      "target": "ThirdParty\\CMSIS\\Device\\ST\\STM32F7xx\\Include\\system_stm32f7xx.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Device\\ST\\STM32F7xx\\Include\\stm32f7xx.h",
+      "target": "ThirdParty\\CMSIS\\Device\\ST\\STM32F7xx\\Include\\stm32f722xx.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\arm_common_tables.h",
+      "target": "ThirdParty\\CMSIS\\Include\\arm_math.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\arm_const_structs.h",
+      "target": "ThirdParty\\CMSIS\\Include\\arm_math.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\arm_const_structs.h",
+      "target": "ThirdParty\\CMSIS\\Include\\arm_common_tables.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\arm_math.h",
+      "target": "ThirdParty\\CMSIS\\Include\\core_cm7.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\arm_math.h",
+      "target": "ThirdParty\\CMSIS\\Include\\core_cm4.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\arm_math.h",
+      "target": "ThirdParty\\CMSIS\\Include\\core_cm3.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\arm_math.h",
+      "target": "ThirdParty\\CMSIS\\Include\\core_cm0.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\arm_math.h",
+      "target": "ThirdParty\\CMSIS\\Include\\core_cm0plus.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\arm_math.h",
+      "target": "ThirdParty\\CMSIS\\Include\\core_armv8mbl.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\arm_math.h",
+      "target": "ThirdParty\\CMSIS\\Include\\core_armv8mml.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\cmsis_compiler.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_armcc.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\cmsis_compiler.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_armclang.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\cmsis_compiler.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_gcc.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\cmsis_compiler.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_iccarm.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_armv8mbl.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_version.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_armv8mbl.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_compiler.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_armv8mbl.h",
+      "target": "ThirdParty\\CMSIS\\Include\\mpu_armv8.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_armv8mml.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_version.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_armv8mml.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_compiler.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_armv8mml.h",
+      "target": "ThirdParty\\CMSIS\\Include\\mpu_armv8.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_cm0.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_version.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_cm0.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_compiler.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_cm0plus.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_version.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_cm0plus.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_compiler.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_cm0plus.h",
+      "target": "ThirdParty\\CMSIS\\Include\\mpu_armv7.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_cm1.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_version.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_cm1.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_compiler.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_cm23.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_version.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_cm23.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_compiler.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_cm23.h",
+      "target": "ThirdParty\\CMSIS\\Include\\mpu_armv8.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_cm3.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_version.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_cm3.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_compiler.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_cm3.h",
+      "target": "ThirdParty\\CMSIS\\Include\\mpu_armv7.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_cm33.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_version.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_cm33.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_compiler.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_cm33.h",
+      "target": "ThirdParty\\CMSIS\\Include\\mpu_armv8.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_cm4.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_version.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_cm4.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_compiler.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_cm4.h",
+      "target": "ThirdParty\\CMSIS\\Include\\mpu_armv7.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_cm7.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_version.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_cm7.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_compiler.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_cm7.h",
+      "target": "ThirdParty\\CMSIS\\Include\\mpu_armv7.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_sc000.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_version.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_sc000.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_compiler.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_sc300.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_version.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\CMSIS\\Include\\core_sc300.h",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_compiler.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.c",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_armcc.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.c",
+      "target": "ThirdParty\\CMSIS\\Include\\cmsis_gcc.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\FreeRTOS.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\task.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\timers.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\queue.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\semphr.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\event_groups.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\croutine.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\FreeRTOS.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\croutine.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\task.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\croutine.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\croutine.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\event_groups.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\FreeRTOS.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\event_groups.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\task.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\event_groups.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\timers.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\event_groups.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\event_groups.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\croutine.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\list.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\event_groups.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\timers.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\FreeRTOS.h",
+      "target": "Board\\v3\\Inc\\FreeRTOSConfig.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\FreeRTOS.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\projdefs.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\FreeRTOS.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\portable.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\message_buffer.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\stream_buffer.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\portable.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\deprecated_definitions.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\portable.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\portmacro.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\portable.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\mpu_wrappers.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\queue.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\task.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\semphr.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\queue.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\task.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\list.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\include\\timers.h",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\task.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\list.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\FreeRTOS.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\list.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\list.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM4F\\port.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\FreeRTOS.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM4F\\port.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\task.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\port.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\FreeRTOS.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM7\\r0p1\\port.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\task.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\portable\\MemMang\\heap_4.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\FreeRTOS.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\portable\\MemMang\\heap_4.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\task.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\queue.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\FreeRTOS.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\queue.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\task.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\queue.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\queue.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\queue.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\croutine.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\stream_buffer.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\FreeRTOS.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\stream_buffer.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\task.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\stream_buffer.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\stream_buffer.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\tasks.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\FreeRTOS.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\tasks.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\task.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\tasks.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\timers.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\tasks.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\stack_macros.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\timers.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\FreeRTOS.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\timers.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\task.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\timers.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\queue.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\FreeRTOS\\Source\\timers.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\include\\timers.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "target": "Board\\v3\\Inc\\stm32f4xx_hal_conf.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_adc.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_adc.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_adc_ex.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_adc_ex.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_can.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_cortex.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "target": "ThirdParty\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\stm32f4xx.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\Legacy\\stm32_hal_legacy.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_dma.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_dma.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_dma_ex.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_dma_ex.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_flash.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_flash.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_flash_ex.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_flash.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_flash_ramfunc.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_flash_ex.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_flash_ramfunc.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_gpio.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_gpio.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_gpio_ex.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_gpio_ex.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_i2c.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_i2c.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_i2c_ex.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_i2c_ex.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_pcd.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_usb.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_pcd.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_pcd_ex.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_pcd_ex.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_pwr.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_pwr.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_pwr_ex.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_pwr_ex.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_rcc.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_rcc.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_rcc_ex.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_rcc_ex.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_spi.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_tim.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_tim.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_tim_ex.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_tim_ex.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_uart.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_ll_usb.h",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_adc.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_adc_ex.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_can.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_cortex.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_dma.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_dma_ex.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_flash.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_flash_ex.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_flash_ramfunc.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_gpio.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_i2c.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_i2c_ex.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_pcd.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_pcd_ex.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_pwr.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_pwr_ex.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_rcc.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_rcc_ex.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_spi.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_tim.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_tim_ex.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_hal_uart.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32F4xx_HAL_Driver\\Src\\stm32f4xx_ll_usb.c",
+      "target": "ThirdParty\\STM32F4xx_HAL_Driver\\Inc\\stm32f4xx_hal.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32_USB_Device_Library\\Class\\CDC\\Inc\\usbd_cdc.h",
+      "target": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_ioreq.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32_USB_Device_Library\\Class\\CDC\\Src\\usbd_cdc.c",
+      "target": "ThirdParty\\STM32_USB_Device_Library\\Class\\CDC\\Inc\\usbd_cdc.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32_USB_Device_Library\\Class\\CDC\\Src\\usbd_cdc.c",
+      "target": "Board\\v3\\Inc\\usbd_desc.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32_USB_Device_Library\\Class\\CDC\\Src\\usbd_cdc.c",
+      "target": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_ctlreq.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32_USB_Device_Library\\Class\\CDC\\Src\\usbd_cdc.c",
+      "target": "ThirdParty\\FreeRTOS\\Source\\CMSIS_RTOS\\cmsis_os.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32_USB_Device_Library\\Class\\CDC\\Src\\usbd_cdc.c",
+      "target": "freertos_vars.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_core.h",
+      "target": "Board\\v3\\Inc\\usbd_conf.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_core.h",
+      "target": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_core.h",
+      "target": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_ioreq.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_core.h",
+      "target": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_ctlreq.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_ctlreq.h",
+      "target": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_def.h",
+      "target": "Board\\v3\\Inc\\usbd_conf.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_ioreq.h",
+      "target": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_def.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_ioreq.h",
+      "target": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_core.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32_USB_Device_Library\\Core\\Src\\usbd_core.c",
+      "target": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_core.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32_USB_Device_Library\\Core\\Src\\usbd_ctlreq.c",
+      "target": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_ctlreq.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32_USB_Device_Library\\Core\\Src\\usbd_ctlreq.c",
+      "target": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_ioreq.h",
+      "type": "include"
+    },
+    {
+      "source": "ThirdParty\\STM32_USB_Device_Library\\Core\\Src\\usbd_ioreq.c",
+      "target": "ThirdParty\\STM32_USB_Device_Library\\Core\\Inc\\usbd_ioreq.h",
+      "type": "include"
+    }
+  ]
+}

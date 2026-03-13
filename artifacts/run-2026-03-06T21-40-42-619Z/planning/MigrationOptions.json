@@ -1,0 +1,72 @@
+{
+  "options": [
+    {
+      "id": "js-to-ts",
+      "name": "JavaScript → TypeScript",
+      "description": "Add static typing to JavaScript codebase with TypeScript",
+      "fromStack": "JavaScript",
+      "toStack": "TypeScript",
+      "scores": {
+        "effort": 0.3,
+        "risk": 0.15,
+        "ecosystemSupport": 0.95,
+        "teamExpertise": 0.5
+      },
+      "prerequisites": [
+        "TypeScript compiler",
+        "tsconfig.json configuration"
+      ]
+    },
+    {
+      "id": "python2-to-python3",
+      "name": "Python 2 → Python 3",
+      "description": "Migrate from end-of-life Python 2 to Python 3",
+      "fromStack": "Python",
+      "toStack": "Python",
+      "scores": {
+        "effort": 0.35,
+        "risk": 0.25,
+        "ecosystemSupport": 0.95,
+        "teamExpertise": 0.5
+      },
+      "prerequisites": [
+        "Python 3 runtime",
+        "2to3 or futurize tool"
+      ]
+    },
+    {
+      "id": "c-to-cpp",
+      "name": "C → C++",
+      "description": "Modernize C codebase with C++ classes, RAII, and type safety",
+      "fromStack": "C",
+      "toStack": "C++",
+      "scores": {
+        "effort": 0.4,
+        "risk": 0.3,
+        "ecosystemSupport": 0.85,
+        "teamExpertise": 0.5
+      },
+      "prerequisites": [
+        "C++ compiler toolchain",
+        "Familiarity with RAII and classes"
+      ]
+    },
+    {
+      "id": "c-to-rust",
+      "name": "C → Rust",
+      "description": "Safety-focused rewrite from C to Rust with memory safety guarantees",
+      "fromStack": "C",
+      "toStack": "Rust",
+      "scores": {
+        "effort": 0.75,
+        "risk": 0.5,
+        "ecosystemSupport": 0.7,
+        "teamExpertise": 0.5
+      },
+      "prerequisites": [
+        "Rust toolchain",
+        "Team training on ownership and borrowing"
+      ]
+    }
+  ]
+}
