@@ -1,4 +1,4 @@
-FROM node:20-alpine AS build
+FROM node:26-alpine AS build
 RUN corepack enable
 WORKDIR /app
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
@@ -9,7 +9,7 @@ COPY tsconfig.base.json ./
 RUN pnpm install --frozen-lockfile
 RUN pnpm build
 
-FROM node:20-alpine AS production
+FROM node:26-alpine AS production
 RUN corepack enable
 RUN addgroup -g 1001 -S appgroup && adduser -u 1001 -S appuser -G appgroup
 WORKDIR /app
