@@ -11,14 +11,16 @@ RUN pnpm build
 
 FROM node:20-alpine AS production
 RUN corepack enable
+RUN addgroup -g 1001 -S appgroup && adduser -u 1001 -S appuser -G appgroup
 WORKDIR /app
 ENV NODE_ENV=production
-COPY --from=build /app/pnpm-lock.yaml /app/pnpm-workspace.yaml /app/package.json ./
-COPY --from=build /app/packages/ ./packages/
-COPY --from=build /app/apps/ ./apps/
-COPY --from=build /app/specs/ ./specs/
-COPY --from=build /app/tsconfig.base.json ./
+COPY --from=build --chown=appuser:appgroup /app/pnpm-lock.yaml /app/pnpm-workspace.yaml /app/package.json ./
+COPY --from=build --chown=appuser:appgroup /app/packages/ ./packages/
+COPY --from=build --chown=appuser:appgroup /app/apps/ ./apps/
+COPY --from=build --chown=appuser:appgroup /app/specs/ ./specs/
+COPY --from=build --chown=appuser:appgroup /app/tsconfig.base.json ./
 RUN pnpm install --frozen-lockfile --prod
+USER appuser
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=3s CMD wget -qO- http://localhost:3000/health || exit 1
 ENTRYPOINT ["node", "apps/cli/dist/index.js"]

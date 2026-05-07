@@ -148,6 +148,9 @@ celerybeat.pid
 
 # Environments
 .env
+.env.*
+!.env.example
+!.env.template
 .envrc
 .venv
 env/
@@ -205,6 +208,13 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Secrets and credentials
+*.pem
+*.key
+*.p12
+*.pfx
+.npmrc
 
 # Cursor
 #  Cursor is an AI-powered code editor. `.cursorignore` specifies files/directories to

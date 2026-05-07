@@ -16,7 +16,7 @@
     "lint": "eslint src/"
   },
   "dependencies": {
-    "@github/copilot-sdk": "^0.1.29",
+    "@github/copilot-sdk": "^0.3.0",
     "@jurassic/data": "workspace:*",
     "@jurassic/foundry": "workspace:*",
     "@jurassic/schemas": "workspace:*",
@@ -24,6 +24,6 @@
   },
   "devDependencies": {
     "typescript": "^5.4.0",
-    "vitest": "^1.6.0"
+    "vitest": "^3.2.4"
   }
 }

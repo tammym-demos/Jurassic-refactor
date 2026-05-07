@@ -32,6 +32,6 @@
   "devDependencies": {
     "@jurassic/foundry": "workspace:*",
     "typescript": "^5.4.0",
-    "vitest": "^1.6.0"
+    "vitest": "^3.2.4"
   }
 }

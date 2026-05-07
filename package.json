@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "Modernization Intelligence Layer - 2-Agent system for legacy codebase analysis and migration",
+  "packageManager": "pnpm@9.15.9",
   "engines": {
     "node": ">=20"
   },
@@ -21,6 +22,15 @@
     "prettier": "^3.2.0",
     "typescript": "^5.4.0",
     "typescript-eslint": "^8.56.1",
-    "vitest": "^1.6.1"
+    "vitest": "^3.2.4"
+  },
+  "pnpm": {
+    "overrides": {
+      "flatted": ">=3.4.2",
+      "picomatch": ">=4.0.4",
+      "fast-xml-parser": ">=5.7.0",
+      "protobufjs": ">=7.5.5",
+      "postcss": ">=8.5.10"
+    }
   }
 }
