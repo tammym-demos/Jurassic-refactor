@@ -16,7 +16,7 @@
     "@jurassic/schemas": "workspace:*"
   },
   "devDependencies": {
-    "typescript": "^5.4.0",
-    "vitest": "^3.2.4"
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.5"
   }
 }
