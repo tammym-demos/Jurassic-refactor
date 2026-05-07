@@ -93,7 +93,7 @@ export class AgentDataBridge {
 
   async checkApproval(runId: string): Promise<boolean> {
     try {
-      const artifacts = await this.artifactStore.list(runId, "agent");
+      const _artifacts = await this.artifactStore.list(runId, "agent");
       // markApproved writes an APPROVED file in the run directory;
       // we check by attempting to read it via the store's directory listing
       // at the run level (not agent level). Use a filesystem check instead.

@@ -19,7 +19,7 @@ import {
   type Skill,
 } from "@jurassic/skills";
 import { execSync } from "node:child_process";
-import { existsSync, mkdirSync, rmSync } from "node:fs";
+import { existsSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 
@@ -35,7 +35,7 @@ function toUri(pathOrUri: string): string {
 }
 
 /** Skills registered by the Planning Agent for analysis. */
-const PLANNING_SKILLS = [
+const _PLANNING_SKILLS = [
   "repo_snapshot",
   "fw_include_graph",
   "py_import_graph",
@@ -51,7 +51,7 @@ const PLANNING_SKILLS = [
   "user_dialog",
 ] as const;
 
-type PlanningSkillName = (typeof PLANNING_SKILLS)[number];
+type PlanningSkillName = (typeof _PLANNING_SKILLS)[number];
 
 /** Artifacts the Planning Agent is expected to produce. */
 const PLANNING_ARTIFACTS: ArtifactName[] = [

@@ -13,7 +13,7 @@ import { DefaultAzureCredential } from '@azure/identity';
 import { getFabricConfig, clearFabricConfigCache } from '../fabric-config.js';
 import { ArtifactStore } from '../artifact-store.js';
 
-const SKIP_REASON = 'Set JURASSIC_E2E_FABRIC=true to run Fabric e2e tests';
+const _SKIP_REASON = 'Set JURASSIC_E2E_FABRIC=true to run Fabric e2e tests';
 const shouldRun = process.env.JURASSIC_E2E_FABRIC === 'true';
 
 describe.skipIf(!shouldRun)('Fabric OneLake E2E', () => {

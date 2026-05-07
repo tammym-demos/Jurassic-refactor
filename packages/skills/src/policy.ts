@@ -141,6 +141,7 @@ export function globMatch(pattern: string, path: string): boolean {
     .replace(/[.+^${}()|[\]]/g, "\\$&")
     .replace(/\*\*/g, "\u0000")
     .replace(/\*/g, "[^/]*")
+    // eslint-disable-next-line no-control-regex
     .replace(/\u0000/g, ".*")
     .replace(/\?/g, "[^/]");
 

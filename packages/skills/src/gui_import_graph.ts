@@ -1,7 +1,7 @@
 // gui_import_graph skill — builds a directed import graph from JS/Vue GUI sources
 
 import { readdir, readFile } from "node:fs/promises";
-import { join, relative, dirname, extname, posix } from "node:path";
+import { join, relative, extname, posix } from "node:path";
 import type { Skill } from "./index.js";
 import { DslParserRegistry } from "./dsl_parser_registry.js";
 

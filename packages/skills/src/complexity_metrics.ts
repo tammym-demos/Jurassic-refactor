@@ -67,7 +67,7 @@ const KEYWORDS = new Set([
   "typeof", "instanceof", "void", "class", "import", "export",
 ]);
 
-function isBraceLanguage(ext: string): boolean {
+function _isBraceLanguage(ext: string): boolean {
   return [".ts", ".js", ".c", ".cpp", ".h"].includes(ext);
 }
 

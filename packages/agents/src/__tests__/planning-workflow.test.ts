@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import { PlanningWorkflow, type WorkflowConfig, type WorkflowResult } from "../planning/workflow.js";
+import { PlanningWorkflow, type WorkflowConfig, type WorkflowResult as _WorkflowResult } from "../planning/workflow.js";
 import type { Skill } from "@jurassic/skills";
 import { mkdtempSync, existsSync, readFileSync, readdirSync, rmSync } from "fs";
 import { join } from "path";

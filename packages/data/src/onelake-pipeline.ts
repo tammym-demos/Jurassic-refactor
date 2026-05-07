@@ -13,11 +13,11 @@
  * @see Issue #87 - OneLake Data Pipeline and Audit Trail Validation
  */
 
-import { DataLakeServiceClient, DataLakeFileClient } from '@azure/storage-file-datalake';
+import { DataLakeServiceClient } from '@azure/storage-file-datalake';
 import { DefaultAzureCredential, TokenCredential } from '@azure/identity';
 import { getFabricConfig, FabricConfig } from './fabric-config.js';
 import {
-  LakehouseTables,
+  type LakehouseTables as _LakehouseTables,
   RunRecord,
   SkillInvocationRecord,
   ArtifactRecord,

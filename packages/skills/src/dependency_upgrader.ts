@@ -45,14 +45,11 @@ async function upgradeNpm(
   const pkg = JSON.parse(content);
 
   const sections = ["dependencies", "devDependencies"] as const;
-  let found = false;
-  let previousVersion = "";
 
   for (const section of sections) {
     const deps = pkg[section];
     if (deps && upgrade.packageName in deps) {
-      found = true;
-      previousVersion = deps[upgrade.packageName];
+      const previousVersion = deps[upgrade.packageName];
 
       if (previousVersion === upgrade.targetVersion) {
         return {
@@ -99,14 +96,10 @@ async function upgradePip(
     `^${escapeRegExp(upgrade.packageName)}\\s*([=><~!]+)\\s*(.+)$`,
   );
 
-  let found = false;
-  let previousVersion = "";
-
   for (let i = 0; i < lines.length; i++) {
     const match = lines[i].match(pattern);
     if (match) {
-      found = true;
-      previousVersion = match[2].trim();
+      const previousVersion = match[2].trim();
       const operator = match[1];
 
       if (previousVersion === upgrade.targetVersion) {

@@ -7,7 +7,7 @@ import {
   MODERNIZATION_ONTOLOGY,
   DATA_BINDINGS,
   DATA_AGENT_EXAMPLES,
-  DATA_AGENT_INSTRUCTIONS,
+  DATA_AGENT_INSTRUCTIONS as _DATA_AGENT_INSTRUCTIONS,
 } from "../fabric-iq.js";
 
 describe("FabricIQClient", () => {

@@ -2,11 +2,11 @@ import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import {
   ImplementationWorkflow,
   type ImplWorkflowConfig,
-  type ImplWorkflowResult,
+  type ImplWorkflowResult as _ImplWorkflowResult,
 } from "../implementation/workflow.js";
 import { ApprovalGate } from "../implementation/approval-gate.js";
 import type { Skill } from "@jurassic/skills";
-import { mkdtempSync, writeFileSync, mkdirSync, existsSync, readFileSync, rmSync } from "fs";
+import { mkdtempSync, writeFileSync, existsSync, readFileSync, rmSync } from "fs";
 import { join } from "path";
 import { tmpdir } from "os";
 

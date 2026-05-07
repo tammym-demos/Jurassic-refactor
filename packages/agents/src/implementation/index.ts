@@ -70,7 +70,7 @@ function transformToTestScaffoldSchema(output: Record<string, unknown>): Record<
 }
 
 /** Skills registered by the Implementation Agent. */
-const IMPLEMENTATION_SKILLS = [
+const _IMPLEMENTATION_SKILLS = [
   "code_refactor",
   "migration_executor",
   "test_scaffold",
@@ -78,7 +78,7 @@ const IMPLEMENTATION_SKILLS = [
   "dependency_upgrader",
 ] as const;
 
-type ImplementationSkillName = (typeof IMPLEMENTATION_SKILLS)[number];
+type ImplementationSkillName = (typeof _IMPLEMENTATION_SKILLS)[number];
 
 /** Planning artifacts required before implementation can proceed. */
 const REQUIRED_PLANNING_ARTIFACTS: ArtifactName[] = [

@@ -7,7 +7,7 @@ import {
   PolicyEnforcer,
   globMatch,
   type PolicyInput,
-  type PolicyResult,
+  type PolicyResult as _PolicyResult,
 } from "../policy.js";
 
 describe("PolicySkill", () => {

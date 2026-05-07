@@ -105,7 +105,7 @@ describe("DocCoverageAnalysisSkill", () => {
     const result = await skill.execute({ repoPath: tmpDir });
     expect(result.totalPublicAPIs).toBe(2);
     // helper has preceding docstring, MyClass does not
-    const helperAPI = result.gaps.find((g) => g.symbol === "helper");
+    const _helperAPI = result.gaps.find((g) => g.symbol === "helper");
     const classAPI = result.gaps.find((g) => g.symbol === "MyClass");
     // The module docstring precedes helper
     expect(result.documentedAPIs).toBeGreaterThanOrEqual(1);

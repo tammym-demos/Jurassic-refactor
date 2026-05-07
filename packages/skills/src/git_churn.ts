@@ -65,7 +65,7 @@ export class GitChurnSkill implements Skill {
 
     // Get changed files per commit
     const filesCmd = `git log --name-only --format="" --max-count=${maxCommits}${sinceFlag}`;
-    const filesLog = execSafe(filesCmd, repoPath);
+    const _filesLog = execSafe(filesCmd, repoPath);
 
     // Count file changes and track last changed date
     const changeCounts = new Map<string, number>();

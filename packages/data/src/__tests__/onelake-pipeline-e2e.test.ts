@@ -241,7 +241,7 @@ describe.skipIf(!shouldRun)('OneLake Pipeline E2E', () => {
   describe('Integration Contract Compliance', () => {
     it('should use correct OneLake path convention', () => {
       const config = getFabricConfig();
-      const expectedPathPattern = /^Files\/artifacts\/[\w-]+\/[\w-]+\/[\w-]+\.json$/;
+      const _expectedPathPattern = /^Files\/artifacts\/[\w-]+\/[\w-]+\/[\w-]+\.json$/;
 
       // The pipeline should generate paths matching this pattern
       expect(config.endpoint).toBe('https://onelake.dfs.fabric.microsoft.com');

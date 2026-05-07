@@ -106,8 +106,8 @@ export interface EvaluationReport {
 }
 
 const SECRET_PATTERNS = [
-  /(?:api[_-]?key|apikey)\s*[:=]\s*["']?[A-Za-z0-9_\-]{16,}/i,
-  /(?:secret|password|token)\s*[:=]\s*["']?[A-Za-z0-9_\-]{8,}/i,
+  /(?:api[_-]?key|apikey)\s*[:=]\s*["']?[A-Za-z0-9_-]{16,}/i,
+  /(?:secret|password|token)\s*[:=]\s*["']?[A-Za-z0-9_-]{8,}/i,
   /-----BEGIN (?:RSA |EC )?PRIVATE KEY-----/,
   /AKIA[0-9A-Z]{16}/,
 ];

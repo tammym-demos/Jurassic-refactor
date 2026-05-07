@@ -3,7 +3,7 @@
 import { type AgentContext } from "./base.js";
 import { PlanningAgent, type PlanningAgentOptions } from "./planning/index.js";
 import { ImplementationAgent } from "./implementation/index.js";
-import { existsSync, readFileSync, readdirSync, writeFileSync } from "fs";
+import { existsSync, readdirSync, writeFileSync } from "fs";
 import { join } from "path";
 
 /** Commands the orchestrator can dispatch. */

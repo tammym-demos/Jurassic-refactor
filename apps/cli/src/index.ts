@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { readFileSync, existsSync, writeFileSync } from "node:fs";
-import { join, basename } from "node:path";
+import { join } from "node:path";
 import { Orchestrator } from "@jurassic/agents/orchestrator.js";
 import type { AgentContext } from "@jurassic/agents/base.js";
 import type { OrchestratorCommand } from "@jurassic/agents/orchestrator.js";

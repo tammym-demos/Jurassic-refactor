@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { describe, it, expect, beforeEach } from "vitest";
 import { PlanningAgent } from "../planning/index.js";
-import { mkdtempSync, writeFileSync, mkdirSync } from "fs";
+import { mkdtempSync, writeFileSync } from "fs";
 import { join } from "path";
 import { tmpdir } from "os";
 

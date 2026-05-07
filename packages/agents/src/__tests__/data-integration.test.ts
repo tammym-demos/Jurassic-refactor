@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { AgentDataBridge, type DataIntegrationConfig } from "../data-integration.js";
 
 // --- Mock implementations ---
@@ -48,9 +48,9 @@ function createBridge(overrides: Partial<DataIntegrationConfig> = {}) {
   const bridge = new AgentDataBridge({
     storageProvider: "local",
     enableTelemetry: true,
-    artifactStore: artifactStore as any,
-    telemetry: telemetry as any,
-    runMetadata: runMetadata as any,
+    artifactStore: artifactStore as unknown as DataIntegrationConfig["artifactStore"],
+    telemetry: telemetry as unknown as DataIntegrationConfig["telemetry"],
+    runMetadata: runMetadata as unknown as DataIntegrationConfig["runMetadata"],
     ...overrides,
   });
 

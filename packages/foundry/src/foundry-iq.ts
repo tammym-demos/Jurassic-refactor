@@ -11,7 +11,7 @@
  */
 
 import { DefaultAzureCredential } from "@azure/identity";
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 
 export interface FoundryIQConfig {

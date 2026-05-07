@@ -15,20 +15,20 @@
 import { describe, it, expect, beforeAll } from "vitest";
 import {
   FabricIQClient,
-  MODERNIZATION_ONTOLOGY,
-  DATA_BINDINGS,
-  DATA_AGENT_EXAMPLES,
+  MODERNIZATION_ONTOLOGY as _MODERNIZATION_ONTOLOGY,
+  DATA_BINDINGS as _DATA_BINDINGS,
+  DATA_AGENT_EXAMPLES as _DATA_AGENT_EXAMPLES,
 } from "../fabric-iq.js";
 import {
   formatEvalItemsTable,
   formatCriteriaSummaryTable,
   extractAggregateSummary,
   formatRunComparisonTable,
-  formatDetailedItemTable,
+  formatDetailedItemTable as _formatDetailedItemTable,
   toJsonLines,
 } from "@jurassic/foundry";
 import type { EvalRun, EvalOutputItem } from "@jurassic/foundry";
-import type { EvaluationRecord } from "../lakehouse-tables.js";
+import type { EvaluationRecord as _EvaluationRecord } from "../lakehouse-tables.js";
 
 // ============================================================================
 // TEST FIXTURES
@@ -339,7 +339,7 @@ describe("Cross-Team Integration: End-to-End Data Flow", () => {
     // Step 3: Verify records match Fabric IQ schema expectations
     const fabricClient = new FabricIQClient();
     const ontology = fabricClient.getOntologyDefinition();
-    const evalEntity = ontology.entityTypes.find((e) => e.name === "Evaluation");
+    const _evalEntity = ontology.entityTypes.find((e) => e.name === "Evaluation");
 
     // Each record should have properties that can be queried via Data Agent
     for (const record of records) {
