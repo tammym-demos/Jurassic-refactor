@@ -21,11 +21,11 @@
     "lint": "eslint src/"
   },
   "dependencies": {
-    "@azure/identity": "^4.2.0",
-    "@azure/cosmos": "^4.0.0",
+    "@azure/identity": "^4.13.1",
+    "@azure/cosmos": "^4.9.3",
     "@azure/monitor-opentelemetry": "^1.4.0",
     "@azure/openai": "^2.0.0",
-    "@azure/search-documents": "^12.1.0",
+    "@azure/search-documents": "^13.0.0",
     "@azure/storage-file-datalake": "^12.23.0",
     "applicationinsights": "^3.4.0"
   },

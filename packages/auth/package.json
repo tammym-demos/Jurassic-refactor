@@ -11,7 +11,7 @@
     "lint": "eslint src/"
   },
   "dependencies": {
-    "@azure/identity": "^4.2.0"
+    "@azure/identity": "^4.13.1"
   },
   "devDependencies": {
     "typescript": "^6.0.3",
