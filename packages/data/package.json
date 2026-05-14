@@ -27,7 +27,7 @@
     "@azure/openai": "^2.0.0",
     "@azure/search-documents": "^13.0.0",
     "@azure/storage-file-datalake": "^12.23.0",
-    "applicationinsights": "^3.4.0"
+    "applicationinsights": "^3.15.0"
   },
   "devDependencies": {
     "@jurassic/foundry": "workspace:*",
