@@ -22,6 +22,6 @@
   "devDependencies": {
     "@jurassic/agents": "workspace:*",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.5"
+    "vitest": "^4.1.9"
   }
 }
